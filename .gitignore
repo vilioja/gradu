@@ -1,0 +1,17 @@
+test*
+*.out
+*.zip
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+*.bak
+*.nfs*
+*.dvi
+*~
+*#
+stuff/
