@@ -123,7 +123,11 @@ r_S = \frac{2GM}{c^2} \ .
 \end{equation}
 This is called the Schwarzschild radius, so named after the German astronomer Karl Schwarzschild, who found an exact solution for the Einstein field equations. The surface at this radius is called the event horizon. Event horizons are mathematical surfaces, and they don't form any sort of physical barrier. An observer can fall inside the event horizon without any problem. The event horizon simply marks the limit at which not even light can escape the gravitational pull of the black hole.
 
-There exists solutions that don't satisfy the condition given by equation \ref{equ:bhunique}, but those are not stationary, i.e. their gravitational field is not time-independent. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum $a = \frac{J}{M}$ or as the dimensionless spin parameter
+There exists solutions that don't satisfy the condition given by equation \ref{equ:bhunique}, but those are not stationary, i.e. their gravitational field is not time-independent. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum 
+\begin{equation} \label{equ:angularmomentum}
+a = \frac{J}{Mc}
+\end{equation}
+or as the dimensionless spin parameter
 \begin{equation}
 a_* = \frac{Jc}{GM^2} \ .
 \end{equation}
@@ -131,9 +135,29 @@ The parameter can range from 0, meaning that the hole doesn't spin, to 1, meanin
 
 If a black hole would have even larger angular momentum than allowed by these constraints, it would mean that it actually wouldn't be a black hole at all, since the event horizon would disappear due to the extreme rotation. This would cause what is known as a naked singularity, meaning that a singularity that is normally contained within a black hole would be visible to an outside observer. The possible existence of such singularities in nature is uncertain. If they were to exist, they might cause fundamental problems for physics as we know it. We would be able to see matter condensed to infinite density, and we have no theories that can predict how spacetime works near such abnormalities. Normally this is not a problem, since they cannot be observed inside event horizons. However the cosmic censorship hypothesis suggests that naked singularities cannot be formed in nature from realistic initial conditions, which would avoid the problem altogether \citep{wald:1997}. An extremely rapid spin could prevent the collapse into a black hole thanks to the centrifugal forces. The object would have to lose enough of it's angular momentum before it could collapse.
 
-Black holes that appear in nature are assumed to be most likely Kerr black holes. Stars are nearly neutrally charged, but they do spin around themselves, thus possessing angular momentum. Even if the object lost a considerable amount of its rotational energy, the newly created black hole would be spinning somewhat. And even black holes with small amounts of angular momentum can gain more of it through its interactions with surrounding matter. Infalling matter creates an accretion disk around the hole. Eventually the matter will fall within the event horizon, conferring its mass and angular momentum to the black hole, speeding up its rotation \citep{bhphysics}.
+Astrophysical black holes that appear in nature are assumed to be most likely Kerr black holes. Stars are nearly neutrally charged, but they do spin around themselves, thus possessing angular momentum. Even if the object lost a considerable amount of its rotational energy, the newly created black hole would be spinning somewhat. And even black holes with small amounts of angular momentum can gain more of it through its interactions with surrounding matter. Infalling matter creates an accretion disk around the hole. Eventually the matter will fall within the event horizon, conferring its mass and angular momentum to the black hole, speeding up its rotation \citep{bhphysics}. Though this in turn is limited by the fact that radiation from the accreting matter carries away angular momentum.
 
-While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are more complicated. 
+\subsection{The structure of a rotating black hole}
+
+While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. Any spinning source of gravity causes what's known as frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they didn't have any angular momentum of their own to begin with. This effect is extremely weak, so it's only really noticeable around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface. The area inside this limit is called the ergosphere. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. It is possible for particles falling into this region but then escaping again to rob some of the hole's rotational energy \citep{grintro}. This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
+
+The Kerr metric is often presented in Boyer-Lindquist coordinates $(t, r, \theta, \phi)$ which are similar to spherical polar coordinates and are related to Cartesian coordinates via the following transforms:
+\begin{align*}
+x &= \sqrt{r^2 + a^2} \mathrm{sin}\theta \mathrm{cos}\phi \\
+y &= \sqrt{r^2 + a^2} \mathrm{sin}\theta \mathrm{sin}\phi \\
+z &= r \mathrm{cos}\theta
+\end{align*}
+The variable $a$ is the same specific angular momentum as in the equation \ref{equ:angularmomentum}. The only true singularity (i.e. a singularity that exists no matter what coordinate system we choose) in the Kerr metric occurs when $r=0$ and $\theta = \pi/2$ \citep{grintro}. It's easy to see that in Cartesian coordinates this corresponds to a flat ring in the equatorial plane with the radius of $a$. So rotating black holes don't have a point singularity, but a ring singularity instead.
+
+In addition there exists coordinate singularities (i.e. singularities we can get rid of if we choose our coordinates differently) as well. These singularities occur on the surfaces
+\begin{equation}
+r_\pm = \mu \pm (\mu^2 - a^2)^{1/2}
+\end{equation}
+which describe the event horizons of the black hole, and on the surfaces
+\begin{equation}
+r_{S \pm} = \mu \pm (\mu^2 - a^2 \mathrm{cos}^2 \theta)^{1/2}
+\end{equation}
+which describe the stationary limit surfaces of the black hole. Here $\mu = \frac{GM}{c^2}$. 
 
 \begin{figure}[h!tb]
 \centering
