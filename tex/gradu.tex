@@ -98,14 +98,14 @@ Abstract goes here.
 
 \section{Black hole properties}
 
-A black hole (BH) is defined as a region of spacetime whose gravitational field is so strong that no objects or signals that carry information can escape from it. Black holes have the interesting property that the gravitational field of a black hole is completely determined by the hole's mass M, its angular momentum J, and its electric charge Q. (If magnetic monopoles could exist in nature, a black hole could also have a magnetic charge P, though this is currently completely theoretical.) This is known as the black hole uniqueness theorem or no-hair theorem, which states that all physical black hole solutions are completely characterized by above-mentioned three parameters, and must satisfy the condition 
+A black hole (BH) is defined as a region of spacetime for which the gravitational field is so strong that no objects or signals that carry information can escape from it. Black holes have the interesting property that their gravitational field is completely determined by the black hole's mass M, its angular momentum J, and its electric charge Q. This is known as the black hole uniqueness theorem or no-hair theorem, which states that all physical black hole solutions are completely characterized by the above-mentioned three parameters, and must satisfy the condition 
 \begin{equation} \label{equ:bhunique}
 M^2 - \left( \frac{J}{M} \right)^2 - Q^2 \geq 0 \ ,
 \end{equation}
 where it's set that $G = c = 1$ \citep{mazur:2001}.
-Thus only by changing these variables can the properties of the black hole change. The physical reasoning for this uniqueness theorem is that the matter beyond the event horizon of a black hole cannot directly affect anything outside of it. Thus only the globally conserved characteristics, such as mass and angular momentum, survive and can be detected from the outside. 
+Thus only by changing these variables can the properties of the black hole change. The physical reasoning for this uniqueness theorem is that the matter beyond the event horizon of a black hole cannot directly affect anything outside of it. Thus only the globally conserved characteristics, such as mass and angular momentum, survive and can be detected from the outside. The electric charge of black holes that appear in nature is most likely neutral, since having a non-neutral charge would require vastly different amounts of protons and electrons to enter the black hole, which is not a realistic scenario with normal matter.
 
-Black holes can be divided into four distinct types based on these properties. Every black hole has mass, but the other two parameters are not necessary.
+Black holes can be divided into four distinct types based on these properties. Every black hole has mass, but the angular momentum and electric charge are not necessary.
 \begin{table}[htb]
 \centering
 \caption{Different types of black holes}
@@ -121,9 +121,9 @@ The simplest type of black hole is created when an object of mass M becomes smal
 \begin{equation}
 r_S = \frac{2GM}{c^2} \ .
 \end{equation}
-This is called the Schwarzschild radius, so named after the German astronomer Karl Schwarzschild, who found an exact solution for the Einstein field equations. The surface at this radius is called the event horizon. Event horizons are mathematical surfaces, and they don't form any sort of physical barrier. An observer can fall inside the event horizon without any problem. The event horizon simply marks the limit at which not even light can escape the gravitational pull of the black hole.
+This can happen in nature when a star dies and explodes in a supernova. The core of the star can compress enough to pass the radius and form a black hole. The radius is called the Schwarzschild radius, so named after the German astronomer Karl Schwarzschild, who found an exact solution for the Einstein field equations. The surface at this radius is called the event horizon. Event horizons are mathematical surfaces, and they do not form any sort of physical barrier. An observer can fall inside the event horizon without any problem. The event horizon simply marks the limit at which not even light can escape the gravitational pull of the black hole.
 
-There exists solutions that don't satisfy the condition given by equation \ref{equ:bhunique}, but those are not stationary, i.e. their gravitational field is not time-independent. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum 
+There exists solutions that do not satisfy the condition given by equation \ref{equ:bhunique}, but those are not stationary. A stationary field is one that is in a steady state, but the masses causing that field may be non-static, rotating for instance. So these non-stationary solutions are not in a steady state. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum 
 \begin{equation} \label{equ:angularmomentum}
 a = \frac{J}{Mc}
 \end{equation}
@@ -133,13 +133,14 @@ a_* = \frac{Jc}{GM^2} \ .
 \end{equation}
 The parameter can range from 0, meaning that the hole doesn't spin, to 1, meaning that it spins as fast as possible for a given mass \citep{middleton:2016}.
 
-If a black hole would have even larger angular momentum than allowed by these constraints, it would mean that it actually wouldn't be a black hole at all, since the event horizon would disappear due to the extreme rotation. This would cause what is known as a naked singularity, meaning that a singularity that is normally contained within a black hole would be visible to an outside observer. The possible existence of such singularities in nature is uncertain. If they were to exist, they might cause fundamental problems for physics as we know it. We would be able to see matter condensed to infinite density, and we have no theories that can predict how spacetime works near such abnormalities. Normally this is not a problem, since they cannot be observed inside event horizons. However the cosmic censorship hypothesis suggests that naked singularities cannot be formed in nature from realistic initial conditions, which would avoid the problem altogether \citep{wald:1997}. An extremely rapid spin could prevent the collapse into a black hole thanks to the centrifugal forces. The object would have to lose enough of it's angular momentum before it could collapse.
+If a black hole would have even larger angular momentum than allowed by these constraints, it would mean that it actually would not be a black hole at all, since the event horizon would disappear due to the extreme rotation. This is made clear by looking at equation \ref{equ:evenhorizons}, which describes the surfaces that event horizons occur at. If $\mu^2 < a^2$, the solutions for this equation are complex, which is said to mean that the actual event horizons disappear. This would cause what is known as a naked singularity, meaning that a singularity that is normally contained within a black hole would be visible to an outside observer. The possible existence of such singularities in nature is uncertain but extremely unlikely. If they were to exist, they might cause fundamental problems for physics as we know it. We would be able to see matter condensed to infinite density, and we have no theories that can predict how spacetime works near such abnormalities. Normally this is not a problem, since they cannot be observed inside event horizons. However the cosmic censorship hypothesis suggests that naked singularities cannot be formed in nature from realistic initial conditions, which would avoid the problem altogether \citep{wald:1997}. An extremely rapid spin could prevent the collapse into a black hole thanks to the centrifugal forces. The object would have to lose enough of its angular momentum before it could collapse.
 
-Astrophysical black holes that appear in nature are assumed to be most likely Kerr black holes. Stars are nearly neutrally charged, but they do spin around themselves, thus possessing angular momentum. Even if the object lost a considerable amount of its rotational energy, the newly created black hole would be spinning somewhat. And even black holes with small amounts of angular momentum can gain more of it through its interactions with surrounding matter. Infalling matter creates an accretion disk around the hole. Eventually the matter will fall within the event horizon, conferring its mass and angular momentum to the black hole, speeding up its rotation \citep{bhphysics}. Though this in turn is limited by the fact that radiation from the accreting matter carries away angular momentum.
+Astrophysical black holes that appear in nature are assumed to be most likely Kerr black holes. The normal matter that creates and feeds black holes contains roughly equal amounts of protons and electrons, so the overall electric charge is mostly neutral. But stars do spin around themselves, thus possessing angular momentum. Because of the conservation of angular momentum, the stellar remnant will spin around itself as well. And even black holes with small amounts of angular momentum can gain more of it through its interactions with surrounding matter. Infalling matter creates an accretion disk around the hole. The matter in the inner parts of the accretion disk loses angular momentum and moves inwards due to friction, causing angular momentum to move outwards in the disk. Eventually the matter will fall within the event horizon, conferring its mass and remaining angular momentum to the black hole, speeding up its rotation \citep{bhphysics}. Black holes are also capable of losing their angular momentum. One way for this to happen is through the emission of jets.
 
 \subsection{The structure of a rotating black hole}
 
-While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. Any spinning source of gravity causes what's known as frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they didn't have any angular momentum of their own to begin with. This effect is extremely weak, so it's only really noticeable around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface. The area inside this limit is called the ergosphere. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. It is possible for particles falling into this region but then escaping again to rob some of the hole's rotational energy \citep{grintro}. This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
+While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. All massive objects cause what is known as the geodetic effect, or de Sitter precession. This is predicted by general relativity, and causes orbiting bodies to precess due to the effects of gravity. In addition to this, spinning sources of gravity cause an additional effect called Lense-Thirring precession or frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they did not have any angular momentum of their own to begin with. This effect is significant only around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface, and it is described in the equation \ref{equ:statlimsurf}. The area inside this limit is called the ergosphere. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. It is possible for particles falling into this region but then escaping again to rob some of the hole's rotational energy \citep{grintro}. This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
+%TODO tarkenna tätä kappaletta
 
 The Kerr metric is often presented in Boyer-Lindquist coordinates $(t, r, \theta, \phi)$ which are similar to spherical polar coordinates and are related to Cartesian coordinates via the following transforms:
 \begin{align*}
@@ -150,18 +151,20 @@ z &= r \mathrm{cos}\theta
 The variable $a$ is the same specific angular momentum as in the equation \ref{equ:angularmomentum}. The only true singularity (i.e. a singularity that exists no matter what coordinate system we choose) in the Kerr metric occurs when $r=0$ and $\theta = \pi/2$ \citep{grintro}. It's easy to see that in Cartesian coordinates this corresponds to a flat ring in the equatorial plane with the radius of $a$. So rotating black holes don't have a point singularity, but a ring singularity instead.
 
 In addition there exists coordinate singularities (i.e. singularities we can get rid of if we choose our coordinates differently) as well. These singularities occur on the surfaces
-\begin{equation}
+\begin{equation} \label{equ:evenhorizons}
 r_\pm = \mu \pm (\mu^2 - a^2)^{1/2}
 \end{equation}
 which describe the event horizons of the black hole, and on the surfaces
-\begin{equation}
+\begin{equation} \label{equ:statlimsurf}
 r_{S \pm} = \mu \pm (\mu^2 - a^2 \mathrm{cos}^2 \theta)^{1/2}
 \end{equation}
 which describe the stationary limit surfaces of the black hole. Here $\mu = \frac{GM}{c^2}$. 
 
+In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning black hole and their approximate shapes. The surfaces mostly resemble axisymmetric ellipsoids, flattened along the rotation axis. Although the outer limit of the ergoshpere changes its shape as the spinning gets faster, resembling a pumpkin-shape at nearly maximal spins. It however always touches the outer event horizon at the poles. The inner horizon and stationary limit surface also touch at the poles. On the equatorial plane the inner stationary limit surface also coincides with the ring singularity.
+
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/kerrhole.png}
+\includegraphics[width=\textwidth]{../images/kerrhole.pdf}
 \caption{Diagram showing the structure of a Kerr black hole. It shows the inner and outer ergospheres and event horizons, and the ring singularity in the middle. This kind of black hole has non-zero spin. If the spin was 0 we would have a Schwarzschild black hole instead.
 (Figure 13.3 from \cite{grintro})}
 \label{fig:KerrHole}
@@ -169,20 +172,25 @@ which describe the stationary limit surfaces of the black hole. Here $\mu = \fra
 
 %TODO
 
-%kuva mustasta aukosta josson ergosphere yms. Lisää selitystä. Kerro ergospherestä ja muista limiteistä. Anna yhtälö joka kertoo tapahtumahorisontit.
-%ergosphere ja horisontti yhtyy navoilla
+%Kahdenlaista frame draggingia Lense-Thirring efekti pyörivillä
 
-%event horisontit ovat koordinaattisingulariteetteja, eivät mitään kiinteitä pintoja, vain matemaattisesti merkittäviä pintoja
+%TODO stationäärinen: A stationary field is one that is in a steady state, but the masses causing that field may be non-static, rotating for instance.
 
-%Hawkingin säteily?
-
-%limits for becoming a black hole? Tolman–Oppenheimer–Volkoff limit and Chandrasekhar limit
 
 %mainitse törmäykset? Synty? Synty ehkä enemmän erimassaisten aukkojen yhteydessä
 
 \section{Different types of black holes}
 
+Black holes are usually put into three different categories based on their mass. 
+
+%kerro eri kohissa et miten voi havaita, mitä eri ilmiöitä nää ehkä synnyttää
+%kerro miten syntyvät, massarajoja, tähden kokonaismassa on eri kuin ytimen massa, joka kertoo voiko syntyä musta aukko
+
 \subsection{Stellar mass black holes}
+
+During their active life, stars stay in equilibrium due to the gravitational pull of the matter making up the star, and the outward pressure caused by the nuclear reactions in the star's core. At the end of the star's lifespan, when it cannot fuse any more matter, the pressure drops, causing the star to implode under its own gravity. What happens next depends on the mass of the star. Stars below around 8 solar masses lose their atmosphere and become white dwarfs. Stars below around 20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is higher than that, the mass of the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. For stellar remnants more massive than this, the gravitational pull exceeds the neutron pressure keeping the neutron star from collapsing. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
+
+%limits for becoming a black hole? Tolman–Oppenheimer–Volkoff limit and Chandrasekhar limit
 
 %observable in x-ray compact binary systems
 
@@ -190,6 +198,8 @@ which describe the stationary limit surfaces of the black hole. Here $\mu = \fra
 \subsection{Supermassive black holes}
 
 \section{Newtonian dynamics}
+
+%perusjuttua newtonin dynamiikasta
 
 \section{Regularization}
 
