@@ -174,14 +174,12 @@ In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning bl
 
 %Kahdenlaista frame draggingia Lense-Thirring efekti pyörivillä
 
-%TODO stationäärinen: A stationary field is one that is in a steady state, but the masses causing that field may be non-static, rotating for instance.
-
-
-%mainitse törmäykset? Synty? Synty ehkä enemmän erimassaisten aukkojen yhteydessä
+%mainitse Eddingtonin luminositeetti yms jutut? Muuttaa valtavasti massaa energiaksi.
 
 \section{Different types of black holes}
 
-Black holes are usually put into three different categories based on their mass. 
+Mass is the only quantity that all black holes have for certain, so it makes sense to categorize them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments, and the methods for detecting them are very different. %TODO vähennä different käyttöä
+The mass limits for the categories aren't exact, but typically stellar mass black holes are below $10^2 \ M_\odot$, intermediate mass black holes are between $10^2$ and $10^5 \ M_\odot$, and supermassive black holes are above $10^5 \ M_\odot$.
 
 %kerro eri kohissa et miten voi havaita, mitä eri ilmiöitä nää ehkä synnyttää
 %kerro miten syntyvät, massarajoja, tähden kokonaismassa on eri kuin ytimen massa, joka kertoo voiko syntyä musta aukko
@@ -190,11 +188,20 @@ Black holes are usually put into three different categories based on their mass.
 
 During their active life, stars stay in equilibrium due to the gravitational pull of the matter making up the star, and the outward pressure caused by the nuclear reactions in the star's core. At the end of the star's lifespan, when it cannot fuse any more matter, the pressure drops, causing the star to implode under its own gravity. What happens next depends on the mass of the star. Stars below around 8 solar masses lose their atmosphere and become white dwarfs. Stars below around 20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is higher than that, the mass of the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. For stellar remnants more massive than this, the gravitational pull exceeds the neutron pressure keeping the neutron star from collapsing. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
 
-%limits for becoming a black hole? Tolman–Oppenheimer–Volkoff limit and Chandrasekhar limit
+One way stellar mass black holes have been observed is in X-ray binaries. These kinds of binaries were discovered through the detection of highly energetic X-ray sources, having luminosities with the same magnitude as the Eddington luminosity. This combined with their low timescale variability (down to milliseconds) lent support for a model where the X-rays are produced by matter from a star accreting onto a compact object. The mass of the compact object $M_x$ can be estimated by measuring the orbital period $P$, radial velocity amplitude $K$, and the mass of the companion star $M_c$, and the inclination angle $i$. These are used in the mass function equation 
+\begin{equation}
+f(M_x) = \frac{K^3 P}{2 \pi G} = \frac{M_x^3 \mathrm{sin}^3 i}{(M_x + M_c)^2}
+\end{equation}
+which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in the equation is $M_c$ which can have a lot of uncertainty. The reason the mass of the central object is interesting is that both neutron stars and black holes can cause this kind of radiation. But if the mass can be measured to be high above the aforementioned Tolman–Oppenheimer–Volkoff limit, the object cannot really be anything else than a black hole. 
+
+%puhu muista tavoista havaita, värihommaa?
+%neutronitähdissä voi olla flareja
 
 %observable in x-ray compact binary systems
 
 \subsection{Intermediate mass black holes}
+
+
 \subsection{Supermassive black holes}
 
 \section{Newtonian dynamics}
