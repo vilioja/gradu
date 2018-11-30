@@ -139,7 +139,9 @@ Astrophysical black holes that appear in nature are assumed to be most likely Ke
 
 \subsection{The structure of a rotating black hole}
 
-While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. All massive objects cause what is known as the geodetic effect, or de Sitter precession. This is predicted by general relativity, and causes orbiting bodies to precess due to the effects of gravity. In addition to this, spinning sources of gravity cause an additional effect called Lense-Thirring precession or frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they did not have any angular momentum of their own to begin with. This effect is significant only around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface, and it is described in the equation \ref{equ:statlimsurf}. The area inside this limit is called the ergosphere. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. It is possible for particles falling into this region but then escaping again to rob some of the hole's rotational energy \citep{grintro}. This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
+While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. All massive objects cause what is known as the geodetic effect, or de Sitter precession. This is predicted by general relativity, and causes orbiting bodies to precess due to the effects of gravity. In addition to this, spinning sources of gravity cause an additional effect called Lense-Thirring precession or frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they did not have any angular momentum of their own to begin with. This effect is significant only around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface, and it is described in the equation \ref{equ:statlimsurf}. The area inside this limit is called the ergosphere, so named after the Greek word for work. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. If a particle escapes from the ergosphere, it converts some of the black hole's rotation energy into it's own momentum \citep{grintro}. This lowers the angular momentum of the black hole, and the process could theoretically over time cause a rotating black hole to spin lower and lower.
+
+%This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
 %TODO tarkenna tätä kappaletta
 
 The Kerr metric is often presented in Boyer-Lindquist coordinates $(t, r, \theta, \phi)$ which are similar to spherical polar coordinates and are related to Cartesian coordinates via the following transforms:
@@ -178,31 +180,47 @@ In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning bl
 
 \section{Different types of black holes}
 
-Mass is the only quantity that all black holes have for certain, so it makes sense to categorize them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments, and the methods for detecting them are very different. %TODO vähennä different käyttöä
-The mass limits for the categories aren't exact, but typically stellar mass black holes are below $10^2 \ M_\odot$, intermediate mass black holes are between $10^2$ and $10^5 \ M_\odot$, and supermassive black holes are above $10^5 \ M_\odot$.
+Mass is the only quantity that all black holes have for certain, so it makes sense to categorize them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments and have varying formation methods.%TODO vähennä different käyttöä
+The mass limits for the categories aren't exact, but typically stellar mass black holes (SBH) are below $10^2 \ M_\odot$, intermediate mass black holes (IMBH) are between $10^2$ and $10^5 \ M_\odot$, and supermassive black holes (SMBH) are above $10^5 \ M_\odot$.
 
 %kerro eri kohissa et miten voi havaita, mitä eri ilmiöitä nää ehkä synnyttää
 %kerro miten syntyvät, massarajoja, tähden kokonaismassa on eri kuin ytimen massa, joka kertoo voiko syntyä musta aukko
 
 \subsection{Stellar mass black holes}
 
-During their active life, stars stay in equilibrium due to the gravitational pull of the matter making up the star, and the outward pressure caused by the nuclear reactions in the star's core. At the end of the star's lifespan, when it cannot fuse any more matter, the pressure drops, causing the star to implode under its own gravity. What happens next depends on the mass of the star. Stars below around 8 solar masses lose their atmosphere and become white dwarfs. Stars below around 20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is higher than that, the mass of the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. For stellar remnants more massive than this, the gravitational pull exceeds the neutron pressure keeping the neutron star from collapsing. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
+Stellar mass black holes are born from collapsing stars. During their active life, stars stay in equilibrium due to the gravitational pull of the matter making up the star, and the outward pressure caused by the nuclear reactions in the star's core. At the end of the star's lifespan, as its reserves of hydrogen run out, it will start using helium as a new fuel for fusion, and when helium runs out, even heavier elements. For massive enough stars this continues until the star reaches elements such as iron and nickel. Iron has one of the highest binding energies of all the elements, meaning that lighter elements release energy through fusion, but reactions producing heavier elements require additional energy. The star cannot fuse any more matter in its core, and thus the supporting pressure drops, causing the star to implode under its own gravity. Iron being the final product in stars causes what is known as the iron peak in the abundance of chemical elements. Iron is one of the most common metals in the universe, as seen in figure \ref{fig:IronPeak}.
+
+What happens next depends on the mass of the star. For the star to be able to reach this stage, it needs to be over around 8 solar masses. Otherwise it will blow off its atmosphere, leaving behind a white dwarf. In more massive stars, the iron core will exceed the Chandrasekhar limit of around 1.4 solar masses, which describes the upper limit for the mass of a stable white dwarf. Stars above this 8 solar mass threshold but below around 20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is even higher than that, the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. For stellar remnants more massive than this, the gravitational pull exceeds the neutron pressure keeping the neutron star from collapsing. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/SolarSystemAbundances.pdf}
+\caption{Diagram illustrating the abundancies of different elements in our solar system. Iron has one of the highest binding energies, causing it to be very abundant in the universe thanks to its production in stars before they explode.
+(\copyright \ User:MHz\textasciigrave as / Wikimedia Commons / CC-BY-SA-3.0)}
+\label{fig:IronPeak}
+\end{figure}
 
 One way stellar mass black holes have been observed is in X-ray binaries. These kinds of binaries were discovered through the detection of highly energetic X-ray sources, having luminosities with the same magnitude as the Eddington luminosity. This combined with their low timescale variability (down to milliseconds) lent support for a model where the X-rays are produced by matter from a star accreting onto a compact object. The mass of the compact object $M_x$ can be estimated by measuring the orbital period $P$, radial velocity amplitude $K$, and the mass of the companion star $M_c$, and the inclination angle $i$. These are used in the mass function equation 
 \begin{equation}
 f(M_x) = \frac{K^3 P}{2 \pi G} = \frac{M_x^3 \mathrm{sin}^3 i}{(M_x + M_c)^2}
 \end{equation}
-which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in the equation is $M_c$ which can have a lot of uncertainty. The reason the mass of the central object is interesting is that both neutron stars and black holes can cause this kind of radiation. But if the mass can be measured to be high above the aforementioned Tolman–Oppenheimer–Volkoff limit, the object cannot really be anything else than a black hole. 
+which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in the equation is $M_c$ which can have a lot of uncertainty. The reason that the mass of the central object is interesting is that both neutron stars and black holes can cause this kind of radiation. But if the mass can be measured to be high above the aforementioned Tolman–Oppenheimer–Volkoff limit, other objects than black holes can be quite safely ruled out.
 
 %puhu muista tavoista havaita, värihommaa?
 %neutronitähdissä voi olla flareja
+
+%fuusiokartta, raudasta ei pääse eteenpäin, iron peak
 
 %observable in x-ray compact binary systems
 
 \subsection{Intermediate mass black holes}
 
+Intermediate mass black holes are much more elusive compared to both their more massive and lighter companions. We have very few good candidates and their formation is not fully understood.
+
+One way for these kinds of black holes to form could be through massive Population III stars. These stars formed early in the universe and thus they had very low metallicities. This allows them to grow very large, and the mass of Pop III stars can exceed 200 solar masses. These stars can also retain their mass as they exhibit weaker stellar winds compared to more metal-rich stars. When these stars collapse in a similar manner to lower mass stars, they could then form black holes with masses of several hundred $M_\odot$. Another prediction for their formation is through multiple collisions of lower mass compact objects in regions with dense stellar populations, such a stellar clusters \citep{koliopanos:2017}.
 
 \subsection{Supermassive black holes}
+
 
 \section{Newtonian dynamics}
 
