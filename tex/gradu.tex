@@ -178,10 +178,12 @@ In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning bl
 
 %mainitse Eddingtonin luminositeetti yms jutut? Muuttaa valtavasti massaa energiaksi.
 
+%mainitse miten voi menettää massaa?
+
 \section{Different types of black holes}
 
-Mass is the only quantity that all black holes have for certain, so it makes sense to categorize them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments and have varying formation methods.%TODO vähennä different käyttöä
-The mass limits for the categories aren't exact, but typically stellar mass black holes (SBH) are below $10^2 \ M_\odot$, intermediate mass black holes (IMBH) are between $10^2$ and $10^5 \ M_\odot$, and supermassive black holes (SMBH) are above $10^5 \ M_\odot$.
+Mass is the only quantity that all black holes have for certain, so it makes sense to classify them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments and have varying formation methods. They are also detected through the different kinds of phenomena that they cause. %TODO vähennä different käyttöä
+The mass limits for the categories aren't exact, but typically stellar mass black holes (SBH) are below $10^2 \ M_\odot$, intermediate mass black holes (IMBH) are between $10^2$ and $10^6 \ M_\odot$, and supermassive black holes (SMBH) are above $10^6 \ M_\odot$.
 
 %kerro eri kohissa et miten voi havaita, mitä eri ilmiöitä nää ehkä synnyttää
 %kerro miten syntyvät, massarajoja, tähden kokonaismassa on eri kuin ytimen massa, joka kertoo voiko syntyä musta aukko
@@ -215,12 +217,32 @@ which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in th
 
 \subsection{Intermediate mass black holes}
 
-Intermediate mass black holes are much more elusive compared to both their more massive and lighter companions. We have very few good candidates and their formation is not fully understood.
+Intermediate mass black holes are much more elusive compared to both their more massive and lighter companions. We have only very few good candidates and their formation is not fully understood. Learning more about both the birth and evolution of intermediate mass black holes is an important topic, for it allows us to learn more about how lighter black holes gain mass and form supermassive black holes, which in turn is a key element in understanding the formation of galaxies.
 
-One way for these kinds of black holes to form could be through massive Population III stars. These stars formed early in the universe and thus they had very low metallicities. This allows them to grow very large, and the mass of Pop III stars can exceed 200 solar masses. These stars can also retain their mass as they exhibit weaker stellar winds compared to more metal-rich stars. When these stars collapse in a similar manner to lower mass stars, they could then form black holes with masses of several hundred $M_\odot$. Another prediction for their formation is through multiple collisions of lower mass compact objects in regions with dense stellar populations, such a stellar clusters \citep{koliopanos:2017}.
+One way for black holes to grow in mass is through the accretion of gas from surrounding space. This accreting gas heats up through friction between the matter particles, and the heat is then radiated away. This creates radiation pressure that resist more matter falling into the black hole. The radiation increases as more matter accretes onto the hole, and the limit where the outward radiation force and the inward gravitational force are balanced is called the Eddington luminosity or Eddington limit. This limit is given by
+\begin{equation}
+L_{Edd} = \frac{4 \pi c G M m_p}{\sigma_T} \simeq 1.26 \left( \frac{M}{M_\odot} \right) W = 3.2 \times 10^4 \left( \frac{M}{M_\odot} \right) L_\odot \ ,
+\end{equation}
+where $c$ is the speed of light, $G$ is the gravitational constant, $M$ is the mass of the black hole, $m_p$ is the proton mass, and $\sigma_T$ is the Thompson scattering cross-section. Assuming there are no other effects which affect the accretion rate, this limit gives the maximum rate at which black holes can grow. 
+
+A so called `seed' black hole between the mass of $100 M_\odot$ and $10^6 M_\odot$ would require over 0.5 Gyr to grow into a $10^9 M_\odot$ supermassive black hole, given it constantly grows at Eddington rate. Due to this fact, the observed existence of supermassive black holes of that size when the universe was around 1 Gyr old implies that these seed black holes must have formed at redshifts larger than 10. In such a young universe there are several ways that intermediate mass black holes could form \citep{mezcua:2017}. These methods are illustrated in figure \ref{fig:imbhs}.
+
+One way for these kinds of black holes to form could be through massive Population III stars. These stars formed early in the universe and thus they had very low metallicities. This allows them to grow very large, and the mass of Pop III stars can exceed 200 solar masses. These stars can also retain their mass as they exhibit weaker stellar winds compared to more metal-rich stars. When these stars collapse in a similar manner to lower mass stars, they could then form black holes with masses of several hundred $M_\odot$. These kinds of black holes would still be relatively light, requiring super-Eddington accretion rates to reach the observed masses at around redshift 6. To circumvent this problem, the seed black holes would need to be more massive from the start. Black holes could also form inside the first protogalaxies by direct collapse of gas. In this kind of environment the gas could form supermassive stars of the magnitude $10^5 M_\odot$, which could collapse into black holes of $10^4 - 10^5 M_\odot$. Another prediction for their formation is through multiple mergers in dense stellar clusters. In a dense region of stars, multiple subsequent mergers can cause the formation of supermassive stars that will collapse into black holes of $10^2 - 10^4 M_\odot$.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/imbhs.pdf}
+\caption{Different methods of birth for seed intermediate mass black holes. These include collapse of Pop III stars, mergers in dense stellar clusters, and direct collapse of gas in protogalaxies. Some black holes will grow to be supermassive, but some will stay in their intermediate state to this day.
+(Figure 1 from \cite{mezcua:2017})}
+\label{fig:imbhs}
+\end{figure}
+
+%TODO havaintohommaa, mebbe G1
 
 \subsection{Supermassive black holes}
 
+
+%TODO lisää kuva linnunradan keskuksen likeisistä tähdistä, vahva todiste mustasta aukosta
 
 \section{Newtonian dynamics}
 
