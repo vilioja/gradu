@@ -241,56 +241,103 @@ To figure out whether intermediate mass black holes exist or not, we need to mea
 
 \subsection{Supermassive black holes}
 
+Supermassive black holes are the sources of some of the most energetic phenomena in the known universe, thus we have been able to detect their presence despite their relative scarcity and distance. They are found in the centers of galaxies, and it is nowadays generally accepted that supermassive black holes are present in practically every galaxy with a bulge component \citep{kormendy:2013}. What would eventually become the first candidates for supermassive black holes were discovered when very luminous radio sources were observed in the 1960s \citep{greenstein:1964}. First thought to be stars, their luminosities, redshifts, and low timescale variabilities made it quite clear that they were something else, hence they were dubbed quasi-stellar objects, or quasars. It was later proposed that matter falling onto a massive compact object could explain the phenomenon.
 
-%TODO lisää kuva linnunradan keskuksen likeisistä tähdistä, vahva todiste mustasta aukosta
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/MilkyWaySMBH.pdf}
+\caption{Illustration of the well-determined orbits of 6 stars around Sagittarius A* in the galactic centre of our Milky Way. The star S2 has an orbital period of about 16 years, and has given us the most accurate estimate for the black hole mass to date. The data is based on \cite{eisenhauer:2005}.
+(\copyright \ User:Cmglee / Wikimedia Commons / CC-BY-SA-3.0)}
+\label{fig:MilkyWayBH}
+\end{figure}
+
+On top of spectroscopic measurements, the high resolution of the Hubble Space Telescope (HST) has enabled us to do dynamical measurements of galaxies and their massive black holes. In addition to HST, thanks to advances adaptive optics, ground based observations have given us the best proof for a supermassive black hole at the center of our own galaxy. The galactic center is only around 8.28 kpc away, so individual stars can be resolved and their orbits determined. In figure \ref{fig:MilkyWayBH} orbits of 6 stars orbiting around the galactic center are visualized. Based on the orbit of the star S2, there must be a mass of around $4 \times 10^6 M_\odot$ at the center of the galaxy, and it must be located inside the radius of around 120 AU, otherwise the star would collide with the mass \citep{kormendy:2013}. This rules out the possibility of the central mass being a large group smaller masses, and makes a singular, massive central object the most likely scenario.
+
+Supermassive black holes are believed to play an important role in the formation and evolution of galaxies. The mass of the central black hole correlates with the properties of the host galaxy and central bulge that contains it. The first of these correlations to be observed was the $M_\bullet - L_{bulge}$ correlation. The correlation between the black hole mass and the luminosity of the bulge has been tested on many galaxies, and it seems to be very consistent. The luminosity of the bulge is dependant on the mass of the bulge, but the correlation between the explicitly measured mass of the bulge and the black hole mass has also been tested and observed. One way to measure the mass of the bulge is by calculating its virial mass. The virial theorem relates the kinetic energy of a stable to system with its potential energy. In astrophysics the common use of this relation is to relate the gravitational potential energy of a system with its kinetic energy. The virial mass of a bulge can be calculated with the equation
+\begin{equation}
+M_{bulge} = \frac{k r_e \sigma^2_e}{G} \ ,
+\end{equation}
+where $k$ is a scaling factor, $r_e$ is the effective radius, $\sigma_e$ is the velocity dispersion inside the effective radius, and $G$ is the gravitational constant \citep{marconi:2003}. The velocity dispersion of the galaxy has been used in these previous correlations, but there seems to be a correlation between the black hole mass and the velocity dispersion itself. A tight $M_\bullet - \sigma$ correlation is important on a practical level since it allows for good estimates of the black hole mass from relatively easy measurements, and it also implies some sort of link between the growth of the black hole and formation of the bulge \citep{kormendy:2013}.
+
+%TODO
 %korrelaatio massan ja ytimen ominaisuuksien välillä?
+%miten havaitaan, AGN, kinematiikka
+%syntyy keskimassaisista
+%M-sigma relaatio?
 
 \section{Newtonian dynamics}
 
+Sir Isaac Newton published his three laws of motion in his \textit{Philosophiæ Naturalis Principia Mathematica}, which describe the relationship of forces acting on a body and its reactions to this. These laws form the basis of Newtonian dynamics, which describes the motions of particles with these kinds of forces affecting them. As we will discuss more in section \ref{sect:pndynam}, Newtonian dynamics is only a good approximation of reality, but not the whole truth. Nevertheless, it is important to know this approximation so that we can build better ones on top of it.
+
+The first law states that in an inertial frame, an object that is not being acted upon by a force either stays at rest or continues to move at a constant velocity. This also works as a definition for an inertial frame; a frame of reference where a body with zero net force is not accelerating is inertial. The second law states that in an inertial frame, if an object is subject to an external force $\mathbf{F}$, then its equation of motion can be expressed as
+\begin{equation}
+\mathbf{F} = \frac{\mathrm{d} \mathbf{p}}{\mathrm{d}t} \ ,
+\end{equation}
+where $\mathbf{p}$ is the object's momentum. Given that the object's mass does not change over time, this can be also expressed in the more famous form
+\begin{equation} \label{equ:newton2}
+\mathbf{F} = m \mathbf{a} \ ,
+\end{equation}
+where $m$ is the mass of the object and $\mathbf{a}$ is its acceleration. The third law states that when a body exerts a force on a second body, the second body exerts an equally strong force in the opposite direction. 
+
+In addition to these laws, in his book Newton formulated a universal law of gravitation, which states that every point mass attracts every other particle in the universe with a force that is proportional to the product of the two masses, and inversely proportional to the square of the distance between them.
+\begin{equation}
+F = \frac{GMm}{r^2}
+\end{equation}
+In vector form this can be written as
+\begin{equation}
+\mathbf{F} = \frac{GMm}{r^3} \mathbf{r} \ .
+\end{equation}
+Combining this with with Newton's second law (equation \ref{equ:newton2}) gives us an equation describing the motion of a particle affected by the gravity of another particle of mass $M$:
+\begin{equation}
+\mathbf{a} = \frac{GM}{r^3} \mathbf{r} \ ,
+\end{equation}
+where the mass of the other particle cancels out. This equation is fundamental in, for example, simulating the motions of stellar objects, since gravity dominates their interactions, making it the most prominent force to affect them by a large margin.
+
 %perusjuttua newtonin dynamiikasta
+%ennen kun pääsee käsiks PN stuffiin ja regularisaatioon pitää tietää tästä
 
 \section{Regularization}
 
-Because of the $1/r^2$ term in the Newtonian equations of motion, the N-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that the analysis of the N-body problem becomes very arduous when collisions or close approaches occur. That is why it would be desirable to get rid of these singularities on the equation of motion. This is achieved with regularization, which just means finding a different set of equations that do not exhibit this singularity when $r$ approaches zero.
+Because of the $1/r$ term in the Newtonian equations of motion, the N-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that the analysis of the N-body problem becomes very arduous when collisions or close approaches occur. That is why it would be desirable to get rid of these singularities on the equation of motion. This is achieved with regularization, which just means finding a different set of equations that do not exhibit this singularity when $r$ approaches zero.
 
 Usually this comes with the cost of having a higher number of variables to keep track of. But regularization shows great advantages in the time-step sizes needed for accurate integration, and the amount of time-steps needed for integrating close encounters is much smaller. 
 
-\section{Post-Newtonian dynamics}
+\section{Post-Newtonian dynamics} \label{sect:pndynam}
 
 While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when more massive or faster moving objects are concerned, and instead we need to use general relativity (GR). %TODO Selitä geeärrää?
 Doing fully general relativistic simulations is very computationally intensive however, so more wieldy methods are required for large scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations for the metric tensor. %TODO selitä noi lisäks
 Einstein field equations are the set of 10 equations in Albert Einstein's general theory of relativity that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy.
-In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system, but it can also be applied to situations involving compact bodies with strong internal gravity, provided that the mutual gravity between bodies is weak enough.
+In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system, but it can also be applied to situations involving compact bodies with strong internal gravity.
+%provided that the mutual gravity between bodies is weak enough.
 
-The post-Newtonian theory is derived from the Landau-Lifshitz formulation of the Einstein field equations. The equations can be written as 
-\begin{equation}
-\partial_{\mu \nu} H^{\alpha \mu \beta \nu} = \frac{16 \pi G}{c^4}(-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL}) \ ,
-\end{equation}
-where $H^{\alpha \mu \beta \nu} \equiv \mathfrak{g}^{\alpha \beta} \mathfrak{g}^{\mu \nu} - \mathfrak{g}^{\alpha \mu} \mathfrak{g}^{\beta \mu}$ is a tensor density which possesses the same symmetries as the Riemann tensor. In the Landau-Lifshitz formulation the main variables are not the components of the metric tensor $g_{\alpha \beta}$, but those of the gothic inverse metric $\mathfrak{g}^{\alpha \beta} \equiv \sqrt{-g} g^{\alpha \beta}$, where $g^{\alpha \beta}$ is the inverse metric, and $g$ the metric determinant. $T^{\alpha \beta}$ is the energy-momentum tensor of the matter source term, and the Landau-Lifshitz pseudotensor $(-g) t^{\alpha \beta}_{LL} \sim \partial \mathfrak{g} \cdot \partial \mathfrak{g}$ can be interpreted as an energy-momentum (pseudo)tensor for the gravitational field.
+%
+%The post-Newtonian theory is derived from the Landau-Lifshitz formulation of the Einstein field equations. The equations can be written as 
+%\begin{equation}
+%\partial_{\mu \nu} H^{\alpha \mu \beta \nu} = \frac{16 \pi G}{c^4}(-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL}) \ ,
+%\end{equation}
+%where $H^{\alpha \mu \beta \nu} \equiv \mathfrak{g}^{\alpha \beta} \mathfrak{g}^{\mu \nu} - \mathfrak{g}^{\alpha \mu} \mathfrak{g}^{\beta \mu}$ is a tensor density which possesses the same symmetries as the Riemann tensor. In the Landau-Lifshitz formulation the main variables are not the components of the metric tensor $g_{\alpha \beta}$, but those of the gothic inverse metric $\mathfrak{g}^{\alpha \beta} \equiv \sqrt{-g} g^{\alpha \beta}$, where $g^{\alpha \beta}$ is the inverse metric, and $g$ the metric determinant. $T^{\alpha \beta}$ is the energy-momentum tensor of the matter source term, and the Landau-Lifshitz pseudotensor $(-g) t^{\alpha \beta}_{LL} \sim \partial \mathfrak{g} \cdot \partial \mathfrak{g}$ can be interpreted as an energy-momentum (pseudo)tensor for the gravitational field.
+%
+%The antisymmetry of $H^{\alpha \mu \beta \nu}$ implies the conservation equation
+%\begin{equation}
+%\partial_\beta \left[ (-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL}) \right] = 0 \ ,
+%\end{equation}
+%which is formally equivalent to $\nabla_\beta T^{\alpha \beta} = 0$, where $\nabla_\beta$ is the covariant derivative operator. The conservation equation allows for the formulation of global conservation laws, for example for energy, linear momentum, and angular momentum. We then introduce the gravitational potentials $h^{\alpha \beta} = \eta^{\alpha \beta} - \mathfrak{g}^{\alpha \beta}$, where $\eta^{\alpha \beta} = diag(-,+,+,+)$ is the Minkowski metric expressed in Lorentzian coordinates, and impose the harmonic coordinate gauge condition $\partial_\beta h^{\alpha \beta} = 0$.
+%
+%The field equations become a wave equation in flat spacetime
+%\begin{equation} \label{equ:waveeq}
+%\square h^{\alpha \beta} = -\frac{16 \pi G}{c^4} \tau^{\alpha \beta} \ ,
+%\end{equation}
+%where $\square = -\frac{1}{c^2} \frac{\partial^2}{\partial t^2} + \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}$ is the flat spacetime d'Alembert operator, and $\tau^{\alpha \beta} = (-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL} + t^{\alpha \beta}_H)$ is defined as the effective energy-momentum pseudotensor, composed of a matter contribution, the Landau-Lifshitz contribution, and the harmonic gauge contribution $t^{\alpha \beta}_H \sim \partial h \cdot \partial h + h \partial^2 h$. The conversation equation now reads $\partial_\beta \tau^{\alpha \beta} = 0$.
+%
+%So far no approximations have been made, and the wave equation combined with the harmonic gauge condition and conservation equation is an exact formulation of the Einstein field equations. The wave equation determines the potential $h^{\alpha \beta}$ for a given distribution of matter. The behaviour of the matter is determined by the conservation equation/gauge condition.
+%
+%The wave equation can be integrated without enforcing the conservation equation, and this is known as the relaxed Einstein field equations. The integration is achieved by iteration. Assuming that $h^{\alpha \beta}_n$ is known, $h^{\alpha \beta}_{n+1}$ is obtained by solving
+%\begin{equation}
+%\square h^{\alpha \beta}_{n+1} = -\frac{16 \pi G}{c^4} \tau^{\alpha \beta}[h_n] \ .
+%\end{equation}
+%The iterations are started with $h^{\alpha \beta}_0 = 0$, and stopped when the desired accuracy is obtained. In principle, the truncation is the only source of approximation. The procedure produces a formal expansion of $h^{\alpha \beta}$ in powers of G. This is known as the post-Minkowskian expansion of the gravitational field. After iterations have been done up to the desired accuracy, we can again impose the gauge condition to get a proper metric.
 
-The antisymmetry of $H^{\alpha \mu \beta \nu}$ implies the conservation equation
-\begin{equation}
-\partial_\beta \left[ (-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL}) \right] = 0 \ ,
-\end{equation}
-which is formally equivalent to $\nabla_\beta T^{\alpha \beta} = 0$, where $\nabla_\beta$ is the covariant derivative operator. The conservation equation allows for the formulation of global conservation laws, for example for energy, linear momentum, and angular momentum. We then introduce the gravitational potentials $h^{\alpha \beta} = \eta^{\alpha \beta} - \mathfrak{g}^{\alpha \beta}$, where $\eta^{\alpha \beta} = diag(-,+,+,+)$ is the Minkowski metric expressed in Lorentzian coordinates, and impose the harmonic coordinate gauge condition $\partial_\beta h^{\alpha \beta} = 0$.
-
-The field equations become a wave equation in flat spacetime
-\begin{equation} \label{equ:waveeq}
-\square h^{\alpha \beta} = -\frac{16 \pi G}{c^4} \tau^{\alpha \beta} \ ,
-\end{equation}
-where $\square = -\frac{1}{c^2} \frac{\partial^2}{\partial t^2} + \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}$ is the flat spacetime d'Alembert operator, and $\tau^{\alpha \beta} = (-g)(T^{\alpha \beta} + t^{\alpha \beta}_{LL} + t^{\alpha \beta}_H)$ is defined as the effective energy-momentum pseudotensor, composed of a matter contribution, the Landau-Lifshitz contribution, and the harmonic gauge contribution $t^{\alpha \beta}_H \sim \partial h \cdot \partial h + h \partial^2 h$. The conversation equation now reads $\partial_\beta \tau^{\alpha \beta} = 0$.
-
-So far no approximations have been made, and the wave equation combined with the harmonic gauge condition and conservation equation is an exact formulation of the Einstein field equations. The wave equation determines the potential $h^{\alpha \beta}$ for a given distribution of matter. The behaviour of the matter is determined by the conservation equation/gauge condition.
-
-The wave equation can be integrated without enforcing the conservation equation, and this is known as the relaxed Einstein field equations. The integration is achieved by iteration. Assuming that $h^{\alpha \beta}_n$ is known, $h^{\alpha \beta}_{n+1}$ is obtained by solving
-\begin{equation}
-\square h^{\alpha \beta}_{n+1} = -\frac{16 \pi G}{c^4} \tau^{\alpha \beta}[h_n] \ .
-\end{equation}
-The iterations are started with $h^{\alpha \beta}_0 = 0$, and stopped when the desired accuracy is obtained. In principle, the truncation is the only source of approximation. The procedure produces a formal expansion of $h^{\alpha \beta}$ in powers of G. This is known as the post-Minkowskian expansion of the gravitational field. After iterations have been done up to the desired accuracy, we can again impose the gauge condition to get a proper metric.
-
-The difference between post-Minkowskian and post-Newtonian expansion is that in post-Newtonian approximation we assume a slow-motion condition, i.e. all speeds within the matter
-distribution (such as the speed of sound within a body, or the speed of the body as a whole)
-are small compared with the speed of light. In astrophysical situations the assumption of slow speeds is accurate in the vast majority of cases, since the virial theorem implies that $U \sim v^2$ for any gravitationally bound system; weak fields are naturally accompanied by slow motion.
+%The difference between post-Minkowskian and post-Newtonian expansion is that in post-Newtonian approximation we assume a slow-motion condition, i.e. all speeds within the matter distribution (such as the speed of sound within a body, or the speed of the body as a whole) are small compared with the speed of light. In astrophysical situations the assumption of slow speeds is accurate in the vast majority of cases, since the virial theorem implies that $U \sim v^2$ for any gravitationally bound system; weak fields are naturally accompanied by slow motion.
 
 
 

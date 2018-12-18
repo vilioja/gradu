@@ -1,0 +1,119 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-640 -620 960 1152">
+ <title>Inferred orbits of 6 stars around galactic centre</title>
+ <desc>Inferred well-determined orbits of 6 stars around supermassive black hole Sagittarius A* at the Milky Way galactic centre based on data from "SINFONI in the Galactic Center: Young Stars and Infrared Flares in the Central Light-Month" by Eisenhauer et al, The Astrophysical Journal, 628:246-259, 2005; redrawn by CMG Lee.</desc>
+ <defs>
+  <line id="grid_dec" x1="-500" y1="0" x2="300" y2="0"/>
+  <g id="grid_decs">
+   <use xlink:href="#grid_dec" stroke="#999999"/>
+   <g stroke="#cccccc">
+    <use transform="translate(0,20)" xlink:href="#grid_dec"/>
+    <use transform="translate(0,40)" xlink:href="#grid_dec"/>
+    <use transform="translate(0,60)" xlink:href="#grid_dec"/>
+    <use transform="translate(0,80)" xlink:href="#grid_dec"/>
+   </g>
+  </g>
+  <line id="grid_ra" x1="0" y1="-500" x2="0" y2="500"/>
+  <g id="grid_ras">
+   <use xlink:href="#grid_ra" stroke="#999999"/>
+   <g stroke="#cccccc">
+    <use transform="translate(20,0)" xlink:href="#grid_ra"/>
+    <use transform="translate(40,0)" xlink:href="#grid_ra"/>
+    <use transform="translate(60,0)" xlink:href="#grid_ra"/>
+    <use transform="translate(80,0)" xlink:href="#grid_ra"/>
+   </g>
+  </g>
+  <g id="grid" font-size="32" fill="#000000">
+   <g text-anchor="end">
+    <text x="-510" y="-490" stroke="none">+0.5"</text>
+    <text x="-510" y="-390" stroke="none">+0.4"</text>
+    <text x="-510" y="-290" stroke="none">+0.3"</text>
+    <text x="-510" y="-190" stroke="none">+0.2"</text>
+    <text x="-510" y="-90" stroke="none">+0.1"</text>
+    <text x="-510" y="10" stroke="none"> 0.0"</text>
+    <text x="-510" y="110" stroke="none">-0.1"</text>
+    <text x="-510" y="210" stroke="none">-0.2"</text>
+    <text x="-510" y="310" stroke="none">-0.3"</text>
+    <text x="-510" y="410" stroke="none">-0.4"</text>
+    <text x="-510" y="510" stroke="none">-0.5"</text>
+    <use transform="translate(0,-500)" xlink:href="#grid_decs"/>
+    <use transform="translate(0,-400)" xlink:href="#grid_decs"/>
+    <use transform="translate(0,-300)" xlink:href="#grid_decs"/>
+    <use transform="translate(0,-200)" xlink:href="#grid_decs"/>
+    <use transform="translate(0,-100)" xlink:href="#grid_decs"/>
+    <use xlink:href="#grid_decs"/>
+    <use transform="translate(0, 100)" xlink:href="#grid_decs"/>
+    <use transform="translate(0, 200)" xlink:href="#grid_decs"/>
+    <use transform="translate(0, 300)" xlink:href="#grid_decs"/>
+    <use transform="translate(0, 400)" xlink:href="#grid_decs"/>
+   </g>
+   <g>
+    <text x="-500" y="-530" stroke="none">+0.5"</text>
+    <text x="-400" y="-530" stroke="none">+0.4"</text>
+    <text x="-300" y="-530" stroke="none">+0.3"</text>
+    <text x="-200" y="-530" stroke="none">+0.2"</text>
+    <text x="-100" y="-530" stroke="none">+0.1"</text>
+    <text x="0" y="-530" stroke="none"> 0.0"</text>
+    <text x="100" y="-530" stroke="none">-0.1"</text>
+    <text x="200" y="-530" stroke="none">-0.2"</text>
+    <use transform="translate(-500,0)" xlink:href="#grid_ras"/>
+    <use transform="translate(-400,0)" xlink:href="#grid_ras"/>
+    <use transform="translate(-300,0)" xlink:href="#grid_ras"/>
+    <use transform="translate(-200,0)" xlink:href="#grid_ras"/>
+    <use transform="translate(-100,0)" xlink:href="#grid_ras"/>
+    <use xlink:href="#grid_ras"/>
+    <use transform="translate( 100,0)" xlink:href="#grid_ras"/>
+    <use transform="translate( 200,0)" xlink:href="#grid_ras"/>
+   </g>
+   <g stroke="#000000">
+    <text transform="translate(-100,-580)" x="0" y="0" stroke="none">Right Ascension difference from 17h 45m 40.045s</text>
+    <text transform="translate(-605,0) rotate(-90)" x="0" y="0" stroke="none">Declination difference from -29° 0' 27.9"</text>
+    <use xlink:href="#grid_dec"/>
+    <use xlink:href="#grid_ra"/>
+    <rect x="-500" y="-500" width="800" height="1000" fill="none"/>
+   </g>
+  </g>
+  <path id="arrow" d="M -10 20 L 0 0 L 10 20"/>
+  <g id="orbits" font-size="64" stroke="none" stroke-width="3" fill="none">
+   <text x="220" y="-420" fill="#cc00cc">S1</text>
+   <ellipse transform="translate(-25,-102) rotate(15.7)" cx="0" cy="0" rx="203" ry="397" stroke="#cc00cc"/>
+   <use transform="translate(154,-430) rotate(140)" xlink:href="#arrow" stroke="#cc00cc"/>
+   <text x="-240" y="380" fill="#cc9900">S8</text>
+   <ellipse transform="translate(-221,195) rotate(47.9)" cx="0" cy="0" rx="62" ry="315" stroke="#cc9900"/>
+   <use transform="translate(-300,340) rotate(60)" xlink:href="#arrow" stroke="#cc9900"/>
+   <text x="-250" y="-420" fill="#00cc00">S12</text>
+   <ellipse transform="translate(-43,-227) rotate(-13)" cx="0" cy="0" rx="113" ry="263" stroke="#00cc00"/>
+   <use transform="translate(-148,-440) rotate(-150)" xlink:href="#arrow" stroke="#00cc00"/>
+   <text x="100" y="360" fill="#0099cc">S13</text>
+   <ellipse transform="translate(-18,90) rotate(15)" cx="0" cy="0" rx="200" ry="215" stroke="#0099cc"/>
+   <use transform="translate(67,280) rotate(60)" xlink:href="#arrow" stroke="#0099cc"/>
+   <text x="-360" y="-150" fill="#0000ff">S14</text>
+   <ellipse transform="translate(-160,-127) rotate(-50.3)" cx="0" cy="0" rx="10" ry="215" stroke="#0000ff"/>
+   <use transform="translate(-293,-230) rotate(-45)" xlink:href="#arrow" stroke="#0000ff"/>
+   <text x="0" y="-190" fill="#ff0000">S2</text>
+   <ellipse transform="translate(12,-73) rotate(0)" cx="0" cy="0" rx="52" ry="95" stroke="#ff0000"/>
+   <use transform="translate(20,-167) rotate(90)" xlink:href="#arrow" stroke="#ff0000"/>
+  </g>
+  <g id="comparison" font-size="28" text-anchor="end" stroke="none" stroke-width="20" fill="#000000">
+   <g transform="translate(260,380) scale(0.126)" fill="none">
+    <ellipse id="sedna" cx="11" cy="422" rx="161.5" ry="506.5" stroke="#ff3300"/>
+    <ellipse id="eris" transform="rotate(58)" cx="28" cy="4" rx="67.7" ry="44" stroke="#009900"/>
+    <ellipse id="pluto" cx="10" cy="3" rx="40" ry="40" stroke="#9900ff"/>
+    <ellipse id="neptune" cx="0" cy="0" rx="30" ry="30" stroke="#0066cc"/>
+    <ellipse id="sun" cx="0" cy="0" rx="8" ry="8" fill="#996600"/>
+   </g>
+   <text x="230" y="440">Orbits of some bodies of the Solar System</text>
+   <text x="230" y="465"><tspan>(</tspan><tspan fill="#ff3300">Sedna</tspan><tspan>, </tspan><tspan fill="#009900">Eris</tspan><tspan>, </tspan><tspan fill="#9900ff">Pluto</tspan><tspan> and </tspan><tspan fill="#0066cc">Neptune</tspan><tspan>)</tspan></text>
+   <text x="230" y="490">at the same scale for comparison</text>
+  </g>
+
+  <g id="main" font-family="sans-serif" text-anchor="middle" stroke-linejoin="round">
+   <rect x="-640" y="-620" width="960" height="1152" fill="#ffffff"/>
+   <use xlink:href="#grid"/>
+   <use xlink:href="#orbits"/>
+   <use xlink:href="#comparison"/>
+   <ellipse cx="0" cy="0" rx="5" ry="5" stroke="none" fill="#000000"/>
+  </g>
+ </defs>
+ <use xlink:href="#main"/>
+</svg>
