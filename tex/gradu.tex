@@ -102,8 +102,8 @@ A black hole (BH) is defined as a region of spacetime for which the gravitationa
 \begin{equation} \label{equ:bhunique}
 M^2 - \left( \frac{J}{M} \right)^2 - Q^2 \geq 0 \ ,
 \end{equation}
-where it's set that $G = c = 1$ \citep{mazur:2001}.
-Thus only by changing these variables can the properties of the black hole change. The physical reasoning for this uniqueness theorem is that the matter beyond the event horizon of a black hole cannot directly affect anything outside of it. Thus only the globally conserved characteristics, such as mass and angular momentum, survive and can be detected from the outside. The electric charge of black holes that appear in nature is most likely neutral, since having a non-neutral charge would require vastly different amounts of protons and electrons to enter the black hole, which is not a realistic scenario with normal matter.
+where we set $G = c = 1$ \citep{mazur:2001}.
+Thus only by changing these variables can the properties of the black hole change. The physical reasoning for this uniqueness theorem is that the matter beyond the event horizon of a black hole cannot directly affect anything outside of it. Thus only the globally conserved characteristics, such as mass and angular momentum, survive and can be measured from the outside. The electric charge of black holes that appear in nature is most likely neutral, since having a non-neutral charge would require a very large imbalance in the amounts of protons and electrons that enter into the black hole, which is not a realistic scenario with normal matter.
 
 Black holes can be divided into four distinct types based on these properties. Every black hole has mass, but the angular momentum and electric charge are not necessary.
 \begin{table}[htb]
@@ -121,9 +121,9 @@ The simplest type of black hole is created when an object of mass M becomes smal
 \begin{equation}
 r_S = \frac{2GM}{c^2} \ .
 \end{equation}
-This can happen in nature when a star dies and explodes in a supernova. The core of the star can compress enough to pass the radius and form a black hole. The radius is called the Schwarzschild radius, so named after the German astronomer Karl Schwarzschild, who found an exact solution for the Einstein field equations. The surface at this radius is called the event horizon. Event horizons are mathematical surfaces, and they do not form any sort of physical barrier. An observer can fall inside the event horizon without any problem. The event horizon simply marks the limit at which not even light can escape the gravitational pull of the black hole.
+A black hole can be born in nature when a star dies and explodes in a supernova. As will be discussed in more detail in section \ref{sect:stellarholes}, massive stars can fuse matter up to iron, and an iron core is formed at the center of the star near the end of its lifetime. Once this core grows big enough that the degeneracy pressure of electrons can no longer support its gravity, it will undergo catastrophic collapse. If the massive core collapses until it reaches the aforementioned radius, it will form a black hole. The radius is called the Schwarzschild radius, so named after the German astronomer Karl Schwarzschild, who found an exact solution for the Einstein field equations \citep{schwarzschild:1916}. Einstein field equations are the set of 10 equations in Albert Einstein's general theory of relativity that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy \citep{einstein:1915}. The surface at this radius is called the event horizon. Event horizons are mathematical surfaces, and they do not form any sort of physical barrier. An observer can fall inside the event horizon without any problem. The event horizon simply marks the limit at which not even light can escape the gravitational pull of the black hole.
 
-There exists solutions that do not satisfy the condition given by equation \ref{equ:bhunique}, but those are not stationary. A stationary field is one that is in a steady state, but the masses causing that field may be non-static, rotating for instance. So these non-stationary solutions are not in a steady state. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum 
+There exists solutions that do not satisfy the condition given by equation \ref{equ:bhunique}, but these solutions are not stationary. In a stationary field the geometry does not change over time, but it can rotate, e.g. the Kerr solution. As will discussed soon, these non-stationary solutions are not really physical. This gives an upper limit to the angular momentum that a physical uncharged black hole can have. This limit can be expressed as the specific angular momentum 
 \begin{equation} \label{equ:angularmomentum}
 a = \frac{J}{Mc}
 \end{equation}
@@ -131,44 +131,48 @@ or as the dimensionless spin parameter
 \begin{equation}
 a_* = \frac{Jc}{GM^2} \ .
 \end{equation}
-The parameter can range from 0, meaning that the hole doesn't spin, to 1, meaning that it spins as fast as possible for a given mass \citep{middleton:2016}.
+The parameter can range from 0, meaning that the hole does not spin, to almost 1, meaning that it spins as fast as possible for a given mass \citep{middleton:2016}.
 
-If a black hole would have even larger angular momentum than allowed by these constraints, it would mean that it actually would not be a black hole at all, since the event horizon would disappear due to the extreme rotation. This is made clear by looking at equation \ref{equ:evenhorizons}, which describes the surfaces that event horizons occur at. If $\mu^2 < a^2$, the solutions for this equation are complex, which is said to mean that the actual event horizons disappear. This would cause what is known as a naked singularity, meaning that a singularity that is normally contained within a black hole would be visible to an outside observer. The possible existence of such singularities in nature is uncertain but extremely unlikely. If they were to exist, they might cause fundamental problems for physics as we know it. We would be able to see matter condensed to infinite density, and we have no theories that can predict how spacetime works near such abnormalities. Normally this is not a problem, since they cannot be observed inside event horizons. However the cosmic censorship hypothesis suggests that naked singularities cannot be formed in nature from realistic initial conditions, which would avoid the problem altogether \citep{wald:1997}. An extremely rapid spin could prevent the collapse into a black hole thanks to the centrifugal forces. The object would have to lose enough of its angular momentum before it could collapse.
+If a black hole would have even larger angular momentum than allowed by these constraints, i.e. $a > 1$, it would mean that it actually would not be a black hole at all, since the event horizon would disappear due to the extreme rotation. 
+%This is made clear by looking at equation \ref{equ:evenhorizons}, which describes the surfaces that event horizons occur at. If $\mu^2 < a^2$, the solutions for this equation are complex, which is said to mean that the actual event horizons disappear.
+This would cause what is known as a naked singularity, meaning that a singularity that is normally contained within a black hole would be visible to an outside observer. The possible existence of such singularities in nature is uncertain but extremely unlikely. If they were to exist, they might cause fundamental problems for physics as we know it. We would be able to see matter condensed to infinite density, and we have no theories that can predict how spacetime works near such abnormalities. Normally this is not a problem, since they cannot be observed inside event horizons. However the cosmic censorship hypothesis suggests that naked singularities cannot be formed in nature from realistic initial conditions, which would avoid the problem altogether \citep{wald:1997}. An extremely rapid spin could prevent the collapse into a black hole thanks to the centrifugal forces. The object would have to lose enough of its angular momentum before it could collapse.
 
-Astrophysical black holes that appear in nature are assumed to be most likely Kerr black holes. The normal matter that creates and feeds black holes contains roughly equal amounts of protons and electrons, so the overall electric charge is mostly neutral. But stars do spin around themselves, thus possessing angular momentum. Because of the conservation of angular momentum, the stellar remnant will spin around itself as well. And even black holes with small amounts of angular momentum can gain more of it through its interactions with surrounding matter. Infalling matter creates an accretion disk around the hole. The matter in the inner parts of the accretion disk loses angular momentum and moves inwards due to friction, causing angular momentum to move outwards in the disk. Eventually the matter will fall within the event horizon, conferring its mass and remaining angular momentum to the black hole, speeding up its rotation \citep{bhphysics}. Black holes are also capable of losing their angular momentum. One way for this to happen is through the emission of jets.
+Astrophysical black holes that appear in nature are assumed to be most likely Kerr black holes. The normal matter that creates and feeds black holes contains roughly equal amounts of protons and electrons, so the overall electric charge is mostly neutral. But stars do spin around themselves, thus possessing angular momentum. Because of the conservation of angular momentum, the stellar remnant will spin around itself as well. Black holes can also gain more angular momentum via matter falling into them. Gas coming close to a black hole will form into an accretion disk around it. For the matter to be able to reach the black hole and fall into it, it must somehow lose some of its angular momentum. The total angular momentum of the disk must be conserved however, so the momentum has to move outwards in the disk, so to speak. This happens due to friction between the gas particles, which causes other particles to move slower and others faster. These slower moving particles then move closer to the black hole in the disk. Eventually the matter will fall within the event horizon, conferring its mass and remaining angular momentum to the black hole, speeding up the rotation of the black hole \citep{bhphysics}. Black holes are also capable of losing their angular momentum. One way for this to happen is through the emission of jets.
 
 \subsection{The structure of a rotating black hole}
 
-While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. All massive objects cause what is known as the geodetic effect, or de Sitter precession. This is predicted by general relativity, and causes orbiting bodies to precess due to the effects of gravity. In addition to this, spinning sources of gravity cause an additional effect called Lense-Thirring precession or frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they did not have any angular momentum of their own to begin with. This effect is significant only around very massive objects, like black holes. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface, and it is described in the equation \ref{equ:statlimsurf}. The area inside this limit is called the ergosphere, so named after the Greek word for work. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. If a particle escapes from the ergosphere, it converts some of the black hole's rotation energy into it's own momentum \citep{grintro}. This lowers the angular momentum of the black hole, and the process could theoretically over time cause a rotating black hole to spin lower and lower.
+While Schwarzschild black holes have only the one event horizon and a point-like singularity in the middle, spinning black holes are far more complicated. All massive objects cause a space-time effect predicted by general relativity that is known as de Sitter precession or the geodetic effect. The presence of mass warps space-time, causing objects orbiting around the mass to precess slightly. In addition to this, spinning sources of gravity cause an additional effect called Lense-Thirring precession or frame-dragging. The massive object drags the surrounding spacetime with it as it spins, causing nearby particles and photons to rotate too, even if they did not have any angular momentum of their own to begin with. Both of these effects have been experimentally confirmed, for example by the Gravity Probe B mission. It measured the slight changes in the spin of gyroscopes aboard a satellite orbiting Earth, and confirmed that precession does indeed occur from both sources. The geodetic effect is around 170 times larger, so it can be measured more certainly \citep{everitt:2009}.
+
+Thus the frame-dragging effect is significant only around very massive objects, like black holes that are rotating rapidly. At certain point this effect becomes so strong that any object, including light, \textit{must} spin along the rotation of the black hole. It's impossible for them to stay still. This limit is known as the stationary limit surface, and it is described in equation \ref{equ:statlimsurf}. The area inside this limit is called the ergosphere, so named after the Greek word for work. The ergosphere differs from the insides of an event horizon because particles that fall into it can actually still escape from this region. If a particle escapes from the ergosphere, it converts some of the black hole's rotation energy into it's own momentum \citep{grintro}. This lowers the angular momentum of the black hole, and the process could theoretically over time cause a rotating black hole to spin increasingly slower.
 
 %This is called the Penrose process, and it is a possible explanation for some highly energetic astrophysical phenomena, such as gamma ray bursts. 
 %TODO tarkenna tätä kappaletta
 
-The Kerr metric is often presented in Boyer-Lindquist coordinates $(t, r, \theta, \phi)$ which are similar to spherical polar coordinates and are related to Cartesian coordinates via the following transforms:
+The Kerr metric is often presented in Boyer-Lindquist coordinates $(t, r, \theta, \phi)$ which are similar to spherical polar coordinates and are related to the Cartesian x,y,z-coordinates via the following transforms:
 \begin{align*}
 x &= \sqrt{r^2 + a^2} \mathrm{sin}\theta \mathrm{cos}\phi \\
 y &= \sqrt{r^2 + a^2} \mathrm{sin}\theta \mathrm{sin}\phi \\
 z &= r \mathrm{cos}\theta
 \end{align*}
-The variable $a$ is the same specific angular momentum as in the equation \ref{equ:angularmomentum}. The only true singularity (i.e. a singularity that exists no matter what coordinate system we choose) in the Kerr metric occurs when $r=0$ and $\theta = \pi/2$ \citep{grintro}. It's easy to see that in Cartesian coordinates this corresponds to a flat ring in the equatorial plane with the radius of $a$. So rotating black holes don't have a point singularity, but a ring singularity instead.
+The variable $a$ is the same specific angular momentum as in the equation \ref{equ:angularmomentum}. The only true singularity (i.e. a singularity that exists no matter what coordinate system we choose) in the Kerr metric occurs when $r=0$ and $\theta = \pi/2$ \citep{grintro}. It is easy to see that in Cartesian coordinates this corresponds to a flat ring in the equatorial plane with the radius of $a$. So rotating black holes do not have a point singularity, but a ring singularity instead.
 
 In addition there exists coordinate singularities (i.e. singularities we can get rid of if we choose our coordinates differently) as well. These singularities occur on the surfaces
 \begin{equation} \label{equ:evenhorizons}
-r_\pm = \mu \pm (\mu^2 - a^2)^{1/2}
+r_\pm = \mu \pm \sqrt{\mu^2 - a^2}
 \end{equation}
 which describe the event horizons of the black hole, and on the surfaces
 \begin{equation} \label{equ:statlimsurf}
-r_{S \pm} = \mu \pm (\mu^2 - a^2 \mathrm{cos}^2 \theta)^{1/2}
+r_{S \pm} = \mu \pm \sqrt{\mu^2 - a^2 \mathrm{cos}^2 \theta}
 \end{equation}
 which describe the stationary limit surfaces of the black hole. Here $\mu = \frac{GM}{c^2}$. 
 
-In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning black hole and their approximate shapes. The surfaces mostly resemble axisymmetric ellipsoids, flattened along the rotation axis. Although the outer limit of the ergoshpere changes its shape as the spinning gets faster, resembling a pumpkin-shape at nearly maximal spins. It however always touches the outer event horizon at the poles. The inner horizon and stationary limit surface also touch at the poles. On the equatorial plane the inner stationary limit surface also coincides with the ring singularity.
+In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning black hole and their approximate shapes. The surfaces mostly resemble axisymmetric ellipsoids, flattened along the rotation axis. Although the outer limit of the ergosphere changes its shape as the spinning gets faster, resembling a pumpkin-shape at nearly maximal spins. It however always touches the outer event horizon at the poles. The inner horizon and stationary limit surface also touch at the poles. On the equatorial plane the inner stationary limit surface also coincides with the ring singularity.
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[width=\textwidth]{../images/kerrhole.pdf}
 \caption{Diagram showing the structure of a Kerr black hole. It shows the inner and outer ergospheres and event horizons, and the ring singularity in the middle. This kind of black hole has non-zero spin. If the spin was 0 we would have a Schwarzschild black hole instead.
-(Figure 13.3 from \cite{grintro})}
+(Figure adapted from \citealt{grintro})}
 \label{fig:KerrHole}
 \end{figure}
 
@@ -179,34 +183,44 @@ In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning bl
 %mainitse Eddingtonin luminositeetti yms jutut? Muuttaa valtavasti massaa energiaksi.
 
 %mainitse miten voi menettää massaa?
-
+\newpage
 \section{Different types of black holes}
 
-Mass is the only quantity that all black holes have for certain, so it makes sense to classify them by their mass. They're usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments and have varying formation methods. They are also detected through the different kinds of phenomena that they cause. %TODO vähennä different käyttöä
-The mass limits for the categories aren't exact, but typically stellar mass black holes (SBH) are below $10^2 \ M_\odot$, intermediate mass black holes (IMBH) are between $10^2$ and $10^6 \ M_\odot$, and supermassive black holes (SMBH) are above $10^6 \ M_\odot$.
+Mass is the only quantity that all black holes have for certain, so it makes sense to classify them by their mass. The black holes are usually put into three different categories. The reason for this kind of distinction is that the different mass black holes are found in very different kinds of environments and have varying formation histories. The black holes are also detected through the different kinds of phenomena that they cause. %TODO vähennä different käyttöä
+The mass limits for the categories are not exact, but typically stellar mass black holes (SBH) are below $10^2 \ M_\odot$, intermediate mass black holes (IMBH) are between $10^2$ and $10^5 \ M_\odot$, and supermassive black holes (SMBH) are above $10^5 \ M_\odot$ \citep{bhphysics}.
 
 %kerro eri kohissa et miten voi havaita, mitä eri ilmiöitä nää ehkä synnyttää
 %kerro miten syntyvät, massarajoja, tähden kokonaismassa on eri kuin ytimen massa, joka kertoo voiko syntyä musta aukko
 
-\subsection{Stellar mass black holes}
+\subsection{Stellar mass black holes} \label{sect:stellarholes}
 
-Stellar mass black holes are born from collapsing stars. During their active life, stars stay in equilibrium due to the gravitational pull of the matter making up the star, and the outward pressure caused by the nuclear reactions in the star's core. At the end of the star's lifespan, as its reserves of hydrogen run out, it will start using helium as a new fuel for fusion, and when helium runs out, even heavier elements. For massive enough stars this continues until the star reaches elements such as iron and nickel. Iron has one of the highest binding energies of all the elements, meaning that lighter elements release energy through fusion, but reactions producing heavier elements require additional energy. The star cannot fuse any more matter in its core, and thus the supporting pressure drops, causing the star to implode under its own gravity. Iron being the final product in stars causes what is known as the iron peak in the abundance of chemical elements. Iron is one of the most common metals in the universe, as seen in figure \ref{fig:IronPeak}.
+Stellar mass black holes are born from collapsing massive stars. During their active life, stars stay in hydrostatic equilibrium due to the gravitational pull of the matter making up the star, and the outward thermal pressure caused by the nuclear reactions in the star's core. At the end of a massive star's lifespan, the hydrogen in the core will have fused into helium. This leads to hydrogen forming a shell around the helium core, and hydrogen fusion will continue there, which is known as shell burning. The helium formed in the shell will accrete into the core, causing the core to grow hotter and denser. Once the core is has grown enough, the helium will start to fuse as well. This same process will happen for heavier elements as well, until the star will have several shells of different elements, as illustrated in figure \ref{fig:FusionShells}.
 
-What happens next depends on the mass of the star. For the star to be able to reach this stage, it needs to be over around 8 solar masses. Otherwise it will blow off its atmosphere, leaving behind a white dwarf. In more massive stars, the iron core will exceed the Chandrasekhar limit of around 1.4 solar masses, which describes the upper limit for the mass of a stable white dwarf. Stars above this 8 solar mass threshold but below around 20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is even higher than that, the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. For stellar remnants more massive than this, the gravitational pull exceeds the neutron pressure keeping the neutron star from collapsing. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/FusionShells.pdf}
+\caption{A simplified cross-section of a massive, evolved star. As the star starts fusing heavier and heavier elements, new shells will form around the previous ones, until the core becomes iron, which cannot go through fusion without losing energy.
+(\copyright \ User:Rursus / Wikimedia Commons / CC-BY-SA-3.0)}
+\label{fig:FusionShells}
+\end{figure}
+
+Iron and nickel have the highest binding energies of all the elements, meaning that lighter elements release energy through fusion, but reactions producing heavier elements require additional energy. The star cannot fuse any more matter in its core, and thus the supporting pressure drops, causing the star to implode under its own gravity. Iron being the final product in stars causes what is known as the iron peak in the abundance of chemical elements. Iron is one of the most common metals in the universe, as seen in figure \ref{fig:IronPeak}. One can also see that certain other elements such as carbon, oxygen, neon, etc. are more abundant than other elements near their mass. This too is the result of stellar nucleosynthesis, where these elements are created through fusion with helium nuclei, which are known as alpha particles. Due to this, all of these so called alpha elements have a mass number that is a multiple of four.
+
+What happens next depends on the mass of the star. For the star to be able to even reach this stage, it needs to be initially over around 8 solar masses. Otherwise it does not have enough mass to fuse the heavier elements, and it will gradually expand its atmosphere into a planetary nebula, leaving behind a white dwarf. In more massive stars, the iron core will exceed the Chandrasekhar limit of around 1.4 solar masses, which describes the upper limit for the mass of a stable white dwarf. Stars above this $\sim$8 solar mass threshold but below $\sim$20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is even higher than that, the supernova remnant is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. These limits have to do with the properties of the degenerate matter that dense stellar remnants are made of. While main sequence stars stay in hydrostatic equilibrium thanks to thermal pressure, stellar remnants resist collapse through degeneracy pressure. Highly dense particles must occupy high states of kinetic energy to obey the Pauli exclusion principle, i.e. identical fermions cannot occupy the same quantum state within a quantum system simultaneously. This manifests as a pressure resisting further gravitational collapse. In white dwarfs the electron degeneracy pressure is what keeps the object in an equilibrium. Past the Chandrasekhar limit the electrons will combine with protons to form neutrons, forming a remnant made of degenerate neutron matter. Neutron stars are then supported by the degenerate neutron pressure. For stellar remnants more massive than the Tolman–Oppenheimer–Volkoff limit, the gravitational pull will exceed even the degenerate pressure, causing the remnant to collapse into a black hole. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[width=\textwidth]{../images/SolarSystemAbundances.pdf}
-\caption{Diagram illustrating the abundancies of different elements in our solar system. Iron has one of the highest binding energies, causing it to be very abundant in the universe thanks to its production in stars before they explode.
+\caption{Diagram illustrating the abundancies of different elements in our solar system. Iron is the final product of fusion in stars, causing it to be very abundant in the universe thanks to its production in stars before they explode. The abundant alpha elements are also clearly noticeable.
 (\copyright \ User:MHz\textasciigrave as / Wikimedia Commons / CC-BY-SA-3.0)}
 \label{fig:IronPeak}
 \end{figure}
 
-One way stellar mass black holes have been observed is in X-ray binaries. These kinds of binaries were discovered through the detection of highly energetic X-ray sources, having luminosities with the same magnitude as the Eddington luminosity. This combined with their low timescale variability (down to milliseconds) lent support for a model where the X-rays are produced by matter from a star accreting onto a compact object. The mass of the compact object $M_x$ can be estimated by measuring the orbital period $P$, radial velocity amplitude $K$, and the mass of the companion star $M_c$, and the inclination angle $i$. These are used in the mass function equation 
+One way stellar mass black holes have been observed is in X-ray binaries. These kinds of binaries were discovered through the detection of highly energetic X-ray sources, having luminosities with the same magnitude as the theoretical maximum luminosity from matter accreting onto a black hole, assuming simple spherical accretion. This combined with their low timescale variability (down to milliseconds) lent support for a model where the X-rays are produced by matter from a star accreting onto a compact object. The mass of the compact object $M_x$ can be estimated by measuring the orbital period $P$, radial velocity amplitude $K$, the mass of the companion star $M_c$, and the inclination angle $i$. Inclination is important because of the mass-inclination degeneracy. Measuring the true orbital velocity of a star depends on its inclination, and thus measuring the mass of the star star also depends on it. The inclination can be constrained for example by tracking and modelling how the brightness of the star varies along the orbit \citep{kerkwijk:2011}. These are used in the mass function equation 
 \begin{equation}
 f(M_x) = \frac{K^3 P}{2 \pi G} = \frac{M_x^3 \mathrm{sin}^3 i}{(M_x + M_c)^2}
 \end{equation}
-which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in the equation is $M_c$ which can have a lot of uncertainty. The reason that the mass of the central object is interesting is that both neutron stars and black holes can cause this kind of radiation. But if the mass can be measured to be high above the aforementioned Tolman–Oppenheimer–Volkoff limit, other objects than black holes can be quite safely ruled out.
+which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in the equation is $M_c$ which can have a lot of uncertainty. The reason that the mass of the central object is interesting is that both neutron stars and black holes can produce X-ray radiation, caused by matter that is accreting onto the object heating up immensely through friction. But if the mass can be measured to be well above the aforementioned Tolman–Oppenheimer–Volkoff limit, other objects than black holes can be quite safely ruled out.
 
 %puhu muista tavoista havaita, värihommaa?
 %neutronitähdissä voi olla flareja
@@ -217,31 +231,47 @@ which tells the lower limit for $M_x$ \citep{casares:2007}. The key factor in th
 
 \subsection{Intermediate mass black holes}
 
-Intermediate mass black holes are much more elusive compared to both their more massive and lighter companions. We have only very few good candidates and their formation is not fully understood. Learning more about both the birth and evolution of intermediate mass black holes is an important topic, for it allows us to learn more about how lighter black holes gain mass and form supermassive black holes, which in turn is a key element in understanding the formation of galaxies.
+Intermediate mass black holes are much more elusive compared to both their more massive and lighter companions. We have only very few good candidates and their formation is not fully understood. Learning more about both the birth and evolution of intermediate mass black holes is an important topic, for it allows us to learn more about how lighter black holes gain mass and form supermassive black holes, which in turn is a key element in understanding the formation and evolution of galaxies.
 
-One way for black holes to grow in mass is through the accretion of gas from surrounding space. This accreting gas heats up through friction between the matter particles, and the heat is then radiated away. This creates radiation pressure that resist more matter falling into the black hole. The radiation increases as more matter accretes onto the hole, and the limit where the outward radiation force and the inward gravitational force are balanced is called the Eddington luminosity or Eddington limit. This limit is given by
+One way for black holes to grow in mass is through the accretion of gas. Matter that accretes onto a black hole forms a disk and must lose its angular momentum before it can end up in the black hole. The matter particles can collide with each other, creating heat through friction and effectively moving the angular momentum outwards, so the inner parts of the disk can fall closer into the black hole. The heat is radiated away, usually in the form of X-rays. This process creates radiation pressure that resist more matter falling into the black hole. The radiation increases as more matter accretes onto the hole, and the limit where the outward radiation force and the inward gravitational force are balanced is called the Eddington luminosity or Eddington limit. This limit is given by
 \begin{equation}
 L_{Edd} = \frac{4 \pi c G M m_p}{\sigma_T} \simeq 1.26 \left( \frac{M}{M_\odot} \right) W = 3.2 \times 10^4 \left( \frac{M}{M_\odot} \right) L_\odot \ ,
 \end{equation}
-where $c$ is the speed of light, $G$ is the gravitational constant, $M$ is the mass of the black hole, $m_p$ is the proton mass, and $\sigma_T$ is the Thompson scattering cross-section. Assuming there are no other effects which affect the accretion rate, this limit gives the maximum rate at which black holes can grow. 
+where $c$ is the speed of light, $G$ is the gravitational constant, $M$ is the mass of the black hole, $m_p$ is the proton mass, and $\sigma_T$ is the Thomson scattering cross-section for an electron. The Thomson cross-section describes the effective area for photon interactions for a free charged particle. Assuming there are no other effects which affect the accretion rate, this limit gives the maximum rate at which black holes can grow solely through spherical accretion. 
 
-A so called `seed' black hole between the mass of $100 M_\odot$ and $10^6 M_\odot$ would require over 0.5 Gyr to grow into a $10^9 M_\odot$ supermassive black hole, given it constantly grows at Eddington rate. Due to this fact, the observed existence of supermassive black holes of that size when the universe was around 1 Gyr old implies that these seed black holes must have formed at redshifts larger than 10. In such a young universe there are several ways that intermediate mass black holes could form \citep{mezcua:2017}. These methods are illustrated in figure \ref{fig:imbhs}.
+A so called `seed' black hole with a mass around $10^6 M_\odot$ would require over 0.5 Gyr to grow into a $10^9 M_\odot$ supermassive black hole, given it constantly grows at Eddington rate. Due to this fact, the observed existence of supermassive black holes of $10^9 M_\odot$ when the universe was around 1 Gyr old implies that these seed black holes must have formed at redshifts larger than 10. In such a young universe there are several ways that intermediate mass black holes could form \citep{mezcua:2017}. These methods are illustrated in figure \ref{fig:imbhs}.
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[width=\textwidth]{../images/imbhs.pdf}
 \caption{Different methods of birth for seed intermediate mass black holes. These include collapse of Pop III stars, mergers in dense stellar clusters, and direct collapse of gas in protogalaxies. Some black holes will grow to be supermassive, but some will stay in their intermediate state to this day.
-(Figure 1 from \cite{mezcua:2017})}
+(Figure adapted from \citealt{mezcua:2017})}
 \label{fig:imbhs}
 \end{figure}
 
-One way for these kinds of black holes to form could be through massive Population III stars. These stars formed early in the universe and thus they had very low metallicities. This allows them to grow very large, and the mass of Pop III stars can exceed 200 solar masses. These stars can also retain their mass as they exhibit weaker stellar winds compared to more metal-rich stars. When these stars collapse in a similar manner to lower mass stars, they could then form black holes with masses of several hundred $M_\odot$. These kinds of black holes would still be relatively light, requiring super-Eddington accretion rates to reach the observed masses at around redshift 6. To circumvent this problem, the seed black holes would need to be more massive from the start. Black holes could also form inside the first protogalaxies by direct collapse of gas. In this kind of environment the gas could form supermassive stars of the magnitude $10^5 M_\odot$, which could collapse into black holes of $10^4 - 10^5 M_\odot$. Another prediction for their formation is through multiple mergers in dense stellar clusters. In a dense region of stars, multiple subsequent mergers can cause the formation of supermassive stars that will collapse into black holes of $10^2 - 10^4 M_\odot$.
+One way for these kinds of black holes to form could be through massive Population III stars. These stars formed early in the universe and thus they had very low metallicities, since heavy elements had not yet formed. Low metallicity allowed these stars to grow very large. This can be explained with how metallicity affects the cooling of clouds. Cooling happens as particles in the cloud collide, exciting each other. The particles then radiate away energy, cooling the system. More low energy transitions, like in metals, means easier excitation and lower final temperature.
+Jeans mass gives the limit for the size of a symmetrical, non-rotating gas cloud before it will collapse under its own gravity. The limit comes from when the cloud's thermal energy and gravitational potential are in equilibrium. The mass can be calculated by
+\begin{equation}
+M_J = \left( \frac{5 k T}{G \mu m} \right)^{3/2} \left( \frac{3}{4 \pi \rho} \right)^{1/2} \ ,
+\end{equation}
+where $k$ is the Boltzmann's constant, $G$ the gravitational constant, $T$ the temperature of the gas, $\rho$ the density of the gas, $\mu$ the mean molecular weight, and $m$ the mass of a particle comprising the gas. So the hotter and thinner the gas cloud is, the more massive it has to be for it to collapse. 
 
-To figure out whether intermediate mass black holes exist or not, we need to measure the mass of candidate black holes. Using stellar or gas dynamics to probe the mass this is the most accurate way of measuring it. Although with our current instruments this method only works on relatively nearby objects. A black hole of $10^5 M_\odot$ has a sphere of influence of about 0.5 pc, and cannot be resolved beyond a megaparsec. In addition to kinematics, radiation signatures such as X-ray and radio emissions can be used to ascertain whether an object is a black hole and what its mass is. One of the best current candidates for an intermediate mass black hole is the central object in the globular cluster G1. Both X-ray and radio emissions have been detected there, and photometric and kinematic observations have given an estimate for a black hole with a mass of around $1.8 \times 10^4 M_\odot$ \citep{gebhardt:2005}.
+At the start of the contraction, the cloud undergoes isothermal collapse. Meaning that the density increases but the temperature can stay approximately constant thanks to cooling. This can allow the cloud to fragment, as isothermal collapse causes the Jeans mass to decrease, allowing the cloud to start collapsing around small internal density inhomogeneities. As the density increases, the cloud becomes more optically thick and the temperature will start to rise as well. This adiabatic collapse will cause the cloud to start heating up into a protostar. If cooling is inefficient to begin with, like in metal-poor clouds, the isothermal phase can be quite short, decreasing fragmentation, allowing the stars to become very big, and Pop III stars can exceed 200 solar masses.
+
+These stars can also retain their mass as they exhibit weaker stellar winds compared to more metal-rich stars. This is because radiation pressure on many spectral lines is the main mechanism behind winds in massive stars. Hydrogen and helium have only few relevant lines, so metal lines are the major reason for strong stellar winds \citep{vink:2001}. When these stars collapse in a similar manner to lower mass stars, they could then form black holes with masses of several hundred $M_\odot$. These kinds of black holes would still be relatively light, requiring super-Eddington accretion rates to reach the observed masses at around redshift 6.
+
+To circumvent this problem, the seed black holes would need to be more massive from the start. Black holes could also form inside the first protogalaxies by direct collapse of gas. The formation of these black holes would require a rapid inflow of dense gas. The gas must have minimal angular momentum so that it doesn't form a disk structure to support itself. In addition, to prevent fragmentation, atomic hydrogen must dominate the cooling process, making it very inefficient. In this kind of environment the gas could form supermassive stars of the magnitude $10^5 M_\odot$, which could collapse into black holes of $10^4 - 10^5 M_\odot$. Another prediction for their formation is through multiple mergers in dense stellar clusters. In a dense region of stars, multiple stellar mergers can cause the formation of supermassive stars that can collapse into black holes of $10^2 - 10^4 M_\odot$ \citep{mezcua:2017}.
+
+To figure out whether intermediate mass black holes exist or not, we need to measure the mass of candidate black holes. The most accurate way to probe the mass is through stellar or gas dynamics. i.e. observing the movements of objects around the black hole, and measuring the mass of the central object based on their orbits. Although with our current instruments this method only works on relatively nearby objects. A black hole of $10^5 M_\odot$ has a sphere of influence of about 0.5 pc, and cannot be resolved beyond a megaparsec. Sphere of influence describes the area around a black hole where its gravitational potential dominates the potential of the surrounding galaxy. It is defined with the equation 
+\begin{equation}
+r_h = \frac{G M_{BH}}{\sigma^2} \ ,
+\end{equation}
+where $G$ is the gravitational constant, $M_{BH}$ the mass of the black hole, and $\sigma$ the velocity dispersion of the surrounding bulge.
+In addition to kinematics, radiation signatures such as X-ray and radio emissions can be used to ascertain whether an object is a black hole and what its mass is. One of the best current candidates for an intermediate mass black hole is the central object in the globular cluster G1. Both X-ray and radio emissions have been detected there, and photometric and kinematic observations have given an estimate for a black hole with a mass of around $1.8 \times 10^4 M_\odot$ \citep{gebhardt:2005}. One can obtain the mass through these measurements by calculating the full line-of-sight velocity distribution (LOSVD), and using this velocity to estimate the central mass.
 
 \subsection{Supermassive black holes}
 
-Supermassive black holes are the sources of some of the most energetic phenomena in the known universe, thus we have been able to detect their presence despite their relative scarcity and distance. They are found in the centers of galaxies, and it is nowadays generally accepted that supermassive black holes are present in practically every galaxy with a bulge component \citep{kormendy:2013}. What would eventually become the first candidates for supermassive black holes were discovered when very luminous radio sources were observed in the 1960s \citep{greenstein:1964}. First thought to be stars, their luminosities, redshifts, and low timescale variabilities made it quite clear that they were something else, hence they were dubbed quasi-stellar objects, or quasars. It was later proposed that matter falling onto a massive compact object could explain the phenomenon.
+Supermassive black holes are the sources of some of the most energetic phenomena in the known universe, thus we have been able to detect their presence despite their relative scarcity and distance. They are found in the centers of galaxies, and it is nowadays generally accepted that supermassive black holes are present in practically every massive galaxy with a bulge component \citep{kormendy:2013}. What would eventually become the first candidates for supermassive black holes were discovered when very luminous radio sources were observed in the 1960s \citep{greenstein:1964}. First thought to be stars, their luminosities, redshifts, and low timescale variabilities made it quite clear that they were something else, hence they were dubbed quasi-stellar objects, or quasars. It was later proposed that matter falling onto a massive compact object could explain the phenomenon.
 
 \begin{figure}[h!tb]
 \centering
@@ -251,13 +281,24 @@ Supermassive black holes are the sources of some of the most energetic phenomena
 \label{fig:MilkyWayBH}
 \end{figure}
 
-On top of spectroscopic measurements, the high resolution of the Hubble Space Telescope (HST) has enabled us to do dynamical measurements of galaxies and their massive black holes. In addition to HST, thanks to advances adaptive optics, ground based observations have given us the best proof for a supermassive black hole at the center of our own galaxy. The galactic center is only around 8.28 kpc away, so individual stars can be resolved and their orbits determined. In figure \ref{fig:MilkyWayBH} orbits of 6 stars orbiting around the galactic center are visualized. Based on the orbit of the star S2, there must be a mass of around $4 \times 10^6 M_\odot$ at the center of the galaxy, and it must be located inside the radius of around 120 AU, otherwise the star would collide with the mass \citep{kormendy:2013}. This rules out the possibility of the central mass being a large group smaller masses, and makes a singular, massive central object the most likely scenario.
+On top of spectroscopic measurements, the high resolution of the Hubble Space Telescope (HST) has enabled us to do dynamical measurements of galaxies and their massive black holes, meaning that we can track the movements of stars in these distant galaxies. In addition to HST, thanks to advances in adaptive optics, ground based observations have given us the best proof for a supermassive black hole at the center of our own galaxy. The galactic center is only around 8.1 kpc away \citep{eisenhauer:2018}, so individual stars can be resolved and their orbits determined. In figure \ref{fig:MilkyWayBH} orbits of 6 stars orbiting around the galactic center are visualized. Based on the orbit of the star S2, there must be a mass of around $4 \times 10^6 M_\odot$ at the center of the galaxy, and it must be located inside the radius of around 120 AU, otherwise the star would collide with the central mass \citep{kormendy:2013}. This rules out the possibility of the central mass being a large group of smaller masses, and makes a singular, massive central object the most likely scenario.
 
-Supermassive black holes are believed to play an important role in the formation and evolution of galaxies. The mass of the central black hole correlates with the properties of the host galaxy and central bulge that contains it. The first of these correlations to be observed was the $M_\bullet - L_{bulge}$ correlation. The correlation between the black hole mass and the luminosity of the bulge has been tested on many galaxies, and it seems to be very consistent. The luminosity of the bulge is dependant on the mass of the bulge, but the correlation between the explicitly measured mass of the bulge and the black hole mass has also been tested and observed. One way to measure the mass of the bulge is by calculating its virial mass. The virial theorem relates the kinetic energy of a stable to system with its potential energy. In astrophysics the common use of this relation is to relate the gravitational potential energy of a system with its kinetic energy. The virial mass of a bulge can be calculated with the equation
+Supermassive black holes are believed to play an important role in the formation and evolution of galaxies. The mass of the central black hole correlates with the properties of the host galaxy and central bulge that contains it. The first of these correlations to be observed was the $M_{BH} - L_{bulge}$ correlation. The correlation between the black hole mass and the luminosity of the bulge has been tested on many galaxies, and it seems to be very consistent. The luminosity of the bulge is dependent on the mass of the bulge, but the correlation between the explicitly measured mass of the bulge and the black hole mass has also been tested and observed. This $M_{BH} - M_{bulge}$ relation is expressed by
+\begin{equation}
+M_{BH} \propto M_{bulge}^{1.12} \ ,
+\end{equation}
+and it has been found to be accurate for many galaxies \citep{haring:2004}.
+
+One way to measure the mass of the bulge is by calculating its virial mass. The virial theorem relates the kinetic energy of a stable to system with its potential energy. In astrophysics the common use of this relation is to relate the gravitational potential energy of a system with its kinetic energy. The virial mass of a bulge can be calculated with the equation
 \begin{equation}
 M_{bulge} = \frac{k r_e \sigma^2_e}{G} \ ,
 \end{equation}
-where $k$ is a scaling factor, $r_e$ is the effective radius, $\sigma_e$ is the velocity dispersion inside the effective radius, and $G$ is the gravitational constant \citep{marconi:2003}. The velocity dispersion of the galaxy has been used in these previous correlations, but there seems to be a correlation between the black hole mass and the velocity dispersion itself. A tight $M_\bullet - \sigma$ correlation is important on a practical level since it allows for good estimates of the black hole mass from relatively easy measurements, and it also implies some sort of link between the growth of the black hole and formation of the bulge \citep{kormendy:2013}.
+where $k$ is a scaling factor, $r_e$ is the effective radius, $\sigma_e$ is the velocity dispersion inside the effective radius, and $G$ is the gravitational constant \citep{marconi:2003}. The velocity dispersion of the galaxy has been used in these previous correlations, but there seems to be a correlation between the black hole mass and the velocity dispersion itself. This $M_{BH} - \sigma$ relation is given by
+\begin{equation}
+M_{BH} \propto \sigma^{4.8} \ , 
+\end{equation}
+and it has been found to be highly accurate for many galaxies \citep{ferrarese:2000}.
+A tight $M_{BH} - \sigma$ correlation is important on a practical level since it allows for good estimates of the black hole mass from relatively easy measurements, and it also implies a link between the growth of the black hole and formation of the bulge \citep{kormendy:2013}.
 
 %TODO
 %korrelaatio massan ja ytimen ominaisuuksien välillä?
@@ -267,31 +308,33 @@ where $k$ is a scaling factor, $r_e$ is the effective radius, $\sigma_e$ is the 
 
 \section{Newtonian dynamics}
 
-Sir Isaac Newton published his three laws of motion in his \textit{Philosophiæ Naturalis Principia Mathematica}, which describe the relationship of forces acting on a body and its reactions to this. These laws form the basis of Newtonian dynamics, which describes the motions of particles with these kinds of forces affecting them. As we will discuss more in section \ref{sect:pndynam}, Newtonian dynamics is only a good approximation of reality, but not the whole truth. Nevertheless, it is important to know this approximation so that we can build better ones on top of it.
+Two body problem stuff next
 
-The first law states that in an inertial frame, an object that is not being acted upon by a force either stays at rest or continues to move at a constant velocity. This also works as a definition for an inertial frame; a frame of reference where a body with zero net force is not accelerating is inertial. The second law states that in an inertial frame, if an object is subject to an external force $\mathbf{F}$, then its equation of motion can be expressed as
-\begin{equation}
-\mathbf{F} = \frac{\mathrm{d} \mathbf{p}}{\mathrm{d}t} \ ,
-\end{equation}
-where $\mathbf{p}$ is the object's momentum. Given that the object's mass does not change over time, this can be also expressed in the more famous form
-\begin{equation} \label{equ:newton2}
-\mathbf{F} = m \mathbf{a} \ ,
-\end{equation}
-where $m$ is the mass of the object and $\mathbf{a}$ is its acceleration. The third law states that when a body exerts a force on a second body, the second body exerts an equally strong force in the opposite direction. 
+%Sir Isaac Newton published his three laws of motion in his \textit{Philosophiæ Naturalis Principia Mathematica}, which describe the relationship of forces acting on a body and its reactions to this. These laws form the basis of Newtonian dynamics, which describes the motions of particles with these kinds of forces affecting them. As we will discuss more in section \ref{sect:pndynam}, Newtonian dynamics is only a good approximation of reality, but not the whole truth. Nevertheless, it is important to know this approximation so that we can build better ones on top of it.
 
-In addition to these laws, in his book Newton formulated a universal law of gravitation, which states that every point mass attracts every other particle in the universe with a force that is proportional to the product of the two masses, and inversely proportional to the square of the distance between them.
-\begin{equation}
-F = \frac{GMm}{r^2}
-\end{equation}
-In vector form this can be written as
-\begin{equation}
-\mathbf{F} = \frac{GMm}{r^3} \mathbf{r} \ .
-\end{equation}
-Combining this with with Newton's second law (equation \ref{equ:newton2}) gives us an equation describing the motion of a particle affected by the gravity of another particle of mass $M$:
-\begin{equation}
-\mathbf{a} = \frac{GM}{r^3} \mathbf{r} \ ,
-\end{equation}
-where the mass of the other particle cancels out. This equation is fundamental in, for example, simulating the motions of stellar objects, since gravity dominates their interactions, making it the most prominent force to affect them by a large margin.
+%The first law states that in an inertial frame, an object that is not being acted upon by a force either stays at rest or continues to move at a constant velocity. This also works as a definition for an inertial frame; a frame of reference where a body with zero net force is not accelerating is inertial. The second law states that in an inertial frame, if an object is subject to an external force $\mathbf{F}$, then its equation of motion can be expressed as
+%\begin{equation}
+%\mathbf{F} = \frac{\mathrm{d} \mathbf{p}}{\mathrm{d}t} \ ,
+%\end{equation}
+%where $\mathbf{p}$ is the object's momentum. Given that the object's mass does not change over time, this can be also expressed in the more famous form
+%\begin{equation} \label{equ:newton2}
+%\mathbf{F} = m \mathbf{a} \ ,
+%\end{equation}
+%where $m$ is the mass of the object and $\mathbf{a}$ is its acceleration. The third law states that when a body exerts a force on a second body, the second body exerts an equally strong force in the opposite direction. 
+%
+%In addition to these laws, in his book Newton formulated a universal law of gravitation, which states that every point mass attracts every other particle in the universe with a force that is proportional to the product of the two masses, and inversely proportional to the square of the distance between them.
+%\begin{equation}
+%F = \frac{GMm}{r^2}
+%\end{equation}
+%In vector form this can be written as
+%\begin{equation}
+%\mathbf{F} = \frac{GMm}{r^3} \mathbf{r} \ .
+%\end{equation}
+%Combining this with with Newton's second law (equation \ref{equ:newton2}) gives us an equation describing the motion of a particle affected by the gravity of another particle of mass $M$:
+%\begin{equation}
+%\mathbf{a} = \frac{GM}{r^3} \mathbf{r} \ ,
+%\end{equation}
+%where the mass of the other particle cancels out. This equation is fundamental in, for example, simulating the motions of stellar objects, since gravity dominates their interactions, making it the most prominent force to affect them by a large margin.
 
 %perusjuttua newtonin dynamiikasta
 %ennen kun pääsee käsiks PN stuffiin ja regularisaatioon pitää tietää tästä
@@ -307,6 +350,7 @@ Usually this comes with the cost of having a higher number of variables to keep 
 While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when more massive or faster moving objects are concerned, and instead we need to use general relativity (GR). %TODO Selitä geeärrää?
 Doing fully general relativistic simulations is very computationally intensive however, so more wieldy methods are required for large scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations for the metric tensor. %TODO selitä noi lisäks
 Einstein field equations are the set of 10 equations in Albert Einstein's general theory of relativity that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy.
+%TODO tää kopipastattiin aiemmas
 In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system, but it can also be applied to situations involving compact bodies with strong internal gravity.
 %provided that the mutual gravity between bodies is weak enough.
 
@@ -388,11 +432,6 @@ These two-body PN corrections are only used when at least one of the bodies is a
 \section{Time-transformed leapfrog}
 \section{Collisions}
 
-\chapter{KETJU}
-\section{KETJU overview}
-\section{}
-\section{}
-
 \chapter{AR-CHAIN results}
 \section{OJ287}
 
@@ -454,7 +493,9 @@ One should keep in mind that this model is very simplistic. There are only the t
 \subsection{Differences from reality}
 \section{Effects of spin}
 
-\chapter{KETJU results}
+\chapter{KETJU and results}
+\section{KETJU overview}
+\section{}
 \section{}
 
 \chapter{Conclusions}
