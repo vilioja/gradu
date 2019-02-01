@@ -13,6 +13,9 @@
 \usepackage[sort,colon]{natbib} % For bibliography
 \usepackage[footnotesize,bf]{caption} % For more control over figure captions
 
+\renewcommand{\topfraction}{.75}
+\renewcommand{\floatpagefraction}{.75}
+
 \fussy % Probably not needed but you never know...
 
 % OPTIONAL STEP: Set up properties and metadata for the pdf file that pdfLaTeX makes.
@@ -168,7 +171,7 @@ which describe the stationary limit surfaces of the black hole. Here $\mu = \fra
 
 In figure \ref{fig:KerrHole} one can see the different surfaces of a spinning black hole and their approximate shapes. The surfaces mostly resemble axisymmetric ellipsoids, flattened along the rotation axis. Although the outer limit of the ergosphere changes its shape as the spinning gets faster, resembling a pumpkin-shape at nearly maximal spins. It however always touches the outer event horizon at the poles. The inner horizon and stationary limit surface also touch at the poles. On the equatorial plane the inner stationary limit surface also coincides with the ring singularity.
 
-\begin{figure}[h!tb]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../images/kerrhole.pdf}
 \caption{Diagram showing the structure of a Kerr black hole. It shows the inner and outer ergospheres and event horizons, and the ring singularity in the middle. This kind of black hole has non-zero spin. If the spin was 0 we would have a Schwarzschild black hole instead.
@@ -208,7 +211,7 @@ Iron and nickel have the highest binding energies of all the elements, meaning t
 
 What happens next depends on the mass of the star. For the star to be able to even reach this stage, it needs to be initially over around 8 solar masses. Otherwise it does not have enough mass to fuse the heavier elements, and it will gradually expand its atmosphere into a planetary nebula, leaving behind a white dwarf. In more massive stars, the iron core will exceed the Chandrasekhar limit of around 1.4 solar masses, which describes the upper limit for the mass of a stable white dwarf. Stars above this $\sim$8 solar mass threshold but below $\sim$20 solar masses explode in supernovae and leave behind neutron stars. If the initial mass of the star is even higher than that, the stellar core is too massive to not collapse into a black hole \citep{woosley:2002}. The actual mass limit is the Tolman–Oppenheimer–Volkoff limit, which gives the upper bound for a cold, non-rotating neutron star, and is about 2.2 solar masses. These limits have to do with the properties of the degenerate matter that dense stellar remnants are made of. While main sequence stars stay in hydrostatic equilibrium thanks to thermal pressure, stellar remnants resist collapse through degeneracy pressure. White dwarfs and neutrons stars can be modelled as a Fermi gas, which is the quantum mechanical equivalent of an ideal gas. The Pauli exclusion principle states that identical fermions cannot occupy the same quantum state within a quantum system simultaneously. Thus there exists a sort of interaction or pressure between the particles in a Fermi gas that keeps them separate, even at absolute zero temperature. This manifests as a degeneracy pressure that resists further gravitational collapse. In white dwarfs the electron degeneracy pressure is what keeps the object in an equilibrium. Past the Chandrasekhar limit the electrons will combine with protons to form neutrons, forming a remnant made of degenerate neutron matter. Neutron stars are then supported by the degenerate neutron pressure. For stellar remnants more massive than the Tolman–Oppenheimer–Volkoff limit, the gravitational pull will exceed even the degenerate pressure, causing the remnant to collapse into a black hole. This also gives a lower limit for the mass of new black holes that form through stellar collapse.
 
-\begin{figure}[h!tb]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../images/SolarSystemAbundances.pdf}
 \caption{Diagram illustrating the abundancies of different elements in our solar system. Iron is the final product of fusion in stars, causing it to be very abundant in the universe thanks to its production in stars before they explode. The abundant alpha elements are also clearly noticeable.
@@ -241,7 +244,7 @@ where $c$ is the speed of light, $G$ is the gravitational constant, $M$ is the m
 
 A so called `seed' black hole with a mass around $10^6 M_\odot$ would require over 0.5 Gyr to grow into a $10^9 M_\odot$ supermassive black hole, given it constantly grows at Eddington rate. Due to this fact, the observed existence of supermassive black holes of $10^9 M_\odot$ when the universe was around 1 Gyr old implies that these seed black holes must have formed at redshifts larger than 10. In such a young universe there are several ways that intermediate mass black holes could form \citep{mezcua:2017}. These methods are illustrated in figure \ref{fig:imbhs}.
 
-\begin{figure}[h!tb]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../images/imbhs.pdf}
 \caption{Different methods of birth for seed intermediate mass black holes. These include collapse of Pop III stars, mergers in dense stellar clusters, and direct collapse of gas in protogalaxies. Some black holes will grow to be supermassive, but some will stay in their intermediate state to this day.
@@ -311,12 +314,19 @@ A tight $M_{BH} - \sigma$ correlation is important on a practical level since it
 
 Solving the Newtonian two-body problem, i.e. determining the motions of two particles interacting only with each other, is extremely useful. It allows solving the behaviour of two essentially isolated objects, like a binary star system. It for example also enables us to calculate the masses of two objects that are observed to be interacting with each other.
 
-Let us assume we have a mass $m_1$ situated at position vector $\mathbf{r}_1$, and a mass $m_2$ at position vector $\mathbf{r}_1$. If the first mass exerts a force $\mathbf{f}_{21}$ on the second, by Newton's third law the second object exerts an equal and opposite force, $\mathbf{f}_{12} = -\mathbf{f}_{21}$, on the first one. If these two objects are the only ones in the system, their equations of motion are
+Let us assume we have a mass $m_1$ situated at position vector $\mathbf{r}_1$, and a mass $m_2$ at position vector $\mathbf{r}_1$. If the first mass exerts a force $\mathbf{f}_{21}$ on the second, by Newton's third law the second object exerts an equal and opposite force, $\mathbf{f}_{12} = -\mathbf{f}_{21}$, on the first one. The masses an their positions are illustrated in figure \ref{fig:2BodyProb}. If these two objects are the only ones in the system, their equations of motion are
 \begin{align}
 m_1 \mathbf{\ddot{r}}_1 &= -\mathbf{f} \label{equ:eom1} \\
 m_2 \mathbf{\ddot{r}}_2 &= \mathbf{f} \label{equ:eom2} \ ,
 \end{align}
 where $\mathbf{f} = \mathbf{f}_{21}$.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.5]{../images/2bp.pdf}
+\caption{The position vectors $\mathbf{r}_1$ and $\mathbf{r}_2$ point to the masses $m_1$ and $m_2$ respectively. $\mbox{$\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$}$ is their relative displacement vector, and $\mathbf{R}$ is the position vector of the system's center of mass.}
+\label{fig:2BodyProb}
+\end{figure}
 
 We can first get an equation describing the motion of the system's center of mass by adding these two equations together. The position vector of the center of mass is
 \begin{equation}
@@ -330,9 +340,7 @@ This gives us that
 \begin{equation}
 \mathbf{\ddot{R}} = 0 \ ,
 \end{equation}
-which shows that the velocity of the center of mass is constant. So the position of the center of mass can be determined at all times from initial positions and velocities.
-
-We can denote the relative displacement vector of the two masses with $\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$. With it and the center of mass vector, we can write
+which shows that the velocity of the center of mass is constant. So the position of the center of mass can be determined at all times from initial positions and velocities. We can denote the relative displacement vector of the two masses with $\mbox{$\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$}$. With it and the center of mass vector, we can write
 \begin{align}
 \mathbf{r_1} &= \mathbf{R} - \frac{m_2}{m_1 + m_2}\mathbf{r} \\
 \mathbf{r_2} &= \mathbf{R} + \frac{m_1}{m_1 + m_2}\mathbf{r}
@@ -345,14 +353,7 @@ where
 \begin{equation}
 \mu = \frac{m_1 m_2}{m_1 + m_2}
 \end{equation}
-is called the reduced mass. Thus we have effectively converted the two-body problem of masses $m_1$ and $m_2$ into a one-body problem of mass $\mu$.
-
-\begin{figure}[h!tb]
-\centering
-\includegraphics[scale=0.5]{../images/2bp.pdf}
-\caption{The position vectors $\mathbf{r}_1$ and $\mathbf{r}_2$ point to the masses $m_1$ and $m_2$ respectively. $\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$ is their relative displacement vector, and $\mathbf{R}$ is the position vector of the system's center of mass.}
-\label{fig:2BodyProb}
-\end{figure}
+is called the reduced mass. Thus we have effectively converted the two-body problem of masses $m_1$ and $m_2$ into a one-body problem of mass $\mu$. The situation is more simple since we do not have to inspect the movement of two separate particles, only the movement of one particle with respect to the other.
 
 In the case of celestial objects, the force that affects these masses is gravity. The gravitational force that the first object exerts on the second is
 \begin{equation}
@@ -376,9 +377,9 @@ where
 \begin{equation}
 r = \frac{a (1-e^2)}{1 - e \ \mathrm{cos} f} \ .
 \end{equation}
-This is the equation for the orbit. $a$ is the semimajor axis of the orbit, $e$ is the eccentricity of the orbit, and $f$ is the true anomaly of the orbit. This is also the equation for a conic section in polar coordinates, thus all of these orbits are conic sections. The true anomaly is the only variable in the classic Newtonian case; semimajor axis and eccentricity are constants.
+This is the equation of the orbit \citep{tame}. $a$ is the semimajor axis of the orbit, $e$ is the eccentricity of the orbit, and $f$ is the true anomaly of the orbit. This is also the equation for a conic section in polar coordinates, thus all of these orbits are conic sections. The true anomaly is the only changing variable in the equation of the orbit in the classic Newtonian case; semimajor axis and eccentricity are orbital elements and do not change with time.
 
-The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so removing the term is very useful. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered with post-Newtonian terms to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
+While the solution to the two-body problem works quite accurately for example in solar systems, in more extreme environments it faces some limitations. The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so removing the term is very useful. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered, for example with post-Newtonian terms, to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
 
 %TODO
 %mainitse lopussa että ei toimi täsmälleen tälleen koska suhteellisuusteoria, pohjusta PN hommaa
