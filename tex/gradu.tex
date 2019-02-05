@@ -312,9 +312,9 @@ A tight $M_{BH} - \sigma$ correlation is important on a practical level since it
 
 \section{Newtonian dynamics}
 
-Solving the Newtonian two-body problem, i.e. determining the motions of two particles interacting only with each other, is extremely useful. It allows solving the behaviour of two essentially isolated objects, like a binary star system. It for example also enables us to calculate the masses of two objects that are observed to be interacting with each other.
+Solving the Newtonian two-body problem, i.e. determining the motions of two particles interacting only with each other through gravity, is extremely useful. It allows solving the behaviour of two essentially isolated objects, such as a binary star system. It for example also enables us to calculate the masses of two objects that are observed to be interacting with each other if the orbits are known.
 
-Let us assume we have a mass $m_1$ situated at position vector $\mathbf{r}_1$, and a mass $m_2$ at position vector $\mathbf{r}_1$. If the first mass exerts a force $\mathbf{f}_{21}$ on the second, by Newton's third law the second object exerts an equal and opposite force, $\mathbf{f}_{12} = -\mathbf{f}_{21}$, on the first one. The masses an their positions are illustrated in figure \ref{fig:2BodyProb}. If these two objects are the only ones in the system, their equations of motion are
+Let us assume we have a mass $m_1$ situated at position vector $\mathbf{r}_1$, and a mass $m_2$ at position vector $\mathbf{r}_2$. If the first mass exerts a force $\mathbf{f}_{21}$ on the second, by Newton's third law the second object exerts an equal and opposite force, $\mathbf{f}_{12} = -\mathbf{f}_{21}$, on the first one. The masses an their positions are illustrated in figure \ref{fig:2BodyProb}. If these two objects are the only objects in the system, their equations of motion are
 \begin{align}
 m_1 \mathbf{\ddot{r}}_1 &= -\mathbf{f} \label{equ:eom1} \\
 m_2 \mathbf{\ddot{r}}_2 &= \mathbf{f} \label{equ:eom2} \ ,
@@ -324,15 +324,15 @@ where $\mathbf{f} = \mathbf{f}_{21}$.
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.5]{../images/2bp.pdf}
-\caption{The position vectors $\mathbf{r}_1$ and $\mathbf{r}_2$ point to the masses $m_1$ and $m_2$ respectively. $\mbox{$\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$}$ is their relative displacement vector, and $\mathbf{R}$ is the position vector of the system's center of mass.}
+\caption{The position vectors $\mathbf{r}_1$ and $\mathbf{r}_2$ point to the masses $m_1$ and $m_2$ respectively. $\mbox{$\mathbf{r} = \mathbf{r_2} - \mathbf{r_1}$}$ is their relative displacement vector, and $\mathbf{R}$ is the position vector of the center of mass of the system.}
 \label{fig:2BodyProb}
 \end{figure}
 
-We can first get an equation describing the motion of the system's center of mass by adding these two equations together. The position vector of the center of mass is
+We can first get an equation describing the motion of the center of mass of the system by adding the equations \ref{equ:eom1} and \ref{equ:eom2} together. The position vector of the center of mass is
 \begin{equation}
 \mathbf{R} = \frac{m_1 \mathbf{r}_1 + m_2 \mathbf{r}_2}{m_1 + m_2}
 \end{equation}
-and adding \ref{equ:eom1} and \ref{equ:eom2} together we get
+and by doing the addition we get
 \begin{equation}
 m_1 \mathbf{\ddot{r}}_1 + m_2 \mathbf{\ddot{r}}_2 = (m_1 + m_2) \mathbf{\ddot{R}} = \mathbf{f} - \mathbf{f} = 0 \ .
 \end{equation}
@@ -353,9 +353,9 @@ where
 \begin{equation}
 \mu = \frac{m_1 m_2}{m_1 + m_2}
 \end{equation}
-is called the reduced mass. Thus we have effectively converted the two-body problem of masses $m_1$ and $m_2$ into a one-body problem of mass $\mu$. The situation is more simple since we do not have to inspect the movement of two separate particles, only the movement of one particle with respect to the other.
+is called the reduced mass. Thus we have effectively converted the two-body problem of masses $m_1$ and $m_2$ into a one-body problem of the reduced mass $\mu$. The situation is more simple since we do not have to inspect the movement of two separate particles, only the movement of one particle with respect to the other.
 
-In the case of celestial objects, the force that affects these masses is gravity. The gravitational force that the first object exerts on the second is
+In the case of celestial objects, the force that affects these masses is gravity. The gravitational force that the first object exerts on the second object is
 \begin{equation}
 \mathbf{f} = -\frac{G m_1 m_2}{r^3} \mathbf{r}
 \end{equation}
@@ -369,17 +369,55 @@ which gives us the equation of motion
 \end{equation}
 where $M = m_1 + m_2$ is the total mass of the system.
 
+The position vector can be expressed as
+\begin{equation}
+\mathbf{r} = r \hat{\mathbf{e}}_r \ ,
+\end{equation}
+where $\hat{\mathbf{e}}_r$ is a direction vector. The gravitational field in the equation of motion can be expressed as
+\begin{equation}
+g(r) = -\frac{G M}{r^2} \ ,
+\end{equation}
+so the equation of motion becomes
+\begin{equation}
+\frac{\mathrm{d}^2 \mathbf{r}}{\mathrm{d} t^2} = g(r) \hat{\mathbf{e}}_r \ .
+\end{equation}
+Since the cross product of a vector with itself is zero, we can see that
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d} t} \left( r \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \right) = \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} + \mathbf{r} \times \frac{\mathrm{d}^2 \mathbf{r}}{\mathrm{d} t^2} = 0 + r \hat{\mathbf{e}}_r \times g(r) \hat{\mathbf{e}}_r = 0 \ ,
+\end{equation}
+so $\mathbf{r} \times \mathbf{\dot{r}}$ is some constant vector, which we can denote with for example $\mathbf{L}$. This is simply the angular momentum per unit mass. It is a constant vector, and therefore the movement of the orbiting objects must happen in a plane. Limiting the movement to two dimensions simplifies the situation, and we can use plane polar coordinates $(r, \theta)$ where the center of attraction is at $r = 0$ and $\theta$ is the azimuthal angle in the plane. We can now find the equations of motions for the system in these coordinates by forming the Lagrangian per unit mass, which is
+\begin{equation}
+\mathcal{L} = K - V = \frac{1}{2} \mathbf{v}^2 - \Phi (r) = \frac{1}{2} \left[ \dot{r}^2 + (r \hat{\theta})^2 \right] - \Phi (r) \ ,
+\end{equation}
+where $\Phi$ is the gravitational potential and $g(r) = -\mathrm{d} \Phi / \mathrm{d} r$. Writing out the Lagrange's equations gives us the equations of motion, which are
+\begin{align}
+\frac{\mathrm{d} }{\mathrm{d} t} \left( \frac{\partial \mathcal{L}}{\partial \dot{r}} \right) - \frac{\partial \mathcal{L}}{\partial r} &= \ddot{r} - r \dot{\theta}^2 + \frac{\mathrm{d} \Phi}{\mathrm{d} r} = 0 \label{equ:leom1} \\
+\frac{\mathrm{d} }{\mathrm{d} t} \left( \frac{\partial \mathcal{L}}{\partial \dot{\theta}} \right) - \frac{\partial \mathcal{L}}{\partial \theta} &= \frac{\mathrm{d}}{\mathrm{d} t} (r^2 \dot{\theta}) = 0 \label{equ:leom2} \ .
+\end{align}
+\ref{equ:leom2} implies that $r^2 \dot{\theta}$ is a constant, which we can denote with $L$. And this is actually the same $L$, angular momentum per unit mass, as before. So this equation is a restatement of the conservation of angular momentum. We can use it to replace time with angle as the independent variable in equation \ref{equ:leom1}. \ref{equ:leom2} implies that
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d} t} = \frac{L}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \ ,
+\end{equation}
+so equation \ref{equ:leom1} becomes
+\begin{equation}
+\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) - \frac{L^2}{r^3} = -\frac{\mathrm{d} \Phi}{\mathrm{d} r} \ .
+\end{equation}
+Expanding the first term gives us 
+\begin{equation}
+\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) = -\frac{2 L^2}{r^5} \left( \frac{\mathrm{d} r}{\mathrm{d} \theta} \right)^2 + \frac{L^2}{r^4} \frac{\mathrm{d}^2 r}{\mathrm{d} \theta^2}
+\end{equation}
+
 The solution for the equation of motion in polar coordinates is
 \begin{equation}
 \mathbf{r} = (r \ \mathrm{cos} f, r \ \mathrm{sin} f, 0) \ ,
 \end{equation}
 where
 \begin{equation}
-r = \frac{a (1-e^2)}{1 - e \ \mathrm{cos} f} \ .
+r = \frac{a (1-e^2)}{1 + e \ \mathrm{cos} f} \ .
 \end{equation}
-This is the equation of the orbit \citep{tame}. $a$ is the semimajor axis of the orbit, $e$ is the eccentricity of the orbit, and $f$ is the true anomaly of the orbit. This is also the equation for a conic section in polar coordinates, thus all of these orbits are conic sections. The true anomaly is the only changing variable in the equation of the orbit in the classic Newtonian case; semimajor axis and eccentricity are orbital elements and do not change with time.
+This is the equation of the orbit \citep{tame}. $a$ is the semimajor axis of the orbit, $e$ is the eccentricity of the orbit, and $f$ is the true anomaly of the orbit. This is also the equation for a conic section in polar coordinates, thus all of these orbits are conic sections. The true anomaly is the only changing variable in the equation of the orbit in the classic Newtonian case; semimajor axis and eccentricity are orbital elements and do not change with time in a two-body system.
 
-While the solution to the two-body problem works quite accurately for example in solar systems, in more extreme environments it faces some limitations. The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so removing the term is very useful. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered, for example with post-Newtonian terms, to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
+The solution to the two-body problem works quite accurately for example in our solar system, even though there are more than just two objects. This is because the mass of the Sun dominates all of the interactions and the planets are far away from each other, so each planet can be examined on its own. In more extreme environments, however, it faces some limitations. The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so modifying the singularity is very useful. This is called regularization. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered, for example with post-Newtonian terms, to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
 
 %TODO
 %mainitse lopussa että ei toimi täsmälleen tälleen koska suhteellisuusteoria, pohjusta PN hommaa
