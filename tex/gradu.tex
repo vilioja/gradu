@@ -400,22 +400,49 @@ where $\Phi$ is the gravitational potential and $g(r) = -\mathrm{d} \Phi / \math
 \end{equation}
 so equation \ref{equ:leom1} becomes
 \begin{equation}
-\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) - \frac{L^2}{r^3} = -\frac{\mathrm{d} \Phi}{\mathrm{d} r} \ .
+\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) - \frac{L^2}{r^3} = -\frac{\mathrm{d} \Phi}{\mathrm{d} r} \label{equ:leom1edit} \ .
 \end{equation}
 Expanding the first term gives us 
 \begin{equation}
-\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) = -\frac{2 L^2}{r^5} \left( \frac{\mathrm{d} r}{\mathrm{d} \theta} \right)^2 + \frac{L^2}{r^4} \frac{\mathrm{d}^2 r}{\mathrm{d} \theta^2}
+\frac{L^2}{r^2} \frac{\mathrm{d}}{\mathrm{d} \theta} \left( \frac{1}{r^2} \frac{\mathrm{d} r}{\mathrm{d} \theta} \right) = -\frac{2 L^2}{r^5} \left( \frac{\mathrm{d} r}{\mathrm{d} \theta} \right)^2 + \frac{L^2}{r^4} \frac{\mathrm{d}^2 r}{\mathrm{d} \theta^2} \ .
 \end{equation}
-
-The solution for the equation of motion in polar coordinates is
+Making the substitution $u \equiv \frac{1}{r}$ allows us to simplify the equation. Since
 \begin{equation}
-\mathbf{r} = (r \ \mathrm{cos} f, r \ \mathrm{sin} f, 0) \ ,
+\frac{\mathrm{d}^2 u}{\mathrm{d} \theta^2} = \frac{2}{r^2} \left( \frac{\mathrm{d} r}{\mathrm{d} \theta} \right)^2 - \frac{1}{r^2} \frac{\mathrm{d}^2 r}{\mathrm{d} \theta^2} \ ,
 \end{equation}
-where
+we can rearrange the terms so that equation \ref{equ:leom1edit} becomes
 \begin{equation}
-r = \frac{a (1-e^2)}{1 + e \ \mathrm{cos} f} \ .
+\frac{\mathrm{d}^2 u}{\mathrm{d} \theta^2} + u = \frac{1}{L^2 u^2} \frac{\mathrm{d}}{\mathrm{d} r} \Phi (r) \ .
 \end{equation}
-This is the equation of the orbit \citep{tame}. $a$ is the semimajor axis of the orbit, $e$ is the eccentricity of the orbit, and $f$ is the true anomaly of the orbit. This is also the equation for a conic section in polar coordinates, thus all of these orbits are conic sections. The true anomaly is the only changing variable in the equation of the orbit in the classic Newtonian case; semimajor axis and eccentricity are orbital elements and do not change with time in a two-body system.
+Further using the relation
+\begin{equation}
+\frac{\mathrm{d} \Phi}{\mathrm{d} r} = -u^2 \frac{\mathrm{d} \Phi}{\mathrm{d} u}
+\end{equation}
+this simplifies into
+\begin{equation}
+\frac{\mathrm{d}^2 u}{\mathrm{d} \theta^2} + u = -\frac{1}{L^2} \frac{\mathrm{d}}{\mathrm{d} r} \Phi (1/u) \label{equ:leom3} \ .
+\end{equation}
+Because our gravitational potential is of the form $\Phi = -GMu$, \ref{equ:leom3} simply becomes
+\begin{equation}
+\frac{\mathrm{d}^2 u}{\mathrm{d} \theta^2} + u = \frac{GM}{L^2} \ .
+\end{equation}
+We can immediately see that this is the equation for a simple harmonic oscillator. So we know that its general solution is
+\begin{equation}
+u(\theta) = C \mathrm{cos}(\theta - \theta_0) + \frac{GM}{L^2} \label{equ:eomsolution} \ ,
+\end{equation}
+where $C > 0$ and $\theta_0$ are arbitrary constants. We set $\theta_0 = 0$. By defining the orbit's eccentricity, i.e. how much the shape of the orbit differs from a perfect circle, by 
+\begin{equation}
+e \equiv \frac{CL^2}{GM}
+\end{equation}
+and its semimajor axis, i.e. half of the longest diameter of an ellipse, by
+\begin{equation}
+a \equiv \frac{L^2}{GM(1-e^2)} \ ,
+\end{equation}
+equation \ref{equ:eomsolution} can be rewritten as 
+\begin{equation}
+r(\theta) = \frac{a (1-e^2)}{1 + e \ \mathrm{cos} \, \theta} \ .
+\end{equation}
+This is the equation of the orbit for Keplerian orbits, and it is also the equation for a conic section, since all Keplerian orbits are conic sections. $\theta$ is called true anomaly, and it is defined as the angle from the periapsis, as seen from the main focus of the ellipse.
 
 The solution to the two-body problem works quite accurately for example in our solar system, even though there are more than just two objects. This is because the mass of the Sun dominates all of the interactions and the planets are far away from each other, so each planet can be examined on its own. In more extreme environments, however, it faces some limitations. The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so modifying the singularity is very useful. This is called regularization. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered, for example with post-Newtonian terms, to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
 
