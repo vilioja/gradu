@@ -387,7 +387,7 @@ Since the cross product of a vector with itself is zero, we can see that
 \end{equation}
 so $\mathbf{r} \times \mathbf{\dot{r}}$ is some constant vector, which we can denote with for example $\mathbf{L}$. This is simply the angular momentum per unit mass. It is a constant vector, and therefore the movement of the orbiting objects must happen in a plane. Limiting the movement to two dimensions simplifies the situation, and we can use plane polar coordinates $(r, \theta)$ where the center of attraction is at $r = 0$ and $\theta$ is the azimuthal angle in the plane. We can now find the equations of motions for the system in these coordinates by forming the Lagrangian per unit mass, which is
 \begin{equation}
-\mathcal{L} = K - V = \frac{1}{2} \mathbf{v}^2 - \Phi (r) = \frac{1}{2} \left[ \dot{r}^2 + (r \hat{\theta})^2 \right] - \Phi (r) \ ,
+\mathcal{L} = K - V = \frac{1}{2} \mathbf{v}^2 - \Phi (r) = \frac{1}{2} \left[ \dot{r}^2 + (r \dot{\theta})^2 \right] - \Phi (r) \ ,
 \end{equation}
 where $\Phi$ is the gravitational potential and $g(r) = -\mathrm{d} \Phi / \mathrm{d} r$. Writing out the Lagrange's equations gives us the equations of motion, which are
 \begin{align}
@@ -430,7 +430,7 @@ We can immediately see that this is the equation for a simple harmonic oscillato
 \begin{equation}
 u(\theta) = C \mathrm{cos}(\theta - \theta_0) + \frac{GM}{L^2} \label{equ:eomsolution} \ ,
 \end{equation}
-where $C > 0$ and $\theta_0$ are arbitrary constants. We set $\theta_0 = 0$. By defining the orbit's eccentricity, i.e. how much the shape of the orbit differs from a perfect circle, by 
+where $C > 0$ and $\theta_0$ are arbitrary constants \citep{bt-galdyn}. We set $\theta_0 = 0$. By defining the orbit's eccentricity, i.e. how much the shape of the orbit differs from a perfect circle, by 
 \begin{equation}
 e \equiv \frac{CL^2}{GM}
 \end{equation}
@@ -442,7 +442,14 @@ equation \ref{equ:eomsolution} can be rewritten as
 \begin{equation}
 r(\theta) = \frac{a (1-e^2)}{1 + e \ \mathrm{cos} \, \theta} \ .
 \end{equation}
-This is the equation of the orbit for Keplerian orbits, and it is also the equation for a conic section, since all Keplerian orbits are conic sections. $\theta$ is called true anomaly, and it is defined as the angle from the periapsis, as seen from the main focus of the ellipse.
+This is the equation of the orbit for Keplerian orbits, and it is also the equation for a conic section, since all Keplerian orbits are conic sections. $\theta$ is called true anomaly, and it is defined as the angle from the periapsis, as seen from the main focus of the ellipse. Figure \ref{fig:ellipse} illustrates these different parameters.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/ellipse.pdf}
+\caption{The different parameters of an elliptic orbit. $C$ is the center of the ellipse, $F$ is the main focus of the ellipse, $a$ is the semimajor axis, $f$ is the distance between the center and focus of the ellipse, $r$ points to the current place of the orbiting body, and $\theta$ is the true anomaly of the object. Eccentricity $e$ can be expressed as the ratio between $f$ and $a$.}
+\label{fig:ellipse}
+\end{figure}
 
 The solution to the two-body problem works quite accurately for example in our solar system, even though there are more than just two objects. This is because the mass of the Sun dominates all of the interactions and the planets are far away from each other, so each planet can be examined on its own. In more extreme environments, however, it faces some limitations. The singularity in the equation of motion as $r$ approaches 0 is troublesome when running simulations with close encounters, so modifying the singularity is very useful. This is called regularization. The equation of motion also works only for classical Newtonian systems, but fails to give correct results when relativistic effects become prominent. Thus the equation must be altered, for example with post-Newtonian terms, to make it applicable in a relativistic setting. The next two chapters tackle these two problems respectively.
 
