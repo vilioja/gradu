@@ -365,7 +365,7 @@ where $\mathbf{r}$ is the aforementioned displacement vector and $G$ is the grav
 \end{equation}
 which gives us the equation of motion
 \begin{equation}
-\mathbf{\ddot{r}} = -\frac{G M}{r^3} \mathbf{r}
+\mathbf{\ddot{r}} = -\frac{G M}{r^3} \mathbf{r} \label{equ:eomgravity}
 \end{equation}
 where $M = m_1 + m_2$ is the total mass of the system.
 
@@ -383,7 +383,7 @@ so the equation of motion becomes
 \end{equation}
 Since the cross product of a vector with itself is zero, we can see that
 \begin{equation}
-\frac{\mathrm{d}}{\mathrm{d} t} \left( r \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \right) = \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} + \mathbf{r} \times \frac{\mathrm{d}^2 \mathbf{r}}{\mathrm{d} t^2} = 0 + r \hat{\mathbf{e}}_r \times g(r) \hat{\mathbf{e}}_r = 0 \ ,
+\frac{\mathrm{d}}{\mathrm{d} t} \left( \mathbf{r} \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \right) = \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} \times \frac{\mathrm{d} \mathbf{r}}{\mathrm{d} t} + \mathbf{r} \times \frac{\mathrm{d}^2 \mathbf{r}}{\mathrm{d} t^2} = 0 + r \hat{\mathbf{e}}_r \times g(r) \hat{\mathbf{e}}_r = 0 \ ,
 \end{equation}
 so $\mathbf{r} \times \mathbf{\dot{r}}$ is some constant vector, which we can denote with for example $\mathbf{L}$. This is simply the angular momentum per unit mass. It is a constant vector, and therefore the movement of the orbiting objects must happen in a plane. Limiting the movement to two dimensions simplifies the situation, and we can use plane polar coordinates $(r, \theta)$ where the center of attraction is at $r = 0$ and $\theta$ is the azimuthal angle in the plane. We can now find the equations of motions for the system in these coordinates by forming the Lagrangian per unit mass, which is
 \begin{equation}
@@ -459,9 +459,116 @@ The solution to the two-body problem works quite accurately for example in our s
 
 \section{Regularization}
 
-Because of the $1/r$ term in the Newtonian equations of motion, the N-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that the analysis of the N-body problem becomes very arduous when collisions or close approaches occur. That is why it would be desirable to get rid of these singularities in the equation of motion. This is achieved with regularization, which means finding a different set of equations that do not exhibit this singularity when $r$ approaches zero.
+Because of the $1/r$ term in the equation of motion \ref{equ:eomgravity}, the two-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that simulations of the two-body problem become very arduous when collisions or close approaches occur. Integrators may attempt to handle the singularity by taking smaller and smaller timesteps as the separation between the particles decreases, which slows down the whole simulation drastically. The problem can be avoided by transforming to a coordinate system which does not exhibit any singularities, and this is known as regularization \citep{bt-galdyn}. Usually this comes with the cost of having a higher number of variables to keep track of. But regularization shows great advantages in the time-step sizes needed for accurate integration, and the amount of time-steps needed for integrating close encounters is much smaller \citep{diplomarbeit}. 
 
-Usually this comes with the cost of having a higher number of variables to keep track of. But regularization shows great advantages in the time-step sizes needed for accurate integration, and the amount of time-steps needed for integrating close encounters is much smaller. 
+\subsection{One dimensional regularization}
+
+The one dimensional case is simple, but gives a good basis for the methods used in the higher dimensional cases as well. The Hamiltonian for the relative motion in a one dimensional two-body problem is
+\begin{equation}
+H(r,p,t) = \frac{p^2}{2 \mu} - \frac{G \mu M}{\left| r \right|} \ .
+\end{equation}
+We can do the canonical transformation $r = u^2$, so the generating function for the point transformation is 
+\begin{equation}
+S = pr = pu^2
+\end{equation}
+and
+\begin{equation}
+P = \frac{\partial S}{\partial u} = 2pu \ ,
+\end{equation}
+so
+\begin{equation}
+p = \frac{P}{2u} \ .
+\end{equation}
+The new Hamiltonian is then
+\begin{equation}
+H(u,P,t) = \frac{P^2}{8u^2 \mu} - \frac{G \mu M}{u^2} \ .
+\end{equation}
+
+Next we want to do a time transformation as well. We may choose a function $t = t(s)$, where $s$ is the new time variable, also called fictitious or regularized time. In a more general sense we may choose a time transformation function $g(r,p)$ so that $\mathrm{d} t = g \, \mathrm{d} s$ \citep{ad}. For the transformation to remain canonical, our new Hamiltonian must be obtained through the Poincaré function. Since the Hamiltonian is not explicitly dependant on time, the function is
+\begin{equation}
+\Gamma(r,p,s) = g(r,p) (H(r,p,t) - E) \ ,
+\end{equation}
+where $E$ is a constant representing the total energy.
+
+By choosing $g = \left| r \right|$, the transformation gives us
+\begin{align}
+\Gamma(u,P,s) &= u^2 \left( \frac{P^2}{8u^2 \mu} - \frac{G \mu M}{u^2} -E \right) \nonumber \\
+&= \frac{P^2}{8 \mu} - G \mu M - E u^2 \ .
+\end{align}
+The canonical equations
+\begin{align}
+\frac{\mathrm{d} u}{\mathrm{d} s} &= \frac{\partial \Gamma}{\partial P} = \frac{P}{4 \mu} \\
+\frac{\mathrm{d} P}{\mathrm{d} s} &= -\frac{\partial \Gamma}{\partial u} = 2Eu
+\end{align}
+give us the equation of motion in these new coordinates
+\begin{equation}
+\frac{\mathrm{d}^2 u}{\mathrm{d} s^2} = \frac{E}{2 \mu} u \label{equ:eomRegu} \ .
+\end{equation}
+The singularity at $r = 0$ has now been removed. In a bound system $E < 0$, so the solution to the equation of motion is a simple harmonic oscillator.
+
+\subsection{Levi-Civita transformation}
+
+Regularization for the two-dimensional case is quite similar to the one-dimensional case, but now our positions and momentums are two dimensional vectors. It has been named the Levi-Civita transformation, after the Italian mathematician who first used this method. The Hamiltonian is
+\begin{equation}
+H(\mathbf{r},\mathbf{p},t) = \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{\left| \mathbf{r} \right|} \ .
+\end{equation} 
+The transformation for the new coordinates is given as complex multiplication, where the complex numbers are represented as vectors
+\begin{equation}
+\mathbf{r} = \mathbf{u} \circ \mathbf{u} \ .
+\end{equation}
+The transformation matrix can be then written as 
+\begin{equation}
+\mathbf{r} = \mathcal{L}(\mathbf{u}) \mathbf{u} \ ,
+\end{equation}
+where $\mathcal{L}(\mathbf{u})$ is the Levi-Civita matrix
+\begin{equation}
+\mathcal{L}(\mathbf{u}) =
+\begin{pmatrix}
+u_1 & -u_2 \\
+u_2 & u_1
+\end{pmatrix} \ .
+\end{equation}
+From this we also get that $\left| \mathbf{r} \right| = \left| \mathbf{u} \right|^2$ \citep{diplomarbeit}. We now use the generating function
+\begin{equation}
+S = \sum^2_{i=1} p_i \cdot r_i = \sum^2_{i=1} P_i \cdot u_i \ ,
+\end{equation}
+which gives us that $\mathbf{P} = 2 \mathbf{u} \cdot \mathbf{p}$. We again use a new time coordinate with $g = \left| \mathbf{r} \right|$. Combining all of these together, the Poincaré transform gives us
+\begin{equation}
+\Gamma = \frac{P^2}{8 \mu} - G \mu M - E u^2 \ .
+\end{equation}
+This is the same resolution as in the one-dimensional case. The solution is the same as well, except in this case our harmonic oscillator two-dimensional. The singularity has thus once again been removed.
+
+\subsection{Kustaanheimo-Stiefel method}
+While the two-body problem is limited to two dimensions in theory, in reality there are usually perturbations which cause the need for a third dimension, so a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good tool, and it has several useful properties. All of its elements are linear homogeneous functions of $u_i$, and the mapping defined by the matrix is conformal, i.e. the transformation matrix is orthogonal. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
+
+The transformation is given by
+\begin{equation}
+\mathbf{r} = \mathcal{L}(\mathbf{u}) \mathbf{u} \ ,
+\end{equation}
+where
+\begin{equation}
+\mathcal{L}(\mathbf{u}) =
+\begin{pmatrix}
+u_1 & -u_2 & -u_3 & u_4 \\
+u_2 & u_1 & -u_4 & -u_3 \\
+u_3 & u_4 & u_1 & u_2 \\
+u_4 & -u_3 & u_2 & -u_1
+\end{pmatrix}
+\end{equation}
+is the KS matrix. We will again use the time transformation $\mathrm{d} t = \left| \mathbf{r} \right| \mathrm{d} s $. Since we only have movement in three dimension, we can choose that $r_4 = 0$ and $\dot{r_4} = 0$. Once again we get that
+\begin{equation}
+\left| \mathbf{r} \right| = \left| \mathbf{u}^2 \right| \ ,
+\end{equation}
+\begin{equation}
+\mathbf{P} = 2 \mathcal{L}^T \mathbf{p} \ ,
+\end{equation}
+and the Poincaré function
+\begin{equation}
+\Gamma = \frac{P^2}{8 \mu} - G \mu M - E u^2 \ ,
+\end{equation}
+which looks the same as in the previous sections. The equation of motion looks the same as \ref{equ:eomRegu}, only this time it has the solution of a four-dimensional harmonic oscillator.
+
+\noindent (TODO: Syvällisemmin KS:ää? Lisää alakohtia? Jonkunlainen loppukaneetti.)
 
 \section{Post-Newtonian dynamics} \label{sect:pndynam}
 
