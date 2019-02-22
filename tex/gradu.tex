@@ -463,7 +463,7 @@ The solution to the two-body problem works quite accurately for example in our s
 
 \section{Regularization}
 
-Because of the $1/r$ term in the equation of motion (equation \ref{equ:eomgravity}), the two-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that simulations of the two-body problem become very arduous when collisions or close approaches occur. Integrators may attempt to handle the singularity by taking smaller and smaller time-steps as the separation between the particles decreases, which slows down the whole simulation drastically. The problem can be avoided by transforming to a coordinate system which does not exhibit any singularities, and this is known as regularization \citep{bt-galdyn}. 
+Because of the $1/r$ term in the equation of motion (equation \ref{equ:eomgravity}), the two-body problem becomes singular when the distance between two objects approaches zero. It is because of these singularities that simulations of the two-body problem become very arduous when collisions or close approaches occur. Integrators may attempt to handle the singularity by taking increasingly smaller time-steps as the separation between the particles decreases, which slows down the entire simulation drastically. The problem can be avoided by transforming to a coordinate system which does not exhibit any singularities, and this procedure is known as regularization \citep{bt-galdyn}. 
 %Usually this comes with the cost of having a higher number of variables to keep track of. But regularization shows great advantages in the time-step sizes needed for accurate integration, and the amount of time-steps needed for integrating close encounters is much smaller \citep{diplomarbeit}. 
 
 \subsection{One-dimensional regularization}
@@ -472,7 +472,7 @@ The one-dimensional case is simple, but gives a good basis for understanding the
 \begin{equation}
 H(q,p,t) = K + V = \frac{p^2}{2 \mu} - \frac{G \mu M}{\left| q \right|} \ .
 \end{equation}
-We may do a transformation to some new coordinate system $(Q, P)$. We can do a canonical point transformation where the old canonical coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is a function whose partial derivatives give us the Hamiltonian in the coordinate system. We can now get the new canonical impulses through a generating function of the form
+We may do a transformation to some new coordinate system $(Q, P)$. We can do a canonical point transformation where the old canonical coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is a function, the partial derivatives of which give us the Hamiltonian in the coordinate system. We can now get the new canonical impulses through a generating function of the form
 \begin{equation}
 S(p,Q) = \sum p q(Q) = pq(Q) = pQ^2
 \end{equation}
@@ -486,14 +486,14 @@ p = \frac{P}{2Q} \ .
 \end{equation}
 The new Hamiltonian is then
 \begin{equation}
-H(Q,P,t) = \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{u^2} \ .
+H(Q,P,t) = \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} \ .
 \end{equation}
 
-Next we want to do a time transformation as well. We may choose a function $t = t(s)$, where $s$ is the new time variable, also called fictitious or regularized time. In a more general sense we may choose a time transformation function $g(q,p)$ so that $\mathrm{d} t = g \, \mathrm{d} s$ \citep{ad}. For the transformation to remain canonical, our new Hamiltonian must be obtained through the Poincaré time transformation \citep{mikkola:2008}. In the Poincaré transformation one takes time to be a canonical coordinate $(t=q_0)$ and the corresponding momentum of time is the binding energy of the system, $p_0 = -E$. The new Hamiltonian obtained through this transformation is then
+Next we want to do a time transformation as well. We may choose a function $t = t(s)$, where $s$ is the new time variable, often also called fictitious or regularized time. In a more general sense we may choose a time transformation function $g(q,p)$ so that $\mathrm{d} t = g \, \mathrm{d} s$ \citep{ad}. For the transformation to remain canonical, our new Hamiltonian must be obtained through the Poincaré time transformation \citep{mikkola:2008}. In the Poincaré transformation one takes time to be a canonical coordinate $(t=q_0)$ and the corresponding momentum of time is the binding energy of the system, $p_0 = -E$. The new Hamiltonian obtained through this transformation is then
 \begin{equation}
 \Gamma(q,p,s) = g(q,p) (H(q,p,q_0) + p_0) \ .
 \end{equation}
-By choosing $g = r = \left| q \right|$, where r is simply the particle separation, the transformation gives us
+By choosing $g = r = \left| q \right| = Q^2$, where $r$ is simply the particle separation, the transformation gives us
 \begin{align}
 \Gamma(Q,P,s) &= Q^2 \left( \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} -E \right) \nonumber \\
 &= \frac{P^2}{8 \mu} - E Q^2 - G \mu M \ .
@@ -511,11 +511,11 @@ The singularity at $r = 0$ has now been removed. In a bound system $E < 0$, so t
 
 \subsection{Levi-Civita transformation}
 
-Regularization for the two-dimensional case is quite similar to the one-dimensional case, but now our positions and momentums are two dimensional vectors. It has been named the Levi-Civita transformation, after the Italian mathematician who first used this method \citep{levi-civita:1920}. The Hamiltonian is now
+Regularization of the two-dimensional case is quite similar to the one-dimensional case, but now our positions and momentums are two dimensional vectors. It has been named the Levi-Civita transformation, after the Italian mathematician who first used this method \citep{levi-civita:1920}. The Hamiltonian is now
 \begin{equation}
 H(\mathbf{r},\mathbf{p},t) = \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} \ .
 \end{equation}
-The transformation to the new coordinates is given via complex numbers. The new coordinates are $Q_1, Q_2$ so that $\mathbf{Q} = Q_1 + iQ_2$ and $r = x + iy = \mathbf{Q}^2 = (Q_1 + iQ_2)^2$. From this we get $x = Q_1^2 - Q_2^2$ and $y = 2Q_1 Q_2$. By again choosing $g = r$ as in the previous section, the Poincaré transform gives us 
+The transformation to the new coordinates is given via complex numbers. The new coordinates are $Q_1, Q_2$ so that $\mathbf{Q} = Q_1 + iQ_2$ and $r = x + iy = \mathbf{Q}^2 = (Q_1 + iQ_2)^2$. From this we get $x = Q_1^2 - Q_2^2$ and $y = 2Q_1 Q_2$. By again choosing $g = r = \mathbf{Q}^2$ as in the previous section, the Poincaré transform gives us 
 \begin{equation}
 \Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) = \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
 \end{equation}
@@ -536,7 +536,7 @@ Q_2 & Q_1
 This sort of matrix has properties that are useful when formulating transformations in higher dimensional cases.
 
 \subsection{Kustaanheimo-Stiefel method}
-While the two-body problem is limited to two dimensions in theory, in reality there are usually perturbations which cause the need for a third dimension, so a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good tool, and it has several useful properties. All of its elements are linear homogeneous functions of $Q_i$, and the mapping defined by the matrix is conformal, i.e. the transformation matrix is orthogonal. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
+While the two-body problem is limited to two dimensions in theory, in practice there are usually perturbations which perturb the orbit into the third dimension, thus a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good starting point, and it has several useful properties. All of its elements are linear homogeneous functions of $Q_i$, and the mapping defined by the matrix is conformal, i.e. the transformation matrix is orthogonal. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
 
 The old and new coordinates are defined as
 \begin{align}
@@ -566,8 +566,8 @@ and by again using the time transform function $g = r = \mathbf{Q}^2$. Thus we g
 \begin{equation}
 \Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) = \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
 \end{equation}
-which once again is the Hamiltonian of a harmonic oscillator, this time in four dimensions. And the coordinate singularity has disappeared like in the previous cases.
-Though as there is still an extra dimension, we need to map the three dimensional physical space to the four dimensional space. The simplest way is to set that $r_4 = 0$ and $p_4 = 0$. 
+which once again is the Hamiltonian of a harmonic oscillator, this time in four dimensions. The coordinate singularity has again disappeared like in the previous cases.
+However there is still an extra dimension, so we need to find a mapping to convert between the three dimensional physical space and the four dimensional space. The simplest way is to set that $r_4 = 0$ and $p_4 = 0$. 
 
 Calculating $\mathbf{r}$ from equation \ref{equ:KStransform} we get
 \begin{equation}
@@ -602,7 +602,7 @@ and the mapping
 \end{equation}
 With these mappings we can accurately convert the coordinates between the different dimensional spaces \citep{diplomarbeit, ad}.
 
-Regularized computational methods are very precise, but they they are typically much more computationally expensive than non-regularized ones, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed more in chapter \ref{chap:ar-chain}.
+Regularized computational methods are very precise, but they they are typically much more computationally expensive than non-regularized ones, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed in more detail in chapter \ref{chap:ar-chain}.
 
 
 %\noindent (TODO: Syvällisemmin KS:ää? Lisää alakohtia? Jonkunlainen loppukaneetti.)
