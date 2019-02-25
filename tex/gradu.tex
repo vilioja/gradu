@@ -469,22 +469,23 @@ Because of the $1/r$ term in the equation of motion (equation \ref{equ:eomgravit
 \subsection{One-dimensional regularization}
 
 The one-dimensional case is simple, but gives a good basis for understanding the methods used in the higher-dimensional cases as well. The Hamiltonian for the relative motion in a one-dimensional two-body problem is
-\begin{equation}
-H(q,p,t) = K + V = \frac{p^2}{2 \mu} - \frac{G \mu M}{\left| q \right|} \ .
+\begin{equation} \label{equ:Hamilton1d}
+H(q,p,t) = K + V = \frac{p^2}{2 \mu} - \frac{G \mu M}{\left| q \right|} \ ,
 \end{equation}
-We may do a transformation to some new coordinate system $(Q, P)$. We can do a canonical point transformation where the old canonical coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is a function, the partial derivatives of which give us the Hamiltonian in the coordinate system. We can now get the new canonical impulses through a generating function of the form
+where $q$ and $p$ are the position and momentum respectively, $\mu$ is the reduced mass, $M$ is the total mass, and $G$ is the gravitational constant. 
+To regularize the equation of motion we must do both a coordinate transformation and a time transformation. Starting with the coordinate transformation, we do a transformation to some new coordinate system $(Q, P)$. We can do a canonical point transformation, i.e. a transformation that preserves the form of the Hamilton's equations, where the old coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is a function, the partial derivatives of which give us the Hamiltonian in the new coordinate system. We can now get the new momentum through a generating function of the form
 \begin{equation}
 S(p,Q) = \sum p q(Q) = pq(Q) = pQ^2
 \end{equation}
-and
+by calculating its derivative
 \begin{equation}
 P = \frac{\partial S}{\partial Q} = 2pQ \ ,
 \end{equation}
-so
+from which we get that
 \begin{equation}
 p = \frac{P}{2Q} \ .
 \end{equation}
-The new Hamiltonian is then
+By plugging in the new definitions for $q$ and $p$ into the equation \ref{equ:Hamilton1d} the new Hamiltonian is then
 \begin{equation}
 H(Q,P,t) = \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} \ .
 \end{equation}
