@@ -499,12 +499,21 @@ By choosing $g = r = \left| q \right| = Q^2$, where $r$ is simply the particle s
 \Gamma(Q,P,s) &= Q^2 \left( \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} -E \right) \nonumber \\
 &= \frac{P^2}{8 \mu} - E Q^2 - G \mu M \ .
 \end{align}
-The canonical equations are now
+The time evolution of a system is uniquely defined by the normal Hamilton's equations
 \begin{align}
-\frac{\mathrm{d} Q}{\mathrm{d} s} &= \frac{\partial \Gamma}{\partial P} = \frac{P}{4 \mu} \\
-\frac{\mathrm{d} P}{\mathrm{d} s} &= -\frac{\partial \Gamma}{\partial Q} = 2EQ
+\frac{\mathrm{d} q}{\mathrm{d} t} &= \frac{\partial H}{\partial p} \\
+\frac{\mathrm{d} p}{\mathrm{d} t} &= -\frac{\partial H}{\partial q} \ .
 \end{align}
-and give us the equation of motion in these new coordinates
+Since the time transformation preserves the form of the Hamilton's equations, they are now simply
+\begin{align}
+\frac{\mathrm{d} Q}{\mathrm{d} s} &= \frac{\partial \Gamma}{\partial P} = \frac{P}{4 \mu} \label{equ:ttHamilton1} \\
+\frac{\mathrm{d} P}{\mathrm{d} s} &= -\frac{\partial \Gamma}{\partial Q} = 2EQ \label{equ:ttHamilton2} \ .
+\end{align}
+Taking a second time derivative of equation \ref{equ:ttHamilton1}, we get 
+\begin{equation}
+\frac{\mathrm{d}^2 Q}{\mathrm{d} s^2} = \frac{1}{4 \mu} \frac{\mathrm{d} P}{\mathrm{d} s}
+\end{equation}
+and we can insert the result from equation \ref{equ:ttHamilton2} to get the equation of motion in these new coordinates
 \begin{equation}
 \frac{\mathrm{d}^2 Q}{\mathrm{d} s^2} = \frac{E}{2 \mu} Q \label{equ:eomRegu} \ .
 \end{equation}
@@ -517,9 +526,12 @@ Regularization of the two-dimensional case is quite similar to the one-dimension
 H(\mathbf{r},\mathbf{p},t) = \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} \ .
 \end{equation}
 The transformation to the new coordinates is given via complex numbers. The new coordinates are $Q_1, Q_2$ so that $\mathbf{Q} = Q_1 + iQ_2$ and $r = x + iy = \mathbf{Q}^2 = (Q_1 + iQ_2)^2$. From this we get $x = Q_1^2 - Q_2^2$ and $y = 2Q_1 Q_2$. By again choosing $g = r = \mathbf{Q}^2$ as in the previous section, the Poincaré transform gives us 
-\begin{equation}
-\Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) = \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
-\end{equation}
+\begin{align}
+\Gamma &= r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) \nonumber \\ 
+&= \mathbf{Q}^2 \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{\mathbf{Q}^2} - E \right) \nonumber \\
+&= \frac{2^2 \mathbf{Q}^2 \cdot \mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \nonumber \\
+&= \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
+\end{align}
 where $\mathbf{P} = 2 \mathbf{Q} \cdot \mathbf{p}$. Like in the one-dimensional case, this is the Hamiltonian of a simple harmonic oscillator, except in this case our harmonic oscillator is two-dimensional. The singularity has thus once again been removed.
 
 The transformation $r = \mathbf{Q}^2$ can also be expressed in vector notation as
@@ -541,11 +553,11 @@ While the two-body problem is limited to two dimensions in theory, in practice t
 
 The old and new coordinates are defined as
 \begin{align}
-\mathbf{Q} &= (Q_1 \ Q_2 \ Q_3 \ Q_4)^\mathrm{T} \nonumber \\
-\mathbf{r} &= (r_1 \ r_2 \ r_3 \ r_4)^\mathrm{T} \\
-\mathbf{p} &= (p_1 \ p_2 \ p_3 \ p_4)^\mathrm{T}  \nonumber
+\mathbf{Q} &= (Q_1, \ Q_2, \ Q_3, \ Q_4)^\mathrm{T} \nonumber \\
+\mathbf{r} &= (r_1, \ r_2, \ r_3, \ r_4)^\mathrm{T} \\
+\mathbf{p} &= (p_1, \ p_2, \ p_3, \ p_4)^\mathrm{T}  \nonumber \ ,
 \end{align}
-and the KS matrix is defined as 
+where $T$ simply means the transpose of the matrix, and the KS matrix is defined as 
 \begin{equation}
 \mathcal{L}(\mathbf{Q}) =
 \begin{pmatrix}
@@ -555,23 +567,36 @@ Q_3 & Q_4 & Q_1 & Q_2 \\
 Q_4 & -Q_3 & Q_2 & -Q_1
 \end{pmatrix} \ .
 \end{equation}
-The transformation is given by the relations 
+The transformation is given by the following relations relations \citep{ad}: 
 \begin{equation}
 \mathbf{r} = \mathcal{L} \mathbf{Q} \label{equ:KStransform}
 \end{equation}
 and
+%\begin{equation}
+%\mathbf{P} = 2 \mathcal{L}^\mathrm{T} \mathbf{p} \ \label{equ:KStransform2} .
+%\end{equation}
+%Multiplying equation \ref{equ:KStransform2} with $\mathcal{L}$ yields
+%\begin{equation}
+%\mathcal{L} \mathbf{P} = 2 \mathcal{L} \mathcal{L}^\mathrm{T} \mathbf{p} = 2 \mathbf{Q}^2 \mathbf{p} \label{equ:KStransform3} \ ,
+%\end{equation}
+%since the KS matrix shares the property of the Levi-Civita matrix that $\mathcal{L} \mathcal{L}^\mathrm{T} = \mathcal{L}^\mathrm{T} \mathcal{L} = \mathbf{Q}^2 \mathbf{I}$, where $\mathbf{I}$ is the identity matrix. From equation \ref{equ:KStransform3} we get that 
+%\begin{equation}
+%\mathbf{p} = \frac{\mathcal{L} \mathbf{P}}{2 \mathbf{Q}^2} \ ,
+%\end{equation}
+%and from squaring this we get
 \begin{equation}
-\mathbf{P} = 2 \mathcal{L}^\mathrm{T} \mathbf{p} \ ,
+\mathbf{p}^2 = \frac{\mathbf{P}^2}{4 \mathbf{Q}^2}
 \end{equation}
-and by again using the time transform function $g = r = \mathbf{Q}^2$. Thus we get that
-\begin{equation}
-\Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) = \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
-\end{equation}
+By again using the time transform function $g = r = \left| \mathbf{r} \right| = \mathbf{Q}^2$ we get
+\begin{align}
+\Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) &= \mathbf{Q}^2 \left( \frac{\mathbf{P}^2}{8 \mathbf{Q}^2 \mu} - \frac{G \mu M}{\mathbf{Q}^2} - E \right) \nonumber \\ 
+&= \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
+\end{align}
 which once again is the Hamiltonian of a harmonic oscillator, this time in four dimensions. The coordinate singularity has again disappeared like in the previous cases.
-However there is still an extra dimension, so we need to find a mapping to convert between the three dimensional physical space and the four dimensional space. The simplest way is to set that $r_4 = 0$ and $p_4 = 0$. 
+However there is still an extra dimension, so we need to find a mapping to convert between the three dimensional physical space and the four dimensional space.
 
 Calculating $\mathbf{r}$ from equation \ref{equ:KStransform} we get
-\begin{equation}
+\begin{align}
 \mathbf{r} = 
 \begin{pmatrix}
 r_1 \\
@@ -579,26 +604,41 @@ r_2 \\
 r_3 \\
 r_4
 \end{pmatrix}
-=
+= \mathcal{L} \mathbf{Q} &=
+\begin{pmatrix}
+Q_1 & -Q_2 & -Q_3 & Q_4 \\
+Q_2 & Q_1 & -Q_4 & -Q_3 \\
+Q_3 & Q_4 & Q_1 & Q_2 \\
+Q_4 & -Q_3 & Q_2 & -Q_1
+\end{pmatrix} \ 
+\begin{pmatrix}
+Q_1 \\
+Q_2 \\
+Q_3 \\
+Q_4
+\end{pmatrix}
+\nonumber \\
+&= 
 \begin{pmatrix}
 Q_1^2 - Q_2^2 - Q_3^2 + Q_4^2 \\
 2(Q_1 Q_2 - Q_3 Q_4) \\
 2(Q_1 Q_3 + Q_2 Q_4) \\
 0
 \end{pmatrix} \ .
-\end{equation}
-We can still determine one of the extra components of $\mathbf{Q}$, and setting $Q_4 = 0$ gives us the following relations
+\end{align}
+Having the fourth component of $\mathbf{r}$ be zero makes sense since in physical space we have movement only in three dimensions.
+We can still freely choose one of the extra components of $\mathbf{Q}$, so there are many different ways to change between the physical variables and the KS transformed variables. One way is by setting $Q_4 = 0$, which gives us the following relations
 \begin{align}
-Q_1 &= \left( \frac{1}{2} ( r + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
-Q_2 &= \frac{1}{2} \frac{r_2}{Q_1} \\
-Q_3 &= \frac{1}{2} \frac{r_3}{Q_1} \nonumber \ 
+Q_1 &= \left( \frac{1}{2} (Q_1^2 + Q_2^2 + Q_3^2 + Q_1^2 - Q_2^2 - Q_3^2) \right)^{1/2} = \left( \frac{1}{2} ( \left| \mathbf{r} \right| + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
+Q_2 &= \frac{1}{2} \frac{2 Q_1 Q_2}{Q_1} = \frac{1}{2} \frac{r_2}{Q_1} \\
+Q_3 &= \frac{1}{2} \frac{2 Q_1 Q_3}{Q_1} = \frac{1}{2} \frac{r_3}{Q_1} \nonumber \ 
 \end{align}
 and the mapping
 \begin{equation}
 \mathbf{Q} = 
 \begin{cases}
-\left( Q_1 \ Q_2 \ Q_3 \ Q_4 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 \geq 0 \\
-\left( Q_1 \ Q_2 \ Q_4 \ Q_3 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 < 0 \ .
+\left( Q_1, \ Q_2, \ Q_3, \ Q_4 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 \geq 0 \\
+\left( Q_1, \ Q_2, \ Q_4, \ Q_3 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 < 0 \ .
 \end{cases}
 \end{equation}
 With these mappings we can accurately convert the coordinates between the different dimensional spaces \citep{diplomarbeit, ad}.
@@ -610,13 +650,16 @@ Regularized computational methods are very precise, but they they are typically 
 
 \section{Post-Newtonian dynamics} \label{sect:pndynam}
 
-While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when more massive or faster moving objects are concerned, and instead we need to use general relativity (GR). %TODO Selitä geeärrää?
-Doing fully general relativistic simulations is very computationally intensive however, so more wieldy methods are required for large-scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations for the metric tensor. %TODO selitä noi lisäks
-Einstein field equations are the set of 10 equations in Albert Einstein's general theory of relativity that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy.
-%TODO tää kopipastattiin aiemmas
-In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system, but it can also be applied to situations involving compact bodies with strong internal gravity.
-%provided that the mutual gravity between bodies is weak enough.
+\subsection{Approximating general relativity}
 
+While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when more massive or faster moving objects are concerned, and instead we need to use general relativity (GR), which describes gravity as a geometric property of spacetime. This is described by the Einstein field equations, which are the set of 10 coupled, non-linear partial differential equations that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy. The field equations are usually written as
+\begin{equation}
+R_{\mu \nu} - \frac{1}{2}R g_{\mu \nu} + \Lambda g_{\mu \nu} = \frac{8 \pi G}{c^4} T_{\mu \nu} \ ,
+\end{equation}
+where $R_{\mu \nu}$ is the Ricci curvature tensor and $R$ is the scalar curvature which both are used to describe how the geometry of curved space differs from the geometry of flat Euclidean space, $g_{\mu \nu}$ is the metric tensor which describes the geometric and causal structure of spacetime in our universe, $\Lambda$ is the cosmological constant which describes the energy density of space, $T_{\mu \nu}$ is the stress-energy tensor which describes mass and energy as the source of gravity in the universe, $G$ is the gravitational constant, and $c$ is the speed of light.
+
+These equations are very hard to solve exactly due to their non-linear nature, and doing fully general relativistic simulations is very computationally intensive, so more wieldy methods are required for large-scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations.
+In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system for example, but it can also be applied to situations involving compact bodies with strong internal gravity.
 %
 %The post-Newtonian theory is derived from the Landau-Lifshitz formulation of the Einstein field equations. The equations can be written as 
 %\begin{equation}
@@ -643,27 +686,39 @@ In other words, the post-Newtonian theory is an approximate version of general r
 %\square h^{\alpha \beta}_{n+1} = -\frac{16 \pi G}{c^4} \tau^{\alpha \beta}[h_n] \ .
 %\end{equation}
 %The iterations are started with $h^{\alpha \beta}_0 = 0$, and stopped when the desired accuracy is obtained. In principle, the truncation is the only source of approximation. The procedure produces a formal expansion of $h^{\alpha \beta}$ in powers of G. This is known as the post-Minkowskian expansion of the gravitational field. After iterations have been done up to the desired accuracy, we can again impose the gauge condition to get a proper metric.
-
+%
 %The difference between post-Minkowskian and post-Newtonian expansion is that in post-Newtonian approximation we assume a slow-motion condition, i.e. all speeds within the matter distribution (such as the speed of sound within a body, or the speed of the body as a whole) are small compared with the speed of light. In astrophysical situations the assumption of slow speeds is accurate in the vast majority of cases, since the virial theorem implies that $U \sim v^2$ for any gravitationally bound system; weak fields are naturally accompanied by slow motion.
+The approximations are expanded in small parameters which express orders of deviations from Newton's laws of gravity. A correction of order $(v/c)^n$ to a Newtonian expression is said to be of $(n/2)\mathrm{PN}$ order. So for example the correction 3.5PN would contain terms up to the order $(v/c)^7$ \citep{will:2006}.
 
+The post-Newtonian corrections are known for a general N-body system only up to the first order, 1.0PN. These corrections are described by the Einstein-Infeld-Hoffman (EIH) equations \citep{einstein:1938}, and the equations of motion are given by
+\begin{align}
+\mathbf{a}_{\mathrm{Newton},i} + \mathbf{a}_{\mathrm{1.0PN}, i} &= \sum_{j \neq i} \frac{G m_j \mathbf{n}_{ji}}{r_{ij}^2} + \frac{1}{c^2} \sum_{j \neq i} \left[ \vphantom{\sum_{k \neq j} \frac{G m_k}{r_{jk}}} v_i^2 + 2 v_j^2 - 4(\mathbf{v}_i \cdot \mathbf{v}_j) \right. \nonumber \\
+&- \left. \frac{3}{2}(\mathbf{n}_{ij} \cdot \mathbf{v}_j)^2 - 4 \sum_{k \neq i} \frac{G m_k}{r_{ik}} - \sum_{k \neq j} \frac{G m_k}{r_{jk}} + \frac{1}{2} (\mathbf{r}_{ji} \cdot \mathbf{a}_j) \right] \nonumber \\
+&+ \frac{1}{c^2} \sum_{j \neq i} \frac{G m_j}{r_{ij}^2} \left[ \mathbf{n}_{ji} \cdot (4 \mathbf{v}_i - 3 \mathbf{v}_j) \right] (\mathbf{v}_i - \mathbf{v}_j) \nonumber \\
+&+ \frac{7}{2c^2} \sum_{j \neq i} \frac{G m_j \mathbf{a}_j}{r_{ij}} + \mathcal{O} \left( \frac{v^4}{c^4} \right) \ .
+\end{align}
+Here $\mathbf{n}_{ij} = \mathbf{r}_{ij}/r_{ij}$ is the unit vector pointing from $i$ to $j$, and the big O notation indicated terms of the order $(v^4/c^4)$ and higher. One can see that the acceleration of a particular body depends on the accelerations of all the other bodies in the system, a new relativistic feature which does not appear in purely Newtonian systems. Since the accelerations that are being calculated also appear on the right hand side of the equation, the equations must be solved iteratively if exact solutions are needed. However using the usual Newtonian accelerations instead works as a good approximation.
 
+\subsection{Gravitational waves}
 
-The approximations are expanded in small parameters which express orders of deviations from Newton's laws of gravity. A correction of order $(v/c)^n$ to a Newtonian expression is said to be of $\mathrm{PN}(n/2)$ order.
+While the EIH equations give accurate results for example in our solar system, it would be desirable to get more accurate approximations for more extreme systems. General equations of PN corrections for a three-body system are known up to the order 2.0PN \citep{gravity}, but if we go down to only a two-body system, PN corrections are known up to order of 3.5PN due to the relative simplicity of the situation. An extremely interesting effect arises from these later terms. The first three integer terms 1.0PN, 2.0PN, and 3.0PN are conservative, and we can find expressions for the total energy and angular momentum of the system. However the 2.5PN and 3.5PN corrections contain dissipative terms, and when these are taken into account the total energy and angular momentum of the system is not conserved. This is called the radiation reaction effect, and these losses are due to the emissions of gravitational waves \citep{gravwaves}. After 3.5PN corrections, even the integer terms start contributing to the radiation reaction. Gravitational waves are generated by accelerating masses, and can be considered wave like disturbances in the curvature of spacetime. This effect causes the orbit in the two body problem to shrink and circularize as energy is radiated away from the system. Gravitational waves play a big part for example in the final phases of a black hole binary merger.
 
-The first use of a PN expansion (to first order) was made by Einstein in calculating the perihelion precession of Mercury's orbit.
+These later PN correction terms cause important effects and allow us to examine more extreme systems without using full GR, so being able to include them in large scale simulations would be of great use. One method is to use what is known as the two-body formulation, where we calculate the PN corrections for each particle pair while discarding the least important and computationally most expensive terms dependant on additional bodies. Another method is the cross-term formulation \citep{will:2014}, which works in situations where there is very few massive bodies, like a black hole surrounded by stars, since we are then mostly interested in the interactions between the black hole and the stars, not between the stars themselves, and we can safely leave out the other terms.
+
+\subsection{The first application of PN corrections}
+
+The first use of a PN expansion (to first order) was made by Einstein himself in calculating the perihelion precession of Mercury's orbit.
 Mercury's perihelion precesses (rotates) around the sun. This is mainly due to perturbations caused by the presence of the other planets. Another much less significant factor is the oblateness of the sun. In the 1800s it was noticed that the orbit deviates from the precession predicted by these Newtonian effects by about 43 arc seconds per a tropical century.
-
-Several different reasons for this deviation were proposed, and perhaps the most prevalent of these was Vulcan. Vulcan is a small hypothetical planet that was supposed to orbit the sun inside the orbit of Mercury. The perturbations caused by this planet could have explained the anomalous precession of Mercury. The existence of the planet was hypothesized by the French mathematician Urbain Le Verrier, who also predicted the existence and position of Neptune with only mathematics. While many people claimed to have observed the planet, its supposed orbit was so close to the sun that this was extremely challenging to verify.
-
+Several different reasons for this deviation were proposed, and perhaps the most prevalent of these was Vulcan. Vulcan is a small hypothetical planet that was supposed to orbit the sun inside the orbit of Mercury. The perturbations caused by this planet could have explained the anomalous precession of Mercury. The existence of the planet was hypothesized by the French mathematician Urbain Le Verrier, who also predicted the existence and position of Neptune with only mathematics, so his theory was thought plausible. While many people claimed to have observed the planet, its supposed orbit was so close to the sun that this was extremely challenging to verify.
 There were attempts to confirm the existence of the planet, but in 1915 the hypothetical planet was quite firmly put to rest when Einstein explained the anomalous precession through his theory of relativity. The reason why the same extra precession that affects all of the planets had been observed only with Mercury is that the magnitude of the differences from simple Newtonian theory diminishes rapidly as one gets farther from the Sun. Mercury's fairly eccentric orbit also makes it much easier to detect the perihelion shift than is the case for the nearly circular orbits of Venus and Earth.
 This was the first case of solving the general relativistic two-body problem, which is the most common use of the PN expansion nowadays. %TODO Lisää hommaa, toimii myös aurinkokunnassa, referenssejä Vulkanukseen wikipediasta
 
 %Hyvää matskua: gravity postminkowskian implementation sivu 10, gravity postnewtonian fundamental heti alku, common reader 3.2
 
-In the case of a two-body system, the post-Newtonian corrections give rise to a perturbed Keplerian orbit. The only secular effect on the orbit is the pericenter advance.
-PN1 terms are the ones responsible for the advance of the pericenter of an eccentric orbit, given by $\dot{\omega} = 6 \pi f_\mathrm{b} m/a (1-e^2)$, where $a$ and $e$ are the semimajor axis and eccentricity of the orbit, and $f_\mathrm{b}$ is the orbital frequency, given by Kepler's third law $2 \pi f_\mathrm{b} = (m/a^3)^{1/2}$ \citep{will:2006}. 
-
-The intrinsic angular momentum (spin) of a body is also a source of gravity that affects the metric and body motions. The spin causes precession in the ascending node. %TODO lisää kaavaa, gravity kalvoista
+%In the case of a two-body system, the post-Newtonian corrections give rise to a perturbed Keplerian orbit. The only secular effect on the orbit is the pericenter advance.
+%PN1 terms are the ones responsible for the advance of the pericenter of an eccentric orbit, given by $\dot{\omega} = 6 \pi f_\mathrm{b} m/a (1-e^2)$, where $a$ and $e$ are the semimajor axis and eccentricity of the orbit, and $f_\mathrm{b}$ is the orbital frequency, given by Kepler's third law $2 \pi f_\mathrm{b} = (m/a^3)^{1/2}$ \citep{will:2006}. 
+%
+%The intrinsic angular momentum (spin) of a body is also a source of gravity that affects the metric and body motions. The spin causes precession in the ascending node. %TODO lisää kaavaa, gravity kalvoista
 
 There are some systems that cannot be properly described by post-Newtonian approximation because of their extreme conditions. Some examples of such systems include the final phases of a compact object merger, the cores of supernovae, and the structure of rapidly rotating neutron stars. These must be analysed using different methods, for example the full solution of Einstein's equations via numerical methods \citep{will:2006}. 
 
