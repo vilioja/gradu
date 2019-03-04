@@ -473,11 +473,11 @@ The one-dimensional case is simple, but gives a good basis for understanding the
 H(q,p,t) = K + V = \frac{p^2}{2 \mu} - \frac{G \mu M}{\left| q \right|} \ ,
 \end{equation}
 where $q$ and $p$ are the position and momentum respectively, $\mu$ is the reduced mass, $M$ is the total mass, and $G$ is the gravitational constant. 
-To regularize the equation of motion we must do both a coordinate transformation and a time transformation. Starting with the coordinate transformation, we do a transformation to some new coordinate system $(Q, P)$. We can do a canonical point transformation, i.e. a transformation that preserves the form of the Hamilton's equations, where the old coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is a function, the partial derivatives of which give us the Hamiltonian in the new coordinate system. We can now get the new momentum through a generating function of the form
+To regularize the equation of motion we must do both a coordinate transformation and a time transformation. Starting with the coordinate transformation, we do a transformation to some new coordinate system $(Q, P)$. We can perform a canonical point transformation, i.e. a transformation that preserves the form of the Hamilton's equations, where the old coordinates are changed to new ones through $q = Q^2$. A generating function $S$ is defined as a function whose partial derivatives give us the Hamiltonian in the new coordinate system. We can now get the new momentum through a generating function of the form
 \begin{equation}
 S(p,Q) = \sum p q(Q) = pq(Q) = pQ^2
 \end{equation}
-by calculating its derivative
+by calculating its partial derivatives
 \begin{equation}
 P = \frac{\partial S}{\partial Q} = 2pQ \ ,
 \end{equation}
@@ -485,7 +485,7 @@ from which we get that
 \begin{equation}
 p = \frac{P}{2Q} \ .
 \end{equation}
-By plugging in the new definitions for $q$ and $p$ into the equation \ref{equ:Hamilton1d} the new Hamiltonian is then
+By plugging in the new definitions for $q$ and $p$ into equation \ref{equ:Hamilton1d} the new Hamiltonian is then
 \begin{equation}
 H(Q,P,t) = \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} \ .
 \end{equation}
@@ -499,12 +499,12 @@ By choosing $g = r = \left| q \right| = Q^2$, where $r$ is simply the particle s
 \Gamma(Q,P,s) &= Q^2 \left( \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} -E \right) \nonumber \\
 &= \frac{P^2}{8 \mu} - E Q^2 - G \mu M \ .
 \end{align}
-The time evolution of a system is uniquely defined by the normal Hamilton's equations
+The time evolution of a system is uniquely defined by the normal Hamilton equations
 \begin{align}
 \frac{\mathrm{d} q}{\mathrm{d} t} &= \frac{\partial H}{\partial p} \\
 \frac{\mathrm{d} p}{\mathrm{d} t} &= -\frac{\partial H}{\partial q} \ .
 \end{align}
-Since the time transformation preserves the form of the Hamilton's equations, they are now simply
+Since the time transformation preserves the form of the Hamilton equations, they are now simply
 \begin{align}
 \frac{\mathrm{d} Q}{\mathrm{d} s} &= \frac{\partial \Gamma}{\partial P} = \frac{P}{4 \mu} \label{equ:ttHamilton1} \\
 \frac{\mathrm{d} P}{\mathrm{d} s} &= -\frac{\partial \Gamma}{\partial Q} = 2EQ \label{equ:ttHamilton2} \ .
@@ -513,7 +513,7 @@ Taking a second time derivative of equation \ref{equ:ttHamilton1}, we get
 \begin{equation}
 \frac{\mathrm{d}^2 Q}{\mathrm{d} s^2} = \frac{1}{4 \mu} \frac{\mathrm{d} P}{\mathrm{d} s}
 \end{equation}
-and we can insert the result from equation \ref{equ:ttHamilton2} to get the equation of motion in these new coordinates
+and we can insert the result from equation \ref{equ:ttHamilton2} to get the final equation of motion in these new coordinates
 \begin{equation}
 \frac{\mathrm{d}^2 Q}{\mathrm{d} s^2} = \frac{E}{2 \mu} Q \label{equ:eomRegu} \ .
 \end{equation}
@@ -532,7 +532,7 @@ The transformation to the new coordinates is given via complex numbers. The new 
 &= \frac{2^2 \mathbf{Q}^2 \cdot \mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \nonumber \\
 &= \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
 \end{align}
-where $\mathbf{P} = 2 \mathbf{Q} \cdot \mathbf{p}$. Like in the one-dimensional case, this is the Hamiltonian of a simple harmonic oscillator, except in this case our harmonic oscillator is two-dimensional. The singularity has thus once again been removed.
+where $\mathbf{P} = 2 \mathbf{Q} \cdot \mathbf{p}$. Similarly to the one-dimensional case, this is the Hamiltonian of a simple harmonic oscillator, except in this case our harmonic oscillator is two-dimensional. The singularity has thus once again been removed.
 
 The transformation $r = \mathbf{Q}^2$ can also be expressed in vector notation as
 \begin{equation}
@@ -546,7 +546,7 @@ Q_1 & -Q_2 \\
 Q_2 & Q_1
 \end{pmatrix} \ .
 \end{equation}
-This sort of matrix has properties that are useful when formulating transformations in higher dimensional cases.
+This sort of matrix has properties that are useful when formulating transformations also in higher dimensional cases.
 
 \subsection{Kustaanheimo-Stiefel method}
 While the two-body problem is limited to two dimensions in theory, in practice there are usually perturbations which perturb the orbit into the third dimension, thus a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good starting point, and it has several useful properties. All of its elements are linear homogeneous functions of $Q_i$, and the mapping defined by the matrix is conformal, i.e. the transformation matrix is orthogonal. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
@@ -592,7 +592,7 @@ By again using the time transform function $g = r = \left| \mathbf{r} \right| = 
 \Gamma = r \left( \frac{\mathbf{p}^2}{2 \mu} - \frac{G \mu M}{r} - E \right) &= \mathbf{Q}^2 \left( \frac{\mathbf{P}^2}{8 \mathbf{Q}^2 \mu} - \frac{G \mu M}{\mathbf{Q}^2} - E \right) \nonumber \\ 
 &= \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
 \end{align}
-which once again is the Hamiltonian of a harmonic oscillator, this time in four dimensions. The coordinate singularity has again disappeared like in the previous cases.
+which once again is the Hamiltonian of a harmonic oscillator, this time in four dimensions. The coordinate singularity has again disappeared similarly to the previous cases.
 However there is still an extra dimension, so we need to find a mapping to convert between the three dimensional physical space and the four dimensional space.
 
 Calculating $\mathbf{r}$ from equation \ref{equ:KStransform} we get
@@ -626,7 +626,7 @@ Q_1^2 - Q_2^2 - Q_3^2 + Q_4^2 \\
 0
 \end{pmatrix} \ .
 \end{align}
-Having the fourth component of $\mathbf{r}$ be zero makes sense since in physical space we have movement only in three dimensions.
+Having the fourth component of $\mathbf{r}$ set to zero makes sense since in physical space we have motion only in three dimensions.
 We can still freely choose one of the extra components of $\mathbf{Q}$, so there are many different ways to change between the physical variables and the KS transformed variables. One way is by setting $Q_4 = 0$, which gives us the following relations
 \begin{align}
 Q_1 &= \left( \frac{1}{2} (Q_1^2 + Q_2^2 + Q_3^2 + Q_1^2 - Q_2^2 - Q_3^2) \right)^{1/2} = \left( \frac{1}{2} ( \left| \mathbf{r} \right| + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
@@ -643,7 +643,7 @@ and the mapping
 \end{equation}
 With these mappings we can accurately convert the coordinates between the different dimensional spaces \citep{diplomarbeit, ad}.
 
-Regularized computational methods are very precise, but they they are typically much more computationally expensive than non-regularized ones, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed in more detail in chapter \ref{chap:ar-chain}.
+Regularized computational methods are very precise, but they are typically much more computationally expensive than non-regularized ones, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed in more detail in chapter \ref{chap:ar-chain}.
 
 
 %\noindent (TODO: Syvällisemmin KS:ää? Lisää alakohtia? Jonkunlainen loppukaneetti.)
@@ -652,14 +652,14 @@ Regularized computational methods are very precise, but they they are typically 
 
 \subsection{Approximating general relativity}
 
-While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when more massive or faster moving objects are concerned, and instead we need to use general relativity (GR), which describes gravity as a geometric property of spacetime. This is described by the Einstein field equations, which are the set of 10 coupled, non-linear partial differential equations that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy. The field equations are usually written as
+While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when very massive objects or objects moving at a significant fraction of the speed of light are concerned. In these situations we need to use general relativity (GR), which describes gravity as a geometric property of spacetime. This is described by the Einstein field equations, which are the set of 10 coupled, non-linear partial differential equations that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy. The field equations are usually expressed as
 \begin{equation}
 R_{\mu \nu} - \frac{1}{2}R g_{\mu \nu} + \Lambda g_{\mu \nu} = \frac{8 \pi G}{c^4} T_{\mu \nu} \ ,
 \end{equation}
 where $R_{\mu \nu}$ is the Ricci curvature tensor and $R$ is the scalar curvature which both are used to describe how the geometry of curved space differs from the geometry of flat Euclidean space, $g_{\mu \nu}$ is the metric tensor which describes the geometric and causal structure of spacetime in our universe, $\Lambda$ is the cosmological constant which describes the energy density of space, $T_{\mu \nu}$ is the stress-energy tensor which describes mass and energy as the source of gravity in the universe, $G$ is the gravitational constant, and $c$ is the speed of light.
 
-These equations are very hard to solve exactly due to their non-linear nature, and doing fully general relativistic simulations is very computationally intensive, so more wieldy methods are required for large-scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations.
-In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is slow. The theory successfully describes the gravitational field of our solar system for example, but it can also be applied to situations involving compact bodies with strong internal gravity.
+These equations are very hard to solve exactly due to their non-linear nature, and doing fully general relativistic simulations is computationally very intensive, so more wieldy methods are required for large-scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations in the weak field approximation.
+In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is relatively slow, $v/c \sim 0.01$. The theory successfully describes the gravitational field of our solar system for example, but it can also be applied to situations involving compact bodies with strong internal gravity.
 %
 %The post-Newtonian theory is derived from the Landau-Lifshitz formulation of the Einstein field equations. The equations can be written as 
 %\begin{equation}
@@ -697,13 +697,18 @@ The post-Newtonian corrections are known for a general N-body system only up to 
 &+ \frac{1}{c^2} \sum_{j \neq i} \frac{G m_j}{r_{ij}^2} \left[ \mathbf{n}_{ji} \cdot (4 \mathbf{v}_i - 3 \mathbf{v}_j) \right] (\mathbf{v}_i - \mathbf{v}_j) \nonumber \\
 &+ \frac{7}{2c^2} \sum_{j \neq i} \frac{G m_j \mathbf{a}_j}{r_{ij}} + \mathcal{O} \left( \frac{v^4}{c^4} \right) \ .
 \end{align}
-Here $\mathbf{n}_{ij} = \mathbf{r}_{ij}/r_{ij}$ is the unit vector pointing from $i$ to $j$, and the big O notation indicated terms of the order $(v^4/c^4)$ and higher. One can see that the acceleration of a particular body depends on the accelerations of all the other bodies in the system, a new relativistic feature which does not appear in purely Newtonian systems. Since the accelerations that are being calculated also appear on the right hand side of the equation, the equations must be solved iteratively if exact solutions are needed. However using the usual Newtonian accelerations instead works as a good approximation.
+Here $\mathbf{n}_{ij} = \mathbf{r}_{ij}/r_{ij}$ is the unit vector pointing from $i$ to $j$, and the big O notation indicates terms of the order $(v^4/c^4)$ and higher. One can see that the acceleration of a particular body depends on the accelerations of all the other bodies in the system, a new relativistic feature which does not appear in purely Newtonian systems. And since the accelerations that are being calculated also appear on the right hand side of the equation, the equations must be solved iteratively if exact solutions are needed. However using the usual Newtonian accelerations on the right hand side of the equation in place of the PN corrected ones works as a good approximation.
 
 \subsection{Gravitational waves}
 
 While the EIH equations give accurate results for example in our solar system, it would be desirable to get more accurate approximations for more extreme systems. General equations of PN corrections for a three-body system are known up to the order 2.0PN \citep{gravity}, but if we go down to only a two-body system, PN corrections are known up to order of 3.5PN due to the relative simplicity of the situation. An extremely interesting effect arises from these later terms. The first three integer terms 1.0PN, 2.0PN, and 3.0PN are conservative, and we can find expressions for the total energy and angular momentum of the system. However the 2.5PN and 3.5PN corrections contain dissipative terms, and when these are taken into account the total energy and angular momentum of the system is not conserved. This is called the radiation reaction effect, and these losses are due to the emissions of gravitational waves \citep{gravwaves}. After 3.5PN corrections, even the integer terms start contributing to the radiation reaction. Gravitational waves are generated by accelerating masses, and can be considered wave like disturbances in the curvature of spacetime. This effect causes the orbit in the two body problem to shrink and circularize as energy is radiated away from the system. Gravitational waves play a big part for example in the final phases of a black hole binary merger.
 
-These later PN correction terms cause important effects and allow us to examine more extreme systems without using full GR, so being able to include them in large scale simulations would be of great use. One method is to use what is known as the two-body formulation, where we calculate the PN corrections for each particle pair while discarding the least important and computationally most expensive terms dependant on additional bodies. Another method is the cross-term formulation \citep{will:2014}, which works in situations where there is very few massive bodies, like a black hole surrounded by stars, since we are then mostly interested in the interactions between the black hole and the stars, not between the stars themselves, and we can safely leave out the other terms.
+\begin{align}
+\left< \frac{\mathrm{d} E}{\mathrm{d} t} \right> &= - \frac{32 G^4 \mu^2 M^3}{5 c^5 a^5} \frac{1 + \frac{73}{24}e^2 + \frac{37}{96}e^4}{(1-e^2)^{7/2}} \\
+\left< \frac{\mathrm{d} L_z}{\mathrm{d} t} \right> &= - \frac{32 G^{7/2} \mu^2 M^{3/2}}{5 c^5 a^{7/2}} \frac{1 + \frac{7}{8}e^2}{(1-e^2)^2}
+\end{align}
+
+These higher than 1.0PN correction terms cause important effects and allow us to examine more extreme systems without using full GR, so being able to include them in large scale simulations would be of great use. One method is to use what is known as the two-body formulation, where we calculate the PN corrections for each particle pair while discarding the least important and computationally most expensive terms dependent on additional bodies. Another method is the cross-term formulation \citep{will:2014}, which works in situations where there is very few massive bodies, like a black hole surrounded by stars, since we are then mostly interested in the interactions between the black hole and the stars, not between the stars themselves, and we can safely ignore these terms.
 
 \subsection{The first application of PN corrections}
 
