@@ -750,7 +750,7 @@ There are three main phases that the black holes go through before their eventua
 
 \subsection{Dynamical friction}
 
-When galaxies merge, the interactions between their stars cause the stars to transfer momentum and kinetic energy from their relative orbital motion to random motion. This leads to the orbital decay of the stars and causes the matter to sink into the system. This process, known as dynamical friction, applies to large clusters of particles or even single massive particle, like a black hole, moving through a larger host system \citep{bt-galdyn}. It is important to note that dynamical friction is not caused by actual collisions, only by dynamical interactions between the particles.
+When galaxies merge, the interactions between their stars cause the stars to transfer momentum and kinetic energy from their relative orbital motion to random motion. This leads to the orbital decay of the stars and causes the matter to sink into the system. This process, known as dynamical friction, applies to large clusters of stars or even a single massive particle, like a black hole, moving through a larger host system \citep{bt-galdyn}. It is important to note that dynamical friction is not caused by actual collisions, only by dynamical interactions between the particles.
 
 An intuitive way of understanding the process is to think of a body of mass $M$ travelling through a population of particles of mass $m_a \ll M$. We call the mass $M$ the subject body and the smaller particles of mass $m_a$ field stars. We assume that the field stars are members of a large host with a total mass much greater than $M$, so that it can be approximated as nearly infinite and homogeneous. Thus when the subject body moves through the sea of field particles, it attracts the smaller particles through gravity, and leaves behind a so called gravitational wake. This higher concentration of mass behind the particle compared to in front of the masses causes a drag force that slows down the subject body. (To do: tähän kuva lisäksi)
 
@@ -762,7 +762,7 @@ and is called Chandrasekhar's dynamical friction formula. Here $f(v_m)$ is the d
 
 The logarithm $\mathrm{ln} \Lambda$ is known as the Coulomb logarithm, and if we approximate that the particles are point masses, it is defined as
 \begin{equation}
-\mathrm{ln} \Lambda \approx \mathrm{ln} \left( \frac{b_{\mathrm{max}}}{b_{90}} \right) \ .
+\mathrm{ln} \Lambda \approx \mathrm{ln} \left( \frac{b_{\mathrm{max}}}{b_{90}} \right) \ . \label{equ:coulomblog}
 \end{equation}
 Here $b$ means the impact parameter of a two-body encounter, which is the shortest distance between the two particles, if they passed each other without any interaction. Parameter $b_{\mathrm{max}}$ is the maximum impact parameter considered, and $b_{90}$ is the impact parameter at which the direction of the orbit of the passing particle will be altered by $90^{\circ}$. This latter parameter can be expressed as
 \begin{equation}
@@ -774,24 +774,46 @@ where $v_{\mathrm{typ}}$ is the typical encounter speed between the particles. S
 \end{equation}
 This logarithm basically describes the cut-off of the friction effect at the maximum impact parameter \citep{galform}.
 
-If the subject mass moves slowly, so we can assume that $v_M$ is small, the field star distribution function can be approximately replaced with $f(0)$, in which case the integral is easy to evaluate, so we get the following form for equation \ref{equ:dynamicalfriction}: 
+If the subject mass moves slowly, so that we can assume that $v_M$ is small, the field star distribution function can be approximately replaced with $f(0)$, in which case the integral is easy to evaluate, so we get the following form for equation \ref{equ:dynamicalfriction}: 
 \begin{equation}
 \mathbf{F}_{\mathrm{df}} = -\frac{16 \pi^2}{3} G^2 M^2 m_a \, \mathrm{ln} \Lambda \, f(0) \mathbf{v}_M \ . \label{equ:dynfricslow}
 \end{equation}
-On the other hand if the subject body moves at a sufficiently large speed, the integral in equation \ref{equ:dynamicalfriction} converges to a definite limit, equal to the number density of the field stars $n$ divided by $4\pi$ \citep{bt-galdyn}, so we get
+Very interestingly, if instead the subject body moves at a high speed, so that $v_M$ is large, the integral in equation \ref{equ:dynamicalfriction} converges to a definite limit, so we get
 \begin{equation}
 \mathbf{F}_{\mathrm{df}} = -4 \pi G^2 M^2 m_a n \, \mathrm{ln} \Lambda \, \frac{\mathbf{v}_M}{v_M^3} \ . \label{equ:dynfricfast}
 \end{equation}
-Here the mass density $m_a n$ can be replaced with $\rho(< v_M)$, the overall density of the field particles moving slower than the subject body.
+Here the mass density $m_a n$ can be replaced with $\rho(< v_M)$, the overall density of the field particles moving slower than the subject body \citep{bt-galdyn}.
 
 From equations \ref{equ:dynfricslow} and \ref{equ:dynfricfast} we can see that unlike with hydrodynamic friction, where the drag always increases as the velocity increases, the situation here is more complicated. At sufficiently slow speeds dynamical friction is relative to the speed of the subject body, $F_{\mathrm{df}} \propto v_M$. This is similar to ordinary drag where the force increases with speed. But at larger speeds the frictional force begins to fall off, $F_{\mathrm{df}} \propto v_M^{-2}$. And as the mass density of the field stars can be replaced with the overall density, the force is independent of the individual masses of the field particles, so the formula is also valid for a field with distributed particle masses.
 
-\subsection{Three body scattering}
+Chandrasekhar's formula makes several unrealistic assumptions when applied to a real astrophysical system. It assumes that all of the particles are point masses, it doesn't take into account the self-gravity of the wake left by the subject body, and it assumes a homogeneous and infinite distribution of the field particles, meaning that the choice of $b_\mathrm{max}$ and $v_\mathrm{typ}$ are a bit arbitrary in real scenarios. Despite these assumptions, Chandrasekhar's formula gives good approximations for the drag effect on a subject mass travelling in a stellar system. The scale of the effect is usually around a factor of two of a more accurately gained measurement \citep{weinberg:1989}.
 
+The point mass approximation can be corrected by using the half-mass radius in place of $b_{90}$ in equation \ref{equ:coulomblog} \citep{bt-galdyn}. Half-mass radius is simply the radius of the subject body that contains half of its total mass.
+The fact that the exact values for the parameters in the Coulomb logarithm are hard to determine does not cause as much error as one might imagine. The ratio between $b_\mathrm{max}$ and $b_{90}$ is typically quite large, so the logarithm is not very sensitive to changes of order unity in the parameters. Finally, if we want take self-gravitation of the system into account as well, we need to use a more rigorous method such as linear response theory. Instead of considering only independent two-body interactions, the subject body is considered a moving external potential which causes a response density in the host system. In turn, the gravitational effect of this response density causes a drag effect on the original potential. This drag force is dynamical friction \citep{galform}. 
+
+%TODO
+
+%kuva dynaamisesta kitkasta
+
+
+\subsection{Three-body scattering}
+
+As the black holes sink close to the center of the new combined galaxy system, they will eventually reach a point where they form a gravitationally bound binary. This happens approximately when their semimajor axis is around 10 parsecs, and their orbital velocities exceed the local stellar velocity dispersion. At this point the dynamical friction formula is no longer valid, and instead the evolution of the binary is determined by its interactions with the surrounding stellar population. The binary hardens, i.e. its separation shrinks, by giving kinetic energy to stars that pass close to it through complex three-body interactions, similar to the gravitational slingshot mechanisms used to accelerate spacecraft in our solar system. This hardening happens at a nearly constant rate of
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d} t} \left( \frac{1}{a} \right) \propto \frac{G \rho}{\sigma}  \ ,
+\end{equation}
+if we assume a constant stellar density $\rho$ and velocity diespersion $\sigma$ \citep{quinlan:1996}. These stars can be ejected from the system at very high velocities, even enough for them to escape the potential of the galaxy.
+
+This analysis fails however if the stellar population surrounding the binary is not actually constant. For a star to be able to get close enough to interact strongly with the binary, it has to have angular momentum of $L \lesssim \sqrt{G(M_1 + M_2)a}$, where $M_1$ and $M_2$ are the masses of the black holes, and $a$ is the semimajor axis \citep{bt-galdyn}. The region of stars with low enough angular momentum is called the loss cone.
+
+%aikaskaalan kaava, puhu loss conesta, mikä vois täyttää
 
 \subsection{Gravitational waves}
 
 
+
+%viittaa aiempiin kaavoihin isoakselin muutoksesta
+%puhu bottleneck timesta
 
 \chapter{AR-CHAIN} \label{chap:ar-chain}
 \section{AR-CHAIN overview}
