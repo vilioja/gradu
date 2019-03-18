@@ -710,7 +710,7 @@ The 2.5PN term contains the most dominant radiation reaction terms, and its effe
 \end{align}
 Here $a$ and $e$ are simply the semimajor axis and orbital eccentricity of the system, and $\mu$ and $M$ are the reduced and total mass of the two bodies. It should be noted that these formulas consider only the effects of the 2.5PN term, and not any of the other terms. \cite{peters:1964} also derived equations for the changes in the semimajor axis and eccentricity of the orbit as a result of these GW losses:
 \begin{align}
-\left< \frac{\mathrm{d} a}{\mathrm{d} t} \right> &= - \frac{64}{5}\frac{G^3 \mu M^2}{c^5 a^3} \frac{1 + \frac{73}{24}e^2 + \frac{37}{96}e^4}{(1-e^2)^{7/2}} \\
+\left< \frac{\mathrm{d} a}{\mathrm{d} t} \right> &= - \frac{64}{5}\frac{G^3 \mu M^2}{c^5 a^3} \frac{1 + \frac{73}{24}e^2 + \frac{37}{96}e^4}{(1-e^2)^{7/2}} \label{equ:GWsemimajor} \\
 \left< \frac{\mathrm{d} e}{\mathrm{d} t} \right> &= - \frac{304}{15} e \frac{G^3 \mu M^2}{c^5 a^4} \frac{1 + \frac{121}{304}e^2}{(1-e^2)^{5/2}} \ .
 \end{align}
 Since the terms are negative, the emission of gravitational waves shrinks and circularizes the orbit. One can also see that when the eccentricity is near 1 or as the semimajor axis approaches 0, these effects strongly increase. This makes sense, as in both of these cases the orbiting body passes close to the other massive body in deep plunging orbits, so the orbital velocity is high as well.
@@ -752,7 +752,14 @@ There are three main phases that the black holes go through before their eventua
 
 When galaxies merge, the interactions between their stars cause the stars to transfer momentum and kinetic energy from their relative orbital motion to random motion. This leads to the orbital decay of the stars and causes the matter to sink into the system. This process, known as dynamical friction, applies to large clusters of stars or even a single massive particle, like a black hole, moving through a larger host system \citep{bt-galdyn}. It is important to note that dynamical friction is not caused by actual collisions, only by dynamical interactions between the particles.
 
-An intuitive way of understanding the process is to think of a body of mass $M$ travelling through a population of particles of mass $m_a \ll M$. We call the mass $M$ the subject body and the smaller particles of mass $m_a$ field stars. We assume that the field stars are members of a large host with a total mass much greater than $M$, so that it can be approximated as nearly infinite and homogeneous. Thus when the subject body moves through the sea of field particles, it attracts the smaller particles through gravity, and leaves behind a so called gravitational wake. This higher concentration of mass behind the particle compared to in front of the masses causes a drag force that slows down the subject body. (To do: tähän kuva lisäksi)
+An intuitive way of understanding the process is to think of a body of mass $M$ travelling through a population of particles of mass $m_a \ll M$. We call the mass $M$ the subject body and the smaller particles of mass $m_a$ field stars. We assume that the field stars are members of a large host with a total mass much greater than $M$, so that it can be approximated as nearly infinite and homogeneous. Thus when the subject body moves through the sea of field particles, it attracts the smaller particles through gravity, and leaves behind a so called gravitational wake. This higher concentration of mass behind the particle compared to in front of the masses causes a drag force that slows down the subject body. This is illustrated in figure \ref{fig:dynfric}.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.33]{../images/dynfric.pdf}
+\caption{A simplified image showing the basic mechanism behind dynamical friction. The subject body $M$ attracts the field particles towards itself as it travels, which creates a concentration of mass behind it. This creates a dynamical friction force $F_\mathrm{df}$ which slows the subject body down.}
+\label{fig:dynfric}
+\end{figure}
 
 \cite{chandrasekhar:1943} derived a formula for the force caused on the subject body by this effect. This force is expressed as
 \begin{equation}
@@ -802,18 +809,24 @@ As the black holes sink close to the center of the new combined galaxy system, t
 \begin{equation}
 \frac{\mathrm{d}}{\mathrm{d} t} \left( \frac{1}{a} \right) \propto \frac{G \rho}{\sigma}  \ ,
 \end{equation}
-if we assume a constant stellar density $\rho$ and velocity diespersion $\sigma$ \citep{quinlan:1996}. These stars can be ejected from the system at very high velocities, even enough for them to escape the potential of the galaxy.
+if we assume a constant stellar density $\rho$ and velocity dispersion $\sigma$ \citep{quinlan:1996}. These stars can be ejected from the system at very high velocities, spreading the central stars to wider orbits, and even enough for some of them to escape the potential of the galaxy.
 
-This analysis fails however if the stellar population surrounding the binary is not actually constant. For a star to be able to get close enough to interact strongly with the binary, it has to have angular momentum of $L \lesssim \sqrt{G(M_1 + M_2)a}$, where $M_1$ and $M_2$ are the masses of the black holes, and $a$ is the semimajor axis \citep{bt-galdyn}. The region of stars with low enough angular momentum is called the loss cone.
+This analysis fails however if the stellar population surrounding the binary is not actually constant. For a star to be able to get close enough to interact strongly with the binary, it has to have angular momentum of $L \lesssim \sqrt{G(M_1 + M_2)a}$, where $M_1$ and $M_2$ are the masses of the black holes, and $a$ is the semimajor axis \citep{bt-galdyn}. The region of stars with low enough angular momentum is called the loss cone. As the stars that interact with the binary are ejected out of the system, the loss cone is slowly drained of stars. If the loss cone is completely emptied, the binary cannot harden any more, and thus its evolution is halted. This is the so called final-parsec problem, and there must be some mechanisms to refill the loss cone if black hole mergers do happen.
 
-%aikaskaalan kaava, puhu loss conesta, mikä vois täyttää
+One clear candidate for this is two-body relaxations between stars which cause them to end up inside the loss cone \citep{milosavljevic:2003}, but in non-spherical galaxies torques could drive gas to the central region of the galaxy, which would also help the hardening process \citep{mayer:2007}.
+The final parsec problem is more problematic in spherical galaxies where the mass inside the loss cone is the smallest, and there are no torques to drive gas inwards. In triaxial and axisymmetric galaxies however the asymmetric perturbations are able to cause stars to end up on centrophilic orbits that would refill the loss cone. If the host of the binary were to undergo another merger while the black holes are in the process of merging, the perturbations caused by this could break the  symmetry of galactic potentials, and efficiently refill the loss cone.
+
+N-body simulations of non-spherical systems suggest that the final parsec problem is not as severe as one might think. The problems has been found to not hamper the hardening of binaries in triaxial \citep{berczik:2006} and axisymmetric galaxies \citep{khan:2013}.
+The simulations however are not necessarily completely accurate. Approximating a galaxy with $N \gtrsim 10^9$ stars by a model consisting of only around $N \lesssim 10^6$ particles leads to enhanced two-body relaxation timescales. Thus the loss cone is much less depleted than in real galaxies \citep{milosavljevic:2003}. This problem could be solved with simulations capable of handling a much larger amount of particles, $N \sim 10^7$, to reproduce the correct behaviour.
 
 \subsection{Gravitational waves}
 
+If the black hole binary overcomes the final-parsec problem and reaches a semimajor axis of around a hundredth of a parsec, it will lose enough energy through the emissions gravitational waves to eventually coalesce in less than the Hubble time \citep{milosavljevic:2003}. Hubble time is the time it would take for the universe to expand to its current state if it expanded at a constant Hubble rate. The rate at which the semimajor axis shrinks due to the radiation reaction effect can be estimated with the Peters and Mathews equation \ref{equ:GWsemimajor}. The evolution of the semimajor axis $\dot{a} \propto -a^{-3}$, and if we assume a constant eccentricity we can approximate the coalescence timescale with \citep{bt-galdyn}
+\begin{equation}
+t_c \sim -\frac{a}{4\dot{a}} \ .
+\end{equation}
 
-
-%viittaa aiempiin kaavoihin isoakselin muutoksesta
-%puhu bottleneck timesta
+The longest evolutionary phase for a black hole binary is when the radius of the bound system is below that at which it becomes hard, but still above the radius at which gravitational waves become prominent \citep{begelman:1980}. This is known as the bottleneck radius, and it marks the area where binary black holes are most likely observed. The decay time at this bottleneck radius is uncertain, and depends on both the population of the loss cone and how much gas affects the evolution of the binary \citep{bt-galdyn}. If the coalescence time is very long, over 10 Gyr, we would expect to be able to observe these binaries at the centers of most galaxies. If the timescale is shorter, we could observe the coalescence events happening.
 
 \chapter{AR-CHAIN} \label{chap:ar-chain}
 \section{AR-CHAIN overview}
