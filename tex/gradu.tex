@@ -782,7 +782,7 @@ If the subject mass moves slowly, so that we can assume that $v_M$ is small, the
 \begin{equation}
 \mathbf{F}_{\mathrm{df}} = -\frac{16 \pi^2}{3} G^2 M^2 m_a \, \mathrm{ln} \Lambda \, f(0) \mathbf{v}_M \ . \label{equ:dynfricslow}
 \end{equation}
-Very interestingly, if instead the subject body moves at a high velocity, so that $v_M$ is large, the integral in equation \ref{equ:dynamicalfriction} converges to a definite limit, so we get
+Very interestingly, if instead the subject body moves at a high velocity, so that $v_M \gg v_m$, this behaviour changes. We can assume that the subject body moves at a higher velocity than all the surrounding field particles, so we are effectively integrating over all the velocities of the field particles. As it was mentioned earlier, the distribution function is normalized to give the number density of particles near the subject body. So the integral gives us the number density of particles $n$ over the solid angle of a sphere, $4\pi$. So from the equation \ref{equ:dynamicalfriction} we get
 \begin{equation}
 \mathbf{F}_{\mathrm{df}} = -4 \pi G^2 M^2 m_a n \, \mathrm{ln} \Lambda \, \frac{\mathbf{v}_M}{v_M^3} \ . \label{equ:dynfricfast}
 \end{equation}
@@ -792,12 +792,9 @@ From equations \ref{equ:dynfricslow} and \ref{equ:dynfricfast} we can see that u
 
 Chandrasekhar's formula makes several unrealistic assumptions when applied to a real astrophysical system. It assumes that all of the particles are point masses, it does not take into account the self-gravity of the wake left by the subject body, and it assumes a homogeneous and infinite distribution of the field particles, meaning that the choice of $b_\mathrm{max}$ and $v_\mathrm{typ}$ are a bit arbitrary in real scenarios. Despite these assumptions, Chandrasekhar's formula gives good approximations for the drag effect on a subject mass travelling in a stellar system. Taking these effects into account leads to an orbital decay time that is roughly twice as long compared to the estimate from Chandrasekhar's formula \citep{weinberg:1989}.
 
-The point mass approximation can be corrected by using the half-mass radius in place of $b_{90}$ in equation \ref{equ:coulomblog} \citep{bt-galdyn}. Half-mass radius is simply the radius of the subject body that contains half of its total mass.
+The point mass approximation can be corrected by using the half-mass radius $r_h$, which is the radius of the subject body that contains half of its total mass, in place of $b_{90}$ in equation \ref{equ:coulomblog} \citep{bt-galdyn}. If the closest approach of a field star to the center of the subject body is $\lesssim r_h$, the orbit of the star will be less affected and thus its contribution to the drag force will be smaller than if the subject body was a point mass. Conversely the total drag force is largely unaffected if $r_h \lesssim b_{90}$. Thus using the half-mass radius gives a good estimate for the dynamical friction in case the subject body is not considered to be a point mass.
+
 The fact that the exact values for the parameters in the Coulomb logarithm are hard to determine does not cause as much error as one might imagine. The ratio between $b_\mathrm{max}$ and $b_{90}$ is typically quite large. However we take the logarithm, so the end result is much smaller and not very sensitive to changes of order unity in the parameters. Finally, if we want take self-gravitation of the system into account as well, we need to use a more rigorous method such as linear response theory. Instead of considering only independent two-body interactions, the subject body is considered to be a moving external potential which causes a response density in the host system. In turn, the gravitational effect of this response density causes a drag effect on the original potential. This drag force is dynamical friction \citep{galform}. 
-
-%TODO
-
-%kuva dynaamisesta kitkasta
 
 
 \subsection{Three-body scattering}
