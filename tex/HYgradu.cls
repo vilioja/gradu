@@ -131,6 +131,7 @@
 }
 \newcommand{\mytableofcontents}{%
 \pagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \tableofcontents
 \cleardoublepage
 \pagenumbering{arabic}
@@ -213,7 +214,7 @@
   \def\today{\number\day.\number\month.\number\year}}
 \newcommand{\level}[1]{\gdef\@level{#1}}
 \level{}
-\newcommand{\prof}[1]{\gdef\@prof{#1}}
+\newcommand{\prof}[2]{\gdef\@prof{#1\\&#2}}
 \newcommand{\address}[1]{\gdef\@address{#1}}
 \newcommand{\censors}[3]{\gdef\@censor{#1\\&#2\\&#3}}
 \newcommand{\quoting}[1]{\gdef\@quoting{#1}}
@@ -301,14 +302,13 @@
 
 \def\reallyempty{}
 \begin{tabular}{l l}
-Supervisor: & \@prof\\
+Supervisors: & \@prof\\
 &\\
 \ifx\@censor\reallyempty
 &\\
 \else 
 Reviewers: & \@censor\\
 \fi
-&\\
 \end{tabular}
 \end{large}
 

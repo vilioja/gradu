@@ -52,7 +52,7 @@
 \department{Department of Physics}
 \address{PL 64 (Gustaf Hällströmin katu 2)\\00014 Helsingin yliopisto\\Finland}
 \subject{Astronomy}
-\prof{Professor Peter Johansson}
+\prof{Professor Peter Johansson}{Dr. Pauli Pihajoki}
 \censors{Professor Peter Johansson}{Dr. Pauli Pihajoki}{}
 \depositeplace{}
 \additionalinformation{}
@@ -78,7 +78,6 @@ Abstract goes here.
 
 % Place ToC
 \mytableofcontents
-
 
 
 % -----------------------------------------------------------------------------------
@@ -530,7 +529,7 @@ The transformation to the new coordinates is given via complex numbers. The new 
 &= \frac{2^2 \mathbf{Q}^2 \cdot \mathbf{p}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \nonumber \\
 &= \frac{\mathbf{P}^2}{8 \mu} - E \mathbf{Q}^2 - G \mu M \ ,
 \end{align}
-where $\mathbf{P} = 2 \mathbf{Q} \cdot \mathbf{p}$. Similarly to the one-dimensional case, this is the Hamiltonian of a simple harmonic oscillator, except in this case our harmonic oscillator is two-dimensional. The singularity has thus once again been removed.
+where the new momenta are $\mathbf{P} = 2 \mathbf{Q} \cdot \mathbf{p}$. Similarly to the one-dimensional case, this is the Hamiltonian of a simple harmonic oscillator, except in this case our harmonic oscillator is two-dimensional. The singularity has thus once again been removed.
 
 The transformation $r = \mathbf{Q}^2$ can also be expressed in vector notation as
 \begin{equation}
@@ -547,14 +546,17 @@ Q_2 & Q_1
 This sort of matrix has properties that are useful when formulating transformations also in higher dimensional cases.
 
 \subsection{Kustaanheimo-Stiefel method}
-While the two-body problem is limited to two dimensions in theory, in practice there are usually perturbations which perturb the orbit into the third dimension, thus a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good starting point, and it has several useful properties. All of its elements are linear homogeneous functions of $Q_i$, and the mapping defined by the matrix is conformal, i.e. the transformation matrix is orthogonal. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
+While the two-body problem is limited to two dimensions in theory, in practice there are usually perturbations which perturb the orbit into the third dimension, thus a three-dimensional generalization is desirable. A problem with this arises from the fact that it is not possible to do the generalization directly in three dimensions. The Levi-Civita matrix is a good starting point, and it has several useful properties. All of its elements are linear homogeneous functions of $Q_i$, and the mapping defined by the matrix is conformal or angle-preserving. A matrix with such properties cannot exist in three dimensions, and the next suitable step from a two-dimensional matrix is a four-dimensional matrix \citep{diplomarbeit}. The Kustaanheimo-Stiefel (KS) method involves doing the transformation into three-dimensional space through four dimensions.
 
-The old and new coordinates are defined as
-\begin{align}
-\mathbf{Q} &= (Q_1, \ Q_2, \ Q_3, \ Q_4)^\mathrm{T} \nonumber \\
+The old and new coordinates and momenta are defined as
+\begin{equation}
+\begin{aligned}
 \mathbf{r} &= (r_1, \ r_2, \ r_3, \ r_4)^\mathrm{T} \\
-\mathbf{p} &= (p_1, \ p_2, \ p_3, \ p_4)^\mathrm{T}  \nonumber \ ,
-\end{align}
+\mathbf{p} &= (p_1, \ p_2, \ p_3, \ p_4)^\mathrm{T} \\
+\mathbf{Q} &= (Q_1, \ Q_2, \ Q_3, \ Q_4)^\mathrm{T} \\
+\mathbf{P} &= (P_1, \ P_2, \ P_3, \ P_4)^\mathrm{T} \ ,
+\end{aligned}
+\end{equation}
 where $T$ simply means the transpose of the matrix, and the KS matrix is defined as 
 \begin{equation}
 \mathcal{L}(\mathbf{Q}) =
@@ -594,7 +596,7 @@ which once again is the Hamiltonian of a harmonic oscillator, this time in four 
 However there is still an extra dimension, so we need to find a mapping to convert between the three dimensional physical space and the four dimensional space.
 
 Calculating $\mathbf{r}$ from equation \ref{equ:KStransform} we get
-\begin{align}
+\begin{align} \label{equ:KSsolve}
 \mathbf{r} = 
 \begin{pmatrix}
 r_1 \\
@@ -625,23 +627,28 @@ Q_1^2 - Q_2^2 - Q_3^2 + Q_4^2 \\
 \end{pmatrix} \ .
 \end{align}
 Having the fourth component of $\mathbf{r}$ set to zero makes sense since in physical space we have motion only in three dimensions.
-We can still freely choose one of the extra components of $\mathbf{Q}$, so there are many different ways to change between the physical variables and the KS transformed variables. One way is by setting $Q_4 = 0$, which gives us the following relations
+We can still freely choose one of the extra components of $\mathbf{Q}$, so there are many different ways to change between the physical variables and the KS transformed variables. One way is by setting $Q_4 = 0$ and solving the equation \ref{equ:KSsolve} for the $Q_i$, which gives us the following relations
+%\begin{align}
+%Q_1 &= \left( \frac{1}{2} (Q_1^2 + Q_2^2 + Q_3^2 + Q_1^2 - Q_2^2 - Q_3^2) \right)^{1/2} = \left( \frac{1}{2} ( \left| \mathbf{r} \right| + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
+%Q_2 &= \frac{1}{2} \frac{2 Q_1 Q_2}{Q_1} = \frac{1}{2} \frac{r_2}{Q_1} \\
+%Q_3 &= \frac{1}{2} \frac{2 Q_1 Q_3}{Q_1} = \frac{1}{2} \frac{r_3}{Q_1} \nonumber \ 
+%\end{align}
 \begin{align}
-Q_1 &= \left( \frac{1}{2} (Q_1^2 + Q_2^2 + Q_3^2 + Q_1^2 - Q_2^2 - Q_3^2) \right)^{1/2} = \left( \frac{1}{2} ( \left| \mathbf{r} \right| + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
-Q_2 &= \frac{1}{2} \frac{2 Q_1 Q_2}{Q_1} = \frac{1}{2} \frac{r_2}{Q_1} \\
-Q_3 &= \frac{1}{2} \frac{2 Q_1 Q_3}{Q_1} = \frac{1}{2} \frac{r_3}{Q_1} \nonumber \ 
+Q_1 &= \left( \frac{1}{2} ( \left| \mathbf{r} \right| + \left| r_1 \right| ) \right)^{1/2} \nonumber \\
+Q_2 &= \frac{1}{2} \frac{r_2}{Q_1} \\
+Q_3 &= \frac{1}{2} \frac{r_3}{Q_1} \nonumber \ 
 \end{align}
 and the mapping
 \begin{equation}
 \mathbf{Q} = 
 \begin{cases}
-\left( Q_1, \ Q_2, \ Q_3, \ Q_4 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 \geq 0 \\
-\left( Q_1, \ Q_2, \ Q_4, \ Q_3 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 < 0 \ .
+\left( Q_1, \ Q_2, \ Q_3, \ 0 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 \geq 0 \\
+\left( Q_1, \ Q_2, \ 0, \ Q_3 \right)^\mathrm{T} \ , \ \mathrm{if} \ r_1 < 0 \ .
 \end{cases}
 \end{equation}
-With these mappings we can accurately convert the coordinates between the different dimensional spaces \citep{diplomarbeit, ad}.
+With these mappings we can convert the coordinates between the different dimensional spaces \citep{diplomarbeit, ad}.
 
-Regularized computational methods are very precise, but they are typically much more computationally expensive than non-regularized ones, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed in more detail in chapter \ref{chap:ar-chain}.
+Regularized computational methods are very precise, but they are typically more computationally expensive and it is difficult to regularize many particles at the same time, so there would be benefits for an accurate method that does not need this kind of regularization. Fortunately there exists another method which involves only time transformation but no coordinate transformation, named algorithmic regularization (AR) \citep{diplomarbeit}. These kinds of regularization methods do not actually remove the Newtonian collision singularities from the equations of motion, but the equations can be evaluated in a way that they behave regularly regardless. Algorithmic regularization will be discussed in more detail in chapter \ref{chap:ar-chain}.
 
 
 %\noindent (TODO: Syvällisemmin KS:ää? Lisää alakohtia? Jonkunlainen loppukaneetti.)
@@ -650,14 +657,14 @@ Regularized computational methods are very precise, but they are typically much 
 
 \subsection{Approximating general relativity}
 
-While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results when examining very massive compact objects or objects moving at a significant fraction of the speed of light. In these situations we need to use general relativity (GR), which describes gravity as a geometric property of spacetime. This theory is described by the Einstein field equations, which are the set of 10 coupled, non-linear partial differential equations that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy. The field equations are usually expressed as
+While Newtonian dynamics is a perfectly valid approximation in everyday life, it stops giving correct results for very massive compact objects or objects moving at a significant fraction of the speed of light. In these situations we need to use general relativity (GR), which describes gravity as a geometric property of spacetime. This theory is described by the Einstein field equations, which are a set of 10 coupled, non-linear partial differential equations that describe the fundamental interaction of gravitation as a result of spacetime being curved by mass and energy. The field equations are usually expressed as
 \begin{equation}
 R_{\mu \nu} - \frac{1}{2}R g_{\mu \nu} + \Lambda g_{\mu \nu} = \frac{8 \pi G}{c^4} T_{\mu \nu} \ ,
 \end{equation}
-where $R_{\mu \nu}$ is the Ricci curvature tensor and $R$ is the scalar curvature which both are used to describe how the geometry of curved space differs from the geometry of flat Euclidean space. The parameter $g_{\mu \nu}$ is the metric tensor which describes the geometric and causal structure of spacetime in our universe, $\Lambda$ is the cosmological constant which describes the energy density of the vacuum, and $T_{\mu \nu}$ is the stress-energy tensor which describes mass and energy as the source of gravity in the universe. Finally $G$ and $c$ are the gravitational constant and the speed of light respectively.
+where $R_{\mu \nu}$ is the Ricci curvature tensor and $R$ is the scalar curvature which both are used to describe how the geometry of curved space differs from the geometry of flat Euclidean space. They are functions of the variable $g_{\mu \nu}$ which is the metric tensor which describes the geometric and causal structure of spacetime in our universe. The parameter $\Lambda$ is the cosmological constant which describes the energy density of the vacuum, and the variable $T_{\mu \nu}$ is the stress-energy tensor which describes mass and energy as the source of gravity in the universe. Finally $G$ and $c$ are the gravitational constant and the speed of light respectively.
 
 These equations are very hard to solve exactly due to their non-linear nature, and doing fully general relativistic simulations is computationally very expensive, so more wieldy methods are required for large-scale simulations. This is where post-Newtonian (PN) expansions come in. Post-Newtonian expansions in general relativity are used for finding an approximate solution of the Einstein field equations in the weak field approximation.
-In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is relatively slow, $v/c \sim 0.01$. The theory successfully describes the gravitational field of our solar system for example, but it can also be applied to situations involving compact bodies with strong internal gravity.
+In other words, the post-Newtonian theory is an approximate version of general relativity that applies when the gravitational field is relatively weak, and the motion of the matter is relatively slow, $v/c \sim 0.01$. The theory successfully describes the gravitational field of our solar system for example, but it can also be applied to situations involving compact bodies, such as neutron stars or black holes.
 %
 %The post-Newtonian theory is derived from the Landau-Lifshitz formulation of the Einstein field equations. The equations can be written as 
 %\begin{equation}
@@ -686,7 +693,7 @@ In other words, the post-Newtonian theory is an approximate version of general r
 %The iterations are started with $h^{\alpha \beta}_0 = 0$, and stopped when the desired accuracy is obtained. In principle, the truncation is the only source of approximation. The procedure produces a formal expansion of $h^{\alpha \beta}$ in powers of G. This is known as the post-Minkowskian expansion of the gravitational field. After iterations have been done up to the desired accuracy, we can again impose the gauge condition to get a proper metric.
 %
 %The difference between post-Minkowskian and post-Newtonian expansion is that in post-Newtonian approximation we assume a slow-motion condition, i.e. all speeds within the matter distribution (such as the speed of sound within a body, or the speed of the body as a whole) are small compared with the speed of light. In astrophysical situations the assumption of slow speeds is accurate in the vast majority of cases, since the virial theorem implies that $U \sim v^2$ for any gravitationally bound system; weak fields are naturally accompanied by slow motion.
-The approximations are expanded in small parameters which express orders of deviations from Newton's laws of gravity. A correction of order $(v/c)^n$ to a Newtonian expression is said to be of $(n/2)\mathrm{PN}$ order. So for example the correction 3.5PN would contain terms up to the order $(v/c)^7$ \citep{will:2006}.
+The approximations are expanded in terms of a small parameter $\varepsilon \sim v/c$, which expresses orders of deviation from Newton's laws of gravity. A correction of order $(v/c)^n$ to a Newtonian expression is said to be of $(n/2)\mathrm{PN}$ order. So for example the correction 3.5PN would contain terms up to the order $(v/c)^7$ \citep{will:2006}.
 
 The post-Newtonian corrections are known for a general N-body system only up to the first order, 1.0PN. These corrections are described by the Einstein-Infeld-Hoffman (EIH) equations \citep{einstein:1938}, and the equations of motion are given by
 \begin{align}
@@ -713,7 +720,7 @@ Here $a$ and $e$ are simply the Keplerian semimajor axis and orbital eccentricit
 \end{align}
 Since the terms are negative, the emission of gravitational waves shrinks and circularizes the orbit. One can also see that when the eccentricity is near 1 or as the semimajor axis approaches 0, these effects strongly increase. This makes sense, as in both of these cases the orbiting body passes close to the other massive body in deep plunging orbits, entering very deep into the gravitational well and having high orbital velocity.
 
-These correction terms which are higher than 1.0PN cause important effects and allow us to examine more extreme systems without using full GR. Thus it is important to include them in large-scale simulations. One method is to use what is known as the two-body formulation, where we calculate the PN corrections for each particle pair separately, where at least one of the particles is a black hole. PN corrections are not expected to be of major significance for interactions between stellar, gas, or dark matter particles. Another method is the cross-term formulation \citep{will:2014}, where the accelerations of all the other particles in the system are taken into account when calculating the acceleration between two particles. This is computationally expensive, so it only works in situations where there are at most hundreds of particles.
+These correction terms which are higher than 1.0PN cause important effects and allow us to examine more extreme systems without using full GR. Thus it is important to include them in large-scale simulations. One method is to use what is known as the two-body formulation, where we calculate the PN corrections for each particle pair separately, where at least one of the particles is a black hole. PN corrections are not expected to be of major significance for interactions between stellar, gas, or dark matter particles. Another method is the cross-term formulation \citep{will:2014}, which is an approximation of the EIH equations (Eq. \ref{equ:PN1Nbody}) for the case when a single large mass dominates the system. This is computationally expensive, so it only works in situations where there are at most hundreds of particles.
 
 \subsection{The first application of PN corrections}
 
@@ -745,7 +752,7 @@ There are three main phases that the black holes go through before their eventua
 
 \subsection{Dynamical friction}
 
-When galaxies merge, the interactions between their stars cause the stars to transfer momentum and kinetic energy from their relative orbital motion to random motion in the galaxy. This leads to the orbital decay of the stars and causes the stellar matter to sink into the system. This process, known as dynamical friction, applies to large clusters of stars or even a single massive particle, like a black hole, moving through a larger host system \citep{bt-galdyn}. It is important to note that dynamical friction is not caused by actual collisions, only by gravitational interactions between the particles.
+When galaxies merge, the interactions between their stars cause the stars to transfer momentum and kinetic energy from their relative orbital motion to random motion in the galaxy, which is known as violent relaxation. This leads to the orbital decay of the stars and causes the stellar matter to sink into the system. This process, known as dynamical friction, applies to large clusters of stars or even a single massive particle, like a black hole, moving through a larger host system \citep{bt-galdyn}. It is important to note that dynamical friction is not caused by actual collisions, only by gravitational interactions between the particles.
 
 An intuitive way of understanding the process is to think of a body of mass $M$ travelling through a population of particles of mass $m_a$, where $m_a \ll M$. We call the mass $M$ the subject body and the smaller particles of mass $m_a$ field stars. We assume that the field stars are members of a large host with a total mass much greater than $M$, so that it can be approximated as a nearly infinite and homogeneous system. Thus when the subject body moves through the sea of field particles, it attracts the smaller particles through gravity, and leaves behind a so called gravitational wake. This higher concentration of mass behind the particle compared to the mass in front of the particle causes a drag force that slows down the subject body. This is illustrated in figure \ref{fig:dynfric}.
 
@@ -760,13 +767,13 @@ An intuitive way of understanding the process is to think of a body of mass $M$ 
 \begin{equation}
 \mathbf{F}_{\mathrm{df}} = M \frac{\mathrm{d} \mathbf{v}_M}{\mathrm{d} t} = -16 \pi^2 G^2 M^2 m_a \mathrm{ln} \Lambda \left[ \int_0^{v_M} f(v_m) v_m^2 \mathrm{d}v_m \right] \frac{\mathbf{v}_M}{v_M^3} \label{equ:dynamicalfriction}
 \end{equation}
-and is called Chandrasekhar's dynamical friction formula. Here $f(v_m)$ is the distribution function of the field particles. A distribution function gives the number of particles per unit volume having approximately the specified velocity near a certain position. Chandrasekhar's formula assumes that the field stars have an isotropic velocity distribution, and thus position does not affect the distribution function. The function is normalized so that integrating it over all the velocities gives the number density of particles near the subject body. The dynamical drag force always opposes the motion of the subject body, similarly to ordinary frictional drag.
+and is called Chandrasekhar's dynamical friction formula. Here $f(v_m)$ is the distribution function of the field particles. A distribution function gives the number of particles per phase space volume having approximately the specified velocity near a certain position. Chandrasekhar's formula assumes that the field stars have an isotropic velocity distribution, and thus position does not affect the distribution function. The function is normalized so that integrating it over all the velocities gives the number density of particles near the subject body. The dynamical drag force always opposes the motion of the subject body, similarly to ordinary frictional drag.
 
 The logarithm $\mathrm{ln} \Lambda$ is known as the Coulomb logarithm, and if we approximate that the particles are point masses, it is defined as
 \begin{equation}
 \mathrm{ln} \Lambda \approx \mathrm{ln} \left( \frac{b_{\mathrm{max}}}{b_{90}} \right) \ . \label{equ:coulomblog}
 \end{equation}
-Here $b$ means the impact parameter of a two-body encounter, which is the shortest distance between the two particles, if they passed each other without any interaction. The parameter $b_{\mathrm{max}}$ is the maximum impact parameter considered, and $b_{90}$ is the impact parameter at which the direction of the orbit of the passing particle will be altered by $90^{\circ}$. This latter parameter can be expressed as
+Here $b$ means the impact parameter of a two-body encounter, defined as the shortest distance between the two particles if they passed each other without any interaction. The parameter $b_{\mathrm{max}}$ is the maximum impact parameter considered, and $b_{90}$ is the impact parameter at which the direction of the orbit of the passing particle will be deflected by $90^{\circ}$. This latter parameter can be expressed as
 \begin{equation}
 b_{90} = \frac{G(M+m_a)}{v^2_{\mathrm{typ}}} \ ,
 \end{equation}
@@ -792,12 +799,14 @@ Chandrasekhar's formula makes several unrealistic assumptions when applied to a 
 
 The point mass approximation can be corrected by using the half-mass radius $r_h$, which is the radius of the subject body that contains half of its total mass, in place of $b_{90}$ in equation \ref{equ:coulomblog} \citep{bt-galdyn}. If the closest approach of a field star to the center of the subject body is $\lesssim r_h$, the orbit of the star will be less affected and thus its contribution to the drag force will be smaller than if the subject body was a point mass. Conversely the total drag force is largely unaffected if $r_h \lesssim b_{90}$. Thus using the half-mass radius gives a good estimate for the dynamical friction in case the subject body is not considered to be a point mass.
 
-The fact that the exact values for the parameters in the Coulomb logarithm are hard to determine does not cause as much error as one might imagine. The ratio between $b_\mathrm{max}$ and $b_{90}$ is typically quite large. However we take the logarithm, so the end result is much smaller and not very sensitive to changes of order unity in the parameters. Finally, if we want take self-gravitation of the system into account as well, we need to use a more rigorous method such as linear response theory. Instead of considering only independent two-body interactions, the subject body is considered to be a moving external potential which causes a response density in the host system. In turn, the gravitational effect of this response density causes a drag effect on the original potential. This drag force is dynamical friction \citep{galform}. 
+The fact that the exact values for the parameters in the Coulomb logarithm are hard to determine does not cause as much error as one might imagine. The ratio between $b_\mathrm{max}$ and $b_{90}$ is typically quite large. However we take the logarithm, so the end result is much smaller and not very sensitive to changes of order unity in the parameters. 
+
+Finally, if we want take self-gravitation of the system into account as well, we need to use a more rigorous method such as linear response theory. Instead of considering only independent two-body interactions, the subject body is considered to be a moving external potential which causes a response density in the host system. In turn, the gravitational effect of this response density causes a drag effect on the original potential. This drag force is dynamical friction \citep{galform}. 
 
 
 \subsection{Three-body scattering}
 
-As the black holes sink close to the center of the newly merged galaxy system, they will eventually reach a point where they form a gravitationally bound binary. The distance where this happens is dependent on the masses of the black holes, but for black holes of masses $\sim 10^9 \, M_\odot$, the semimajor axis of the system is $\sim 100$ \citep{rantala:2018}, and the black hole orbital velocities exceed the local stellar velocity dispersion. At this point the dynamical friction formula is no longer valid, and instead the evolution of the binary is mainly determined by its interactions with the surrounding stellar population. The binary hardens, i.e. its separation shrinks, by losing kinetic energy to stars that pass close to it through complex three-body interactions, similar to the gravitational slingshot mechanisms used to accelerate spacecraft in our solar system. This hardening happens at a nearly constant rate of
+As the black holes sink close to the center of the newly merged galaxy system, they will eventually reach a point where they form a gravitationally bound binary. The distance where this happens is dependent on the masses of the black holes, but for black holes of masses $\sim 10^9 \, M_\odot$, the semimajor axis of the system is $\sim 100$ pc \citep{rantala:2018}, and the black hole orbital velocities exceed the local stellar velocity dispersion. At this point the dynamical friction formula is no longer valid, and instead the evolution of the binary is mainly determined by its interactions with the surrounding stellar population. The binary hardens, i.e. its separation shrinks, by losing kinetic energy to stars that pass close to it through complex three-body interactions, similar to the gravitational slingshot mechanisms used to accelerate spacecraft in our solar system. This hardening happens at a nearly constant rate of
 \begin{equation}
 \frac{\mathrm{d}}{\mathrm{d} t} \left( \frac{1}{a} \right) \propto \frac{G \rho}{\sigma}  \ ,
 \end{equation}
@@ -805,7 +814,7 @@ if we assume a constant stellar density $\rho$ and velocity dispersion $\sigma$ 
 \begin{equation}
 v_\star \sim V_{\mathrm{bin}} = \sqrt{\frac{2 G M_\bullet}{a}} \ ,
 \end{equation}
-where $a$ is the semimajor axis of the binary and $M_\bullet$ is the mass of the binary. The range of ejection velocities is broad, and some stars can even be ejected at high enough velocities to escape the potential of the galaxy, over $1000$ $\mathrm{km/s}$ for a $\sim 10^9 M_\odot$ binary \citep{rantala:2018}.
+where $a$ is the semimajor axis of the binary and $M_\bullet$ is the mass of the binary. The range of ejection velocities is broad, and some stars can even be ejected at high enough velocities to escape the potential of the galaxy, over $1000$ $\mathrm{km/s}$ for a $\sim 10^9 M_\odot$ binary \citep{rantala:2018}. These are so-called high velocity stars (HVS).
 
 This analysis fails however if the stellar population surrounding the binary is not actually constant. For a star to be able to get close enough to interact strongly with the binary, it has to have angular momentum of $L \lesssim \sqrt{G(M_1 + M_2)a}$, where $M_1$ and $M_2$ are the masses of the black holes, and $a$ is the semimajor axis \citep{bt-galdyn}. The region of stars with low enough angular momentum is called the loss cone. As the stars that interact with the binary are ejected out of the system, the loss cone is slowly drained of stars. If the loss cone is completely emptied, the binary cannot harden any more, and thus its evolution is halted. This is the so called final-parsec problem, and there must be some mechanisms to refill the loss cone if black hole mergers do happen.
 
@@ -908,10 +917,10 @@ One should keep in mind that this model is very simplistic. There are only the t
 \subsection{Differences from reality}
 \section{Effects of spin}
 
-\chapter{KETJU and results}
-\section{KETJU overview}
-\section{}
-\section{}
+%\chapter{KETJU and results}
+%\section{KETJU overview}
+%\section{}
+%\section{}
 
 \chapter{Conclusions}
 
