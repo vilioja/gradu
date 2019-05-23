@@ -838,11 +838,11 @@ Current observational evidence suggests that long-lived supermassive black hole 
 
 \chapter{AR-CHAIN} \label{chap:ar-chain}
 
-(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
+(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa ja kaavoja jutuille joita koodiosiossa selitetään, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods, kuva ketjutetusta systeemistä?)
 
 \section{AR-CHAIN code overview}
 
-The standalone version of AR-CHAIN code first prepares the test scenario we want to examine. It starts by simply setting values for the parameters of the chain to the defaults, and reserving memory for how many particles we want to simulate and setting the physical properties for all the particles. Here we also set the settings for what kind, if any, PN corrections we want to use. We can set the maximum PN order, whether to use PN cross terms or spin terms, and whether PN corrections should be taken into account only with Bh-BH interactions, or also with star-BH interactions. We also determine the desired error tolerance for the BS algorithm, which affects how accurate the integration will be.
+The standalone version of AR-CHAIN code first prepares the test scenario we want to examine. It starts by simply setting values for the parameters of the chain to the defaults, and reserving memory for how many particles we want to simulate and setting the physical properties for all the particles. Here we also set the settings for what kind, if any, PN corrections we want to use. We can set the maximum PN order, whether to use PN cross terms or spin terms, and whether PN corrections should be taken into account only with BH-BH interactions, or also with BH-star interactions. We also determine the desired error tolerance for the BS algorithm, which affects how accurate the integration will be.
 
 After this the chain is initialized. We build the chain structure, and calculate all system dependent variables required for propagation. First we make sure that the initial data is in CoM frame. The CoM mass is a sum of all the masses in the chain. The CoM positions, velocities, and auxiliary velocities are the weighted sums of all the particles' properties. Finally these are normalised by the total CoM mass. Then the CoM properties are substracted from all the particles' properties, ensuring they are in the CoM frame.
 
