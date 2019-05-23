@@ -837,25 +837,72 @@ The longest evolutionary phase for a black hole binary is when the radius of the
 Current observational evidence suggests that long-lived supermassive black hole binaries might be quite rare. Though there are many implied candidates based on periodic variability, no concrete observations of a supermassive black hole binary have been made. If both of the supermassive black holes of a binary are quasars and they are very close to each other, it is difficult to tell them apart from a singular active galactic nuclei \citep{roedig:2014}. In the future observations made by the LIGO and LISA gravitational wave detectors might give concrete proof of the merging and thus existence of supermassive black hole binaries, and we might be able to even make interferometric direct observations of a binary black hole.
 
 \chapter{AR-CHAIN} \label{chap:ar-chain}
-\section{AR-CHAIN overview}
 
-The code uses post-Newtonian corrections to take into account and approximate the relativistic effects near the black hole particles. The corrections are represented by additional terms in the relative accelerations of the two bodies, so that
-\begin{equation}
-\boldsymbol{a}_\mathrm{2-body} = \boldsymbol{a}_\mathrm{Newtonian} + \sum_{k=2}^7 c^{-k} \boldsymbol{a}_\mathrm{(k/2)PN} + \boldsymbol{a}_S \ ,
-\end{equation}
-where $\boldsymbol{a}_\mathrm{Newtonian}$ is the usual Newtonian two-body acceleration, $c$ is the speed of light, $\boldsymbol{a}_\mathrm{xPN}$ is the PN correction of order $x$, and $\boldsymbol{a}_S$ indicates PN terms depending on the spins of the particles. PN corrections up to order PN3.5 are included in the code.
+(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
 
-For spinning bodies, additional PN corrections are required. The PN contribution to the equations of motion for the spins is given by
-\begin{equation}
-\boldsymbol{\dot{S}}_i = \boldsymbol{S}_{\mathrm{PN},i} \times \boldsymbol{S}_i \ ,
-\end{equation}
-where $\boldsymbol{S}_i$ is the spin angular momentum of the particle $i$ and $\boldsymbol{S}_{\mathrm{PN},i}$ gives the effect of the spin-orbit, spin-spin, and quadrupole-monopole interactions. %TODO Selitä näitä pls
+\section{AR-CHAIN code overview}
 
-These two-body PN corrections are only used when at least one of the bodies is a black hole, since for other particles they're not of any significance. Only when a black hole is involved are the velocities and masses large enough to require relativistic treatment.
+The standalone version of AR-CHAIN code first prepares the test scenario we want to examine. It starts by simply setting values for the parameters of the chain to the defaults, and reserving memory for how many particles we want to simulate and setting the physical properties for all the particles. Here we also set the settings for what kind, if any, PN corrections we want to use. We can set the maximum PN order, whether to use PN cross terms or spin terms, and whether PN corrections should be taken into account only with Bh-BH interactions, or also with star-BH interactions. We also determine the desired error tolerance for the BS algorithm, which affects how accurate the integration will be.
 
-\section{Bulirsch–Stoer algorithm}
-\section{Time-transformed leapfrog}
-\section{Collisions}
+After this the chain is initialized. We build the chain structure, and calculate all system dependent variables required for propagation. First we make sure that the initial data is in CoM frame. The CoM mass is a sum of all the masses in the chain. The CoM positions, velocities, and auxiliary velocities are the weighted sums of all the particles' properties. Finally these are normalised by the total CoM mass. Then the CoM properties are substracted from all the particles' properties, ensuring they are in the CoM frame.
+
+Next we build the chain structure, which also updates the chain variables.
+All pairwise distances between chain members are calculated. These are pairwise symmetric, so instead of $n^2$ values, we only need $n(n-1)/2$. When the distances have been found, they are sorted by length and we pick the shortest one as the starting point, and add the two points to the chain. The chain is then extended from both ends (``head'' and ``tail''), by adding the particle within the shortest distance to either, unless the particle to be added is already in the chain. A distance added to the chain is removed from the list of distances, and the process is continued until no valid distances remain.
+Finally all the members are assigned their index in the chain, and the particles are always kept in the chain index order in memory. The chained positions and velocities for all the particles are calculated from the CoM positions and velocities. 
+
+After building the chain, we calculate the rest of the variables of the chain structure, such as the binding energy. The binding energy requires calculating the total energy of the chain, which is simply the combination of the kinetic energy and the potential energy. Kinetic energy is simply the sum over all the particles, while potential energy is the sum of potential energies between every particle to every other particle.
+%A softening length is added to all the distances when calculating.
+Finally we calculate the potential energies and accelerations for all the particles in the chain.
+
+After all this preparation is done, we can start propagating the chain. The system will be propagated for a given time, and it will print out all the particle data after every given printing interval, both determined from command line. First we estimate an appropriate initial timestep of the fictious time using only the initial variables, with no external information. This is done with a routine where the smallest timestep between all the pairs of particles is chosen.
+
+Next we get to the main loop of the code. The system is integrated until the target time is met. This starts with printing the data into a file. After that we check for potential mergers between a black hole and other particles in the chain. This is done by looking through all the pairwise distances and merging particles that are too close. If mergers do happen, the chain needs to be initialized again.
+
+The actual propagation is done via the BS algorithm. We start by estimating the optimal number for the maximum amount of substep divisions. The amount of substeps always starts at 2, and is incremented by 2 should the division not be sufficient. After this we start taking BS substeps using leapfrog.
+The original chain is copied and this copy is then propagated so that we are able to do the propagations but still finally update the original chain once we have the desired propagation result. The propagation is done as drift-kick-drift. The first drift is with half a timestep, then kicks and drifts are done with full timesteps for number of steps minus one amount, and then in the end kick with a full timestep and drift with a half timestep.
+
+The drift part is quite simple. First the kinetic energy is calculated, which is used to calculate the time transform for adjusting the timestep. The physical time of the the chain is incremented and the new positions for all the particles are calculated. The CoM position is calculated as well. The chain and CoM coordinates are not in sync anymore.
+
+The kick phase is more complicated. It starts with recalculating the time transform variable omega, potential energy, and Keplerian accelerations for all the members. The potential energy and omega are used in calculating the time transform. Due to the post-Newtonian terms the accelerations are affected by the velocities, so the normal formulation of a leapfrog does not work. This can be circumvented using auxiliary velocities $\mathbf{w}$ and chained auxiliary velocities $\mathbf{W}$. When the physical velocities are being perturbed, the auxiliary ones are used in the calculations, and vice versa. 
+
+First we calculate the velocity independent accelerations for all the particles, which includes the effects of faraway perturbing particles. Then we calculate velocity dependant accelerations by doing an auxiliary kick for half a timestep, a physical kick for a full timestep, and another half timestep auxiliary kick. The velocity dependant accelerations are obviously only used if we are using PN corrections, since non-relativistic accelerations do not depend on velocities.
+
+The kicks need the CoM to be in sync with the chain, so they are synced first. 
+First we calculate the BH-BH interactions, and then the BH-star interactions.
+If sufficient PN terms are used, the system loses energy through gravitational radiation. Binding energy and radiated energy are updated only when updating the physical variables. For both physical and auxiliary cases, the velocities and spins are updated for all the particles and the CoM system. After this the chain and the CoM are again not in sync.
+After the leapfrog algorithm is done, the chain and CoM systems are synced once more.
+
+After taking a step with leapfrog we do the extrapolation. Rational or polynomial extrapolation is used.
+%TODO puhu rat ja poly jutuist yleisessä selityksessä?
+The extrapolation algorithm calculates new values for the positions and velocities of the particles. Next we calculate the maximum error of these newly integrated values, and then the error is scaled relative to the set BS tolerance. If the error is small enough, the integration has been successful. If the error is deemed too large, we increase the number of substeps and repeat the whole process of leapfrog and extrapolation again.
+
+If the maximum number of substeps is reached and the error is still too big, then the timestep itself is reduced, and the same procedure of taking incrementally more timesteps is repeated. This is repeated until the error is small enough to satisfy the tolerance level.
+
+Once the desired error level is reached, we check if the optimal maximum amount of substep divisions was appropriate or if it should be adjusted. If the timestep was reduced during the integration, the optimal division amount will not be adjusted. After all this the new integrated values for all the values of the particles are updated into the chain.
+
+After the integration is done, we check if the chain structure needs to be updated. The chain is stored in the order of indexing, so we want to keep the physically nearby particles close to each other in the chain structure as well. We must check if there are any pairwise distances in the system that are smaller than the smallest chained distance. If that is the case, the chain structure needs to be reconstructed.
+
+Finally, after the system has been integrated for at least the target time, we check if the integration passed the target time by too much. Since the timestep varies, we cannot be certain that the end time for the integration was exactly the target time. If the time is too much past the target, the system is integrated backwards to be closer to the target time. This uses the same BS algorithm as normal.
+Once this backwards iteration is done the final values of the chain are printed and the program is finished.
+
+
+%The code uses post-Newtonian corrections to take into account and approximate the relativistic effects near the black hole particles. The corrections are represented by additional terms in the relative accelerations of the two bodies, so that
+%\begin{equation}
+%\boldsymbol{a}_\mathrm{2-body} = \boldsymbol{a}_\mathrm{Newtonian} + \sum_{k=2}^7 c^{-k} \boldsymbol{a}_\mathrm{(k/2)PN} + \boldsymbol{a}_S \ ,
+%\end{equation}
+%where $\boldsymbol{a}_\mathrm{Newtonian}$ is the usual Newtonian two-body acceleration, $c$ is the speed of light, $\boldsymbol{a}_\mathrm{xPN}$ is the PN correction of order $x$, and $\boldsymbol{a}_S$ indicates PN terms depending on the spins of the particles. PN corrections up to order PN3.5 are included in the code.
+%
+%For spinning bodies, additional PN corrections are required. The PN contribution to the equations of motion for the spins is given by
+%\begin{equation}
+%\boldsymbol{\dot{S}}_i = \boldsymbol{S}_{\mathrm{PN},i} \times \boldsymbol{S}_i \ ,
+%\end{equation}
+%where $\boldsymbol{S}_i$ is the spin angular momentum of the particle $i$ and $\boldsymbol{S}_{\mathrm{PN},i}$ gives the effect of the spin-orbit, spin-spin, and quadrupole-monopole interactions. %TODO Selitä näitä pls
+%
+%These two-body PN corrections are only used when at least one of the bodies is a black hole, since for other particles they're not of any significance. Only when a black hole is involved are the velocities and masses large enough to require relativistic treatment.
+
+%\section{Bulirsch–Stoer algorithm}
+%\section{Time-transformed leapfrog}
+%\section{Collisions}
 
 \chapter{AR-CHAIN results}
 \section{OJ287}
