@@ -95,6 +95,7 @@ Abstract goes here.
 %miten eri aukkoja havaitaan, binääreissä pieniä aukkoja, keskustoissa suuria ja voidaan nähdä niiden vaikutus ympäröiviin tähtiin
 
 \section{Aim of this thesis}
+%Selitystä et miks halutaan tutkia mustia aukkoja, kertoo paljon galasien evoluutiosta ja siten maailmankaikkeuden historiasta. Ketjupaperin sivulta 2 selitystä miten tree koodit toimii vs n-body koodi
 
 \chapter{Dynamical modelling of black holes}
 
@@ -838,13 +839,22 @@ Current observational evidence suggests that long-lived supermassive black hole 
 
 \chapter{AR-CHAIN} \label{chap:ar-chain}
 %TODO kerronko introssa siitä et miks simulaatiota tehään, modaa sen perusteella mitä tässä sanotaan, kuinka paljon taustaa. 
+%Selitä et gadget on muuten hyvä paitsi että, ja miks sit ketju on jebin
 
-One widely used software for galaxy scale simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. \cite{rantala:2017} developed an extension for GADGET-3 called KETJU, which implements algorithmically regularized regions around supermassive black holes to allow for solving the detailed dynamics of these systems. 
+One widely used software for galaxy-scale simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. It works well on large scales and can be used to effectively simulate global dynamics of galaxies and even galaxy mergers. However one inherent problem of the software is that it cannot solve very small-scale effects. To this end \cite{rantala:2017} developed an extension for GADGET-3 called KETJU, which implements algorithmically regularized regions around supermassive black holes to allow for solving the detailed dynamics of these systems, while still getting the benefits of the galaxy-wide efficiency of GADGET-3. 
+
+KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. 
+
+%TODO selitä KS-chain, liittyy aiemmin mainittuun KS muunnokseen
+%selitä ar-chaining osaset
+%mee yksityiskohtiin alakappaleissa
+
+
 
 (TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa ja kaavoja jutuille joita koodiosiossa selitetään, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
 
-Kuva ketjustetusta systeemistä
-Kuva leapfrogista
+\noindent Kuva ketjustetusta systeemistä \\
+Kuva leapfrogista \\
 Mukaileva kuva antin BS esimerkistä?
 
 Koodi flowchartti jotenki
