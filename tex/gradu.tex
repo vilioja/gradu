@@ -489,9 +489,9 @@ By plugging in the new definitions for $q$ and $p$ into equation \ref{equ:Hamilt
 H(Q,P,t) = \frac{P^2}{8Q^2 \mu} - \frac{G \mu M}{Q^2} \ .
 \end{equation}
 
-Next we want to do a time transformation as well. We may choose a function $t = t(s)$, where $s$ is the new time variable, often also called fictitious or regularized time. In a more general sense we may choose a time transformation function $g(q,p)$ so that $\mathrm{d} t = g \, \mathrm{d} s$ \citep{ad}. For the transformation to remain canonical, our new Hamiltonian must be obtained through the Poincaré time transformation \citep{mikkola:2008}. In the Poincaré transformation one takes time to be a canonical coordinate $(t=q_0)$ and the corresponding momentum of time is the binding energy of the system, $p_0 = -E$. The new Hamiltonian obtained through this transformation is then
+Next we want to do a time transformation as well. We may choose a function $t = t(s)$, where $s$ is the new time variable, often also called fictitious or regularized time. In a more general sense we may choose a time transformation function $g(q,p)$ so that $\mathrm{d} t = g \, \mathrm{d} s$ \citep{ad}. For the transformation to remain canonical, our new Hamiltonian must be obtained through the Poincaré time transformation \citep{mikkola:2008a}. In the Poincaré transformation one takes time to be a canonical coordinate $(t=q_0)$ and the corresponding momentum of time is the binding energy of the system, $p_0 = -E$. The new Hamiltonian obtained through this transformation is then
 \begin{equation}
-\Gamma(q,p,s) = g(q,p) (H(q,p,q_0) + p_0) \ .
+\Gamma(q,p,s) = g(q,p) (H(q,p,q_0) + p_0) \ . \label{equ:timetransform}
 \end{equation}
 By choosing $g = r = \left| q \right| = Q^2$, where $r$ is simply the particle separation, the transformation gives us
 \begin{align}
@@ -841,27 +841,116 @@ Current observational evidence suggests that long-lived supermassive black hole 
 %TODO kerronko introssa siitä et miks simulaatiota tehään, modaa sen perusteella mitä tässä sanotaan, kuinka paljon taustaa. 
 %Selitä et gadget on muuten hyvä paitsi että, ja miks sit ketju on jebin
 
-One widely used software for galaxy-scale simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. It works well on large scales and can be used to effectively simulate global dynamics of galaxies and even galaxy mergers. However one inherent problem of the software is that it cannot solve very small-scale effects. To this end \cite{rantala:2017} developed an extension for GADGET-3 called KETJU, which implements algorithmically regularized regions around supermassive black holes to allow for solving the detailed dynamics of these systems, while still getting the benefits of the galaxy-wide efficiency of GADGET-3. 
+One widely used software for galaxy-scale simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. It works well on large scales and can be used to effectively simulate global dynamics of galaxies and even galaxy mergers. However one inherent problem of the software is that due to it smoothing the simulated masses, it cannot solve very small-scale effects. To this end \cite{rantala:2017} developed an extension for GADGET-3 called KETJU, which implements algorithmically regularized regions around supermassive black holes to allow for solving the detailed dynamics of these systems, while still getting the benefits of the galaxy-wide efficiency of GADGET-3. 
 
-KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. 
+KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008b}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. In that method computational time is saved by KS-regularizing only select interparticle vectors, so that the selected vectors and particles form a continuous chain. 
+
+The AR-CHAIN method is comprised of three important parts: algorithmic regularization, i.e. a time transformation combined with a leapfrog integrator, the use of a chained coordinate system to reduce roundoff errors, and the Gragg-Bulirsch-Stoer extrapolation method for attaining very high numerical accuracy. These three parts will next be discussed separately in more detail. 
+
 
 %TODO selitä KS-chain, liittyy aiemmin mainittuun KS muunnokseen
-%selitä ar-chaining osaset
+%selitä ar-chainin osaset
 %mee yksityiskohtiin alakappaleissa
 
+%(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa ja kaavoja jutuille joita koodiosiossa selitetään, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
 
+%\noindent Kuva ketjustetusta systeemistä \\
+%Kuva leapfrogista \\
+%Mukaileva kuva antin BS esimerkistä?
 
-(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa ja kaavoja jutuille joita koodiosiossa selitetään, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
+%Koodi flowchartti jotenki
 
-\noindent Kuva ketjustetusta systeemistä \\
-Kuva leapfrogista \\
-Mukaileva kuva antin BS esimerkistä?
-
-Koodi flowchartti jotenki
-
--selitä ar-chain idea. 
+%-selitä ar-chain idea. 
 
 \section{Algorithmic regularization}
+
+The main goal of algorithmic regularization is to be able to deal with close encounters in dynamical systems without having to resort to more computationally expensive regularization methods. This can be achieved via two slightly different time transformations. 
+
+The first method is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space so strongly that the usual tendency of numerical orbit integrations to drift in energy is absent. So in practice a symplectic integrator conserves the energy of the system. To be able to use an  explicit symplectic method we need to have a Hamiltonian that is separable, i.e. where the different parts contain only one type of canonical coordinates.
+
+For an N-body system such a Hamiltonian is
+\begin{equation}
+H = \sum_i^N \frac{1}{2}m_i \boldsymbol{v}_i^2 - \sum_i^N \sum_{j>i}^N \frac{G m_i m_j}{r_{ij}} = T - U \ ,
+\end{equation}
+where $T$ is the kinetic energy and $U$ is the so-called force function, which is the negative of the potential energy. The binding energy $B$ of the system is thus \mbox{$B = -H = U-T$}. If we now apply the time transformation
+\begin{equation}
+\mathrm{d}s = U \mathrm{d}t \ ,
+\end{equation}
+where $s$ is the new fictitious time variable, based on equation \ref{equ:timetransform} the time transformed Hamiltonian is then 
+\begin{equation}
+\Gamma = \frac{T-U+B}{U} \ . \label{equ:loghGamma}
+\end{equation}
+This Hamiltonian is not separable yet, however because along the correct orbit $\Gamma = 0$ since the Hamiltonian equals the energy of the system, we can use the function 
+\begin{equation}
+\tilde{\Gamma} = \mathrm{log}(1+\Gamma) \label{equ:loghNewGamma}
+\end{equation}
+as the new Hamiltonian \citep{mikkola:1999}.
+We can turn the equation \ref{equ:loghGamma} into the form 
+\begin{equation}
+1 + \Gamma = \frac{T+B}{U} \ ,
+\end{equation}
+which combined with \ref{equ:loghNewGamma} gives us 
+\begin{equation}
+\tilde{\Gamma} = \mathrm{log}(T+B) - \mathrm{log}(U)
+\end{equation}
+which is in a separable form. Thus we have managed to form a time transformed Hamiltonian that is separable, and thus usable for an explicit symplectic integrator. 
+
+The second method is called Time Transformed Leapfrog (TTL) method, developed by \citep{mikkola:2002}. This method relies on a time transformation
+\begin{equation}
+\mathrm{d}s = \Omega \mathrm{d}t \ ,
+\end{equation}
+where $\Omega$ is an arbitrary positive function of the coordinates, i.e. $\Omega = \Omega(\boldsymbol{r})$. We also introduce an auxiliary variable $\omega$ whose value is equal to $\Omega$ at the start, but its new values are obtained from the differential equation
+\begin{equation}
+\frac{\mathrm{d}\omega}{\mathrm{d}t} = \boldsymbol{v} \cdot \frac{\partial \Omega}{\partial \boldsymbol{r}} \ .
+\end{equation}
+This allows us to form new time transformed equations of motion with these new variables.
+%The variable $\omega$ is considered to be in the same category as the velocities $\boldymbol{v}$.
+
+The use of these variables $\Omega$ and $\omega$ ensures that encounters of the least massive particles of the system have a non-negligible effect on the time transform, even if their contribution to the potential energy might be small. Based on \cite{mikkola:2008b}, one good definition for $\Omega$ in an N-body system is 
+\begin{equation}
+\begin{aligned}
+\Omega &= \sum_i^N \sum_{j>i}^N \frac{G \Omega_{ij}}{r_{ij}} \\
+\Omega_{ij} &=
+\begin{cases}
+\tilde{m}^2, &\mathrm{if} \ m_im_j < \epsilon_{\Omega} \tilde{m} \\
+0  &\mathrm{otherwise}
+\end{cases} \\
+\tilde{m} &= \sum_i^N \sum_{j>i}^N \frac{2m_i m_j}{N(N-1)} \ .
+\end{aligned}
+\end{equation}
+Here $\tilde{m}$ is the mean mass product of the system, and the mean mass epsilon $\epsilon_{\Omega}$ is defined by the user, and a typical value is of the order $\sim 10^{-3}$. Choosing the value for $\Omega$ in this manner guarantees the proper treatment for even the smaller bodies in the system.
+
+These two aforementioned methods can be combined into a single time transform function with 
+\begin{equation}
+ds = [\alpha U + \beta \Omega + \gamma] dt = [\alpha (T + B) + \beta \omega + \gamma] dt \ .
+\end{equation}
+These definitions are identical for the exact solution. Here the $\alpha$, $\beta$, and $\gamma$ are user-defined parameters which determine which kind of regularization will be used. One can also easily see that if we define $\Omega = U$, the logarithmic Hamiltonian and the time transformed leapfrog methods are mathematically equivalent \citep{mikkola:2008b}. Numerically they are not the same however, due to roundoff errors in updating the value of $\Omega$. 
+
+Choosing $(\alpha, \beta, \gamma) = (1,0,0)$ gives us the logarithmic Hamiltonian method, $(\alpha, \beta, \gamma) = (0,1,0)$ gives the time transformed leapfrog, and $(\alpha, \beta, \gamma) = (0,0,1)$ includes no time transformation at all, and thus it correspond to the regular leapfrog function. \cite{mikkola:2006} suggest a possible choice of $(\alpha, \beta, \gamma) = (1,\mathrm{small},0)$, which corresponds to a mix of LogH and TTL. This would be desirable for system with very large mass ratios so that the smallest masses are not ignored when choosing the timestep. 
+
+The time transformed equations of motion of an N-body system can now be written for both the coordinates
+\begin{equation}
+\begin{aligned}
+\frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha (T + B) + \beta \omega + \gamma]^{-1} \equiv t' \\
+\frac{\mathrm{d}\boldsymbol{r}_i}{\mathrm{d}s} &= t' \boldsymbol{v}_i
+\end{aligned}
+\end{equation}
+and the velocities
+\begin{equation}
+\begin{aligned}
+\frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha U + \beta \Omega + \gamma]^{-1} \equiv t' \\
+\frac{\mathrm{d}\boldsymbol{v}_i}{\mathrm{d}s} &= t' \left[ \sum_{i \neq j}^N \frac{G m_j \boldsymbol{r}_{ij}}{r_{ij}^3} + \boldsymbol{f}_i \right] \\
+\frac{\mathrm{d} \omega}{\mathrm{d}s} &= t' \sum_i^N \frac{\partial \Omega}{\partial \boldsymbol{r}_i} \cdot \boldsymbol{v}_i \ .
+\end{aligned}
+\end{equation}
+%\frac{\mathrm{d} B}{\mathrm{d}s} &= -t' \sum_i^N m_i \boldsymbol{v}_i \cdot \boldsymbol{f}_i \\
+Here $\boldsymbol{f}_i$ are any possible external perturbing accelerations that might affect the system.
+
+\cite{mikkola:2008b} concluded that using the choice of $(\alpha, \beta, \gamma) = (1,0,0)$, i.e. pure logarithmic Hamiltonian method, gives the best results for integration. Despite this the time transformed leapfrog method and the variables $\Omega$ and $\omega$ are not useless, since monitoring these variables can help identify encounters of light particles, and provides the integrator a way to forcibly lower the timestep if needed.
+
+By using a time transformation we do not experience any catastrophic errors in the case of close-by two-body encounters since the integration with the leapfrog is exact even on collision orbits, as long as the system is not evaluated during collisions \citep{mikkola:1999}. The algorithm conserves energy down to numerical precision, and the only error is a phase error for time, which scales proportionally to $\mathcal{O}(\Delta t^3)$. This is a spectacular result for a method where the collisional singularity is not actually removed.
+
+
 
 \section{Chain coordinate system}
 
