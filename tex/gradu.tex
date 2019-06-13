@@ -845,12 +845,10 @@ One widely used software for galaxy-scale simulations is the smoothed particle h
 
 KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008b}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. In that method computational time is saved by KS-regularizing only select interparticle vectors, so that the selected vectors and particles form a continuous chain. 
 
-The AR-CHAIN method is comprised of three important parts: algorithmic regularization, i.e. a time transformation combined with a leapfrog integrator, the use of a chained coordinate system to reduce roundoff errors, and the Gragg-Bulirsch-Stoer extrapolation method for attaining very high numerical accuracy. These three parts will next be discussed separately in more detail. 
+The AR-CHAIN method is comprised of three important parts: algorithmic regularization, i.e. a time transformation combined with a leapfrog integrator, the use of a chained coordinate system to reduce roundoff errors, and the Gragg-Bulirsch-Stoer extrapolation method for attaining very high numerical accuracy. These three parts will next be discussed separately in more detail. Lastly there will be an overview of the actual implementation of this method.
 
 
-%TODO selitä KS-chain, liittyy aiemmin mainittuun KS muunnokseen
-%selitä ar-chainin osaset
-%mee yksityiskohtiin alakappaleissa
+%Koodi flowchartti jotenki
 
 %(TODO: yleistä selitystä ar-chainistä ja miten yhdistyy gadgettiin, mainitse ar-chainin osaset: aikamuunnos, chain, BS algoritmi, selitä enemmän teoriaa ja kaavoja jutuille joita koodiosiossa selitetään, lähteet näihin, ainakin Mikkolan papereita, BS paperi, numerical methods)
 
@@ -858,16 +856,24 @@ The AR-CHAIN method is comprised of three important parts: algorithmic regulariz
 %Kuva leapfrogista \\
 %Mukaileva kuva antin BS esimerkistä?
 
-%Koodi flowchartti jotenki
-
-%-selitä ar-chain idea. 
 
 \section{Algorithmic regularization}
 
 The main goal of algorithmic regularization is to be able to deal with close encounters in dynamical systems without having to resort to more computationally expensive regularization methods. This can be achieved via two slightly different time transformations. 
 
-The first method is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space so strongly that the usual tendency of numerical orbit integrations to drift in energy is absent. So in practice a symplectic integrator conserves the energy of the system. To be able to use an  explicit symplectic method we need to have a Hamiltonian that is separable, i.e. where the different parts contain only one type of canonical coordinates.
+The first method is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space so strongly that the usual tendency of numerical orbit integrations to drift in energy is absent. So in practice a symplectic integrator conserves the energy of the system. One of the most common ones is the leapfrog integrator.
 
+The leapfrog method is used for numerically integrating second order differential equations of the form $d^2x/dt^2 = F(x)$, equivalently $dx/dt = v , \ dv/dt = F(x)$. It gains its name from the way it updates the positions and velocities of the system at interleaved time points, so that they ``leapfrog'' over each other. The integration can be done in two different ways, depending on whether we first update the position, which is known as drifting, or the velocity, which is known as kicking. If we update the position first it is called the ``Drift-Kick-Drift'' (DKD) version, and conversely if we update the velocity first it is called the ``Kick-Drift-Kick'' (KDK) version. The equations for a DKD version are
+\begin{equation}
+\begin{aligned}
+x_{i+1/2} &= x_{i}+v_{i} \frac{\Delta t}{2} \\
+v_{i+1} &= v_{i}+F(x_{i+1/2})\Delta t \\
+x_{i+1} &= x_{i+1/2}+v_{i+1}{\frac {\Delta t}{2}} \ ,
+\end{aligned}
+\end{equation}
+where $x_i$ and $v_i$ are the values at step $i$, and $\Delta t$ is the time step. In a dynamical system the function $F(x)$ is simply the acceleration. First the position is updated by half a time step, then the velocity is updated based on this half step value, and finally the position is updated again so that the whole system has advanced by one time step. In addition to its symplectic nature, the leapfrog method is also time reversible, meaning that we can use it to accurately integrate the system backwards in time.
+
+To be able to use an explicit symplectic method such as the leapfrog, we need to have a Hamiltonian that is separable, i.e. where the different parts contain only one type of canonical coordinates.
 For an N-body system such a Hamiltonian is
 \begin{equation}
 H = \sum_i^N \frac{1}{2}m_i \boldsymbol{v}_i^2 - \sum_i^N \sum_{j>i}^N \frac{G m_i m_j}{r_{ij}} = T - U \ ,
@@ -876,11 +882,11 @@ where $T$ is the kinetic energy and $U$ is the so-called force function, which i
 \begin{equation}
 \mathrm{d}s = U \mathrm{d}t \ ,
 \end{equation}
-where $s$ is the new fictitious time variable, based on equation \ref{equ:timetransform} the time transformed Hamiltonian is then 
+where $s$ is the new fictitious time variable, equation \ref{equ:timetransform} gives us the time transformed Hamiltonian:
 \begin{equation}
 \Gamma = \frac{T-U+B}{U} \ . \label{equ:loghGamma}
 \end{equation}
-This Hamiltonian is not separable yet, however because along the correct orbit $\Gamma = 0$ since the Hamiltonian equals the energy of the system, we can use the function 
+This Hamiltonian is not separable yet. However, because along the correct orbit $\Gamma = 0$ since the Hamiltonian equals the energy of the system, we can use the function 
 \begin{equation}
 \tilde{\Gamma} = \mathrm{log}(1+\Gamma) \label{equ:loghNewGamma}
 \end{equation}
@@ -895,7 +901,7 @@ which combined with \ref{equ:loghNewGamma} gives us
 \end{equation}
 which is in a separable form. Thus we have managed to form a time transformed Hamiltonian that is separable, and thus usable for an explicit symplectic integrator. 
 
-The second method is called Time Transformed Leapfrog (TTL) method, developed by \citep{mikkola:2002}. This method relies on a time transformation
+The second method is called Time Transformed Leapfrog (TTL) method, developed by \cite{mikkola:2002}. This method relies on a time transformation
 \begin{equation}
 \mathrm{d}s = \Omega \mathrm{d}t \ ,
 \end{equation}
@@ -926,7 +932,7 @@ ds = [\alpha U + \beta \Omega + \gamma] dt = [\alpha (T + B) + \beta \omega + \g
 \end{equation}
 These definitions are identical for the exact solution. Here the $\alpha$, $\beta$, and $\gamma$ are user-defined parameters which determine which kind of regularization will be used. One can also easily see that if we define $\Omega = U$, the logarithmic Hamiltonian and the time transformed leapfrog methods are mathematically equivalent \citep{mikkola:2008b}. Numerically they are not the same however, due to roundoff errors in updating the value of $\Omega$. 
 
-Choosing $(\alpha, \beta, \gamma) = (1,0,0)$ gives us the logarithmic Hamiltonian method, $(\alpha, \beta, \gamma) = (0,1,0)$ gives the time transformed leapfrog, and $(\alpha, \beta, \gamma) = (0,0,1)$ includes no time transformation at all, and thus it correspond to the regular leapfrog function. \cite{mikkola:2006} suggest a possible choice of $(\alpha, \beta, \gamma) = (1,\mathrm{small},0)$, which corresponds to a mix of LogH and TTL. This would be desirable for system with very large mass ratios so that the smallest masses are not ignored when choosing the timestep. 
+Choosing $(\alpha, \beta, \gamma) = (1,0,0)$ gives us the logarithmic Hamiltonian method, $(\alpha, \beta, \gamma) = (0,1,0)$ gives the time transformed leapfrog, and $(\alpha, \beta, \gamma) = (0,0,1)$ includes no time transformation at all, and thus it corresponds to the regular leapfrog function. \cite{mikkola:2006} suggest a possible choice of $(\alpha, \beta, \gamma) = (1,\mathrm{small},0)$, which corresponds to a mix of LogH and TTL. This would be desirable for system with very large mass ratios so that the smallest masses are not ignored when choosing the timestep. 
 
 The time transformed equations of motion of an N-body system can now be written for both the coordinates
 \begin{equation}
@@ -953,6 +959,75 @@ By using a time transformation we do not experience any catastrophic errors in t
 
 
 \section{Chain coordinate system}
+
+Computers use floating-point arithmetic to represent real numbers, so rounding errors are inevitable when doing calculations with such numbers. This is especially prevalent when subtracting two very large numbers whose values are very close to each other, for example a close encounter of a pair of particles if their coordinates are measured from a distant origin. Reducing this roundoff error as much as possible is paramount to ensure that calculations and thus the simulations are correct. Reducing this error can be achieved via introducing a new chained coordinate system, where the position of a particle is defined by its relative position to a previous particle.
+
+This method is similar to the earlier mentioned Kustaanheimo-Stiefel chain regularization method \citep{mikkola:1993}, where the system is not globally KS regularized, but instead we do the KS transform for the shortest interparticle vectors in the system. The difference is that in AR-CHAIN we do not do a KS transformation, only linking all the particles together in a chain. \cite{mikkola:1999} pointed out that without using this kind of chain structure, the numerical roundoff when calculating the forces is too large for satisfactory results. Thanks to this structure, the separations of particles that are near each other can be gained from the chain, so we do not need to calculate them by doing the error-prone subtraction.
+It should be noted that the chain transformation is just a linear mapping, so doing it does not require us to alter the Hamiltonian of the system. This allows the chain structure to be directly used with the transformations shown in the previous section.
+
+Before constructing the chained system we need to have the system in a center of mass (CoM) frame. The position and velocity of the CoM of the dynamical system are defined as
+\begin{equation}
+\begin{aligned}
+\boldsymbol{r}_{cm} &= \frac{\sum_\mathrm{i}^\mathrm{N} m_i \boldsymbol{r}_i}{\sum m_i} \\
+\boldsymbol{v}_{cm} &= \frac{\sum_\mathrm{i}^\mathrm{N} m_i \boldsymbol{v}_i}{\sum m_i} \ .
+\end{aligned}
+\end{equation}
+
+The construction of the chain is quite straightforward, and it starts by first calculating all the interparticle distances in the CoM frame. These are pairwise symmetric, so if we have $N$ particles, we need to calculate only $N(N-1)/2$ vectors instead of $N^2$. We pick the shortest distance, and the two particles are picked as the ``head'' and ``tail'' of the chain. The chain is extended by adding to it the particle that is closest to either the head or tail of the chain, if it is not already a member of the chain. This added particle then becomes the new head or tail of the chain. This procedure is continued until no suitable particles remain outside of the chain. In figure \ref{fig:chain} one can see an example of a chained system consisting of 11 particles.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=1]{../images/chain.pdf}
+\caption{An illustration of a chained coordinate system demonstrating the 10 interparticle position vectors between 10 stars and a supermassive black hole. As the closest interparticle distance in this system is between the black hole and the nearby star, the construction of the chain starts from there and then extends from both the head and tail until complete.}
+\label{fig:chain}
+\end{figure}
+
+A system of $N$ particles will contain $N-1$ chained interparticle vectors. These chain coordinates $\boldsymbol{X}_k$ can be collected into the vector $\boldsymbol{X}$ so that
+\begin{equation}
+\begin{aligned}
+\boldsymbol{X}_k &= \boldsymbol{r}_{j_k} - \boldsymbol{r}_{i_k} \\
+\boldsymbol{X} &= (\boldsymbol{X}_1, \boldsymbol{X}_2, \ldots, \boldsymbol{X}_{N-1}) \ .
+\end{aligned}
+\end{equation}
+Similarly for velocities
+\begin{equation}
+\begin{aligned}
+\boldsymbol{V}_k &= \boldsymbol{v}_{j_k} - \boldsymbol{v}_{i_k} \\
+\boldsymbol{V} &= (\boldsymbol{V}_1, \boldsymbol{V}_2, \ldots, \boldsymbol{V}_{N-1})
+\end{aligned}
+\end{equation}
+and accelerations
+\begin{equation}
+\begin{aligned}
+\boldsymbol{A}_k &= \boldsymbol{a}_{j_k} - \boldsymbol{a}_{i_k} \\
+\boldsymbol{A} &= (\boldsymbol{A}_1, \boldsymbol{A}_2, \ldots, \boldsymbol{A}_{N-1}) \ .
+\end{aligned}
+\end{equation}
+Here the vector labelling starts from the head of the chain. These chain vectors are used in the force calculations to compute the separations $\boldsymbol{r}_{ij}$ for particles that are near each other in the chain. For particles that are far away from each other in the chain structure, the separation is actually more accurately calculated by using for example the CoM frame, due to the accumulating error of summing many separation vectors. The separation is calculated using the chain if the difference in the chain indexes is not greater than the arbitrarily chosen limit $N_d$. If we have chain indexes $i$ and $j$, and we assume that $j > i$, the separations in the AR-CHAIN algorithm are calculated with
+\begin{equation}
+\boldsymbol{r}_{ij} =
+\begin{cases}
+\boldsymbol{r}_j - \boldsymbol{r}_i \ &\mathrm{if} \ j-i > N_d \\
+\sum_{k=i}^j \boldsymbol{X}_k \ &\mathrm{if} \ j-i \leq N_d \ .
+\end{cases}
+\end{equation}
+According to \cite{mikkola:2008b} a good value for this is $N_d = 2$. This method of selecting the way the separations of given particles is calculated is one of the most important features of this algorithm.
+
+Finally we can write down the leapfrog suitable equations of motion for the chained system \citep{mikkola:2008b}. For the coordinates the equations are
+\begin{equation}
+\begin{aligned}
+\frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha (T + B) + \beta \omega + \gamma]^{-1} \equiv t' \\
+\frac{\mathrm{d}\boldsymbol{X}_i}{\mathrm{d}s} &= t' \boldsymbol{V}_i \ ,
+\end{aligned}
+\end{equation}
+and for the velocities they are
+\begin{equation}
+\begin{aligned}
+\frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha U + \beta \Omega + \gamma]^{-1} \equiv t' \\
+\frac{\mathrm{d}\boldsymbol{V}_i}{\mathrm{d}s} &= t' [ \boldsymbol{A}_i(\{ \boldsymbol{X}_i \}) + \boldsymbol{f}_i ] \\
+\frac{\mathrm{d} \omega}{\mathrm{d}s} &= t' \sum_i^N \frac{\partial \Omega}{\partial \boldsymbol{X}_i} \cdot \boldsymbol{V}_i \ .
+\end{aligned}
+\end{equation}
 
 \section{Gragg–Bulirsch–Stoer algorithm}
 
