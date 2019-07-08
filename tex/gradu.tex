@@ -10,7 +10,7 @@
 %\usepackage{tikz} % For making vector graphics (hard to learn but powerful)
 %\usepackage{wrapfig} % For nice text-wrapping figures (use at own discretion)
 \usepackage{amsmath, amssymb} % For better math
-\usepackage[sort,colon]{natbib} % For bibliography
+\usepackage[colon]{natbib} % For bibliography
 \usepackage[footnotesize,bf]{caption} % For more control over figure captions
 
 \renewcommand{\topfraction}{.75}
@@ -863,7 +863,14 @@ The main goal of the algorithmic regularization method is to be able to deal wit
 The first approach is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space strongly enough so that the usual tendency of numerical orbit integrations to drift in energy is absent. In practice a symplectic integrator conserves the energy of the system. The leapfrog integrator is one of the most common ones.
 
 \subsection{Leapfrog}
-A leapfrog can be used for numerically integrating second order differential equations of the form $d^2x/dt^2 = F(x)$, equivalently $dx/dt = v , \ dv/dt = F(x)$. It gains its name from the way it updates the positions and velocities of the system at interleaved time points, so that they ``leapfrog'' over each other. The integration can be performed in two different ways, depending on whether we first update the position, which is known as drifting, or the velocity, which is known as kicking. If we update the position first it is called the ``Drift-Kick-Drift'' (DKD) version, and conversely if we update the velocity first it is called the ``Kick-Drift-Kick'' (KDK) version. The equations for a DKD version are
+A leapfrog can be used for numerically integrating second order differential equations of the form $d^2x/dt^2 = F(x)$, equivalently $dx/dt = v , \ dv/dt = F(x)$. It gains its name from the way it updates the positions and velocities of the system at interleaved time points, so that they ``leapfrog'' over each other. This is illustrated in figure \ref{fig:leapfrog}.
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/leapfrog.pdf}
+\caption{An illustration of the leapfrog method. Positions and velocities are updated at alternating time points so they leapfrog over each other. }
+\label{fig:leapfrog}
+\end{figure}
+The leapfrog can also be turned into a synchronized form where both the position and velocity are obtained at integer steps. In this form the integration can be performed in two different ways, depending on whether we first update the position, which is known as drifting, or the velocity, which is known as kicking. If we update the position first it is called the ``Drift-Kick-Drift'' (DKD) version, and conversely if we update the velocity first it is called the ``Kick-Drift-Kick'' (KDK) version. The equations for a DKD version are
 \begin{equation}
 \begin{aligned}
 x_{i+1/2} &= x_{i}+v_{i} \frac{\Delta t}{2} \\
@@ -871,7 +878,9 @@ v_{i+1} &= v_{i}+F(x_{i+1/2})\Delta t \\
 x_{i+1} &= x_{i+1/2}+v_{i+1}{\frac {\Delta t}{2}} \ ,
 \end{aligned}
 \end{equation}
-where $x_i$ and $v_i$ are the values at step $i$, and $\Delta t$ is the time step. In a dynamical system the function $F(x)$ is simply the acceleration. First the position is updated by half a time step, then the velocity is updated based on this half step value, and finally the position is updated again so that the whole system has advanced by one time step. In addition to its symplectic nature, the leapfrog method is also time reversible, meaning that we can use it to accurately integrate the system backwards in time.
+where $x_i$ and $v_i$ are the values at step $i$, and $\Delta t$ is the timestep. In a dynamical system the function $F(x)$ is simply the acceleration. First the position is updated by half a timestep, then the velocity is updated based on this half step value, and finally the position is updated again so that the whole system has advanced by one timestep. In addition to its symplectic nature, the leapfrog method is also time reversible, meaning that we can use it to accurately integrate the system backwards in time.
+
+However the symplectic nature is only preserved when we use fixed timesteps, and using varied timesteps causes the leapfrog to no longer be symplectic \citep{bt-galdyn}. The use of a fixed timestep is not feasible in most simulations since the simulated scenarios change strongly with time, requiring the timestep to adjust as well. Fortunately the time-reversibility of the leapfrog also constrains the system, so if the timestep is varied in a time-reversible manner, the leapfrog retains its good behaviour.
 
 \subsection{Logarithmic Hamiltonian}
 To be able to use an explicit symplectic method such as the leapfrog, we need to have a Hamiltonian that is separable, i.e. where the different parts contain only one type of canonical coordinates.
@@ -912,17 +921,17 @@ The second approach is called Time Transformed Leapfrog (TTL) method, developed 
 \begin{equation}
 \mathrm{d}s = \Omega \mathrm{d}t \ ,
 \end{equation}
-where $\Omega$ is an arbitrary positive function of the coordinates, i.e. $\Omega = \Omega(\boldsymbol{r})$. We also introduce an auxiliary variable $\omega$ whose value is equal to $\Omega$ at the start, but its new values are obtained from the differential equation
+where $\Omega$ is an arbitrary positive function of the coordinates, i.e. $\Omega = \Omega(\boldsymbol{r})$. In order to be able to write the equations of motion in a way that allows for the construction of a leapfrog algorithm, we also introduce an auxiliary variable $\omega$ whose value is equal to $\Omega$ at the start and it is supposed to have the same numerical values as $\Omega$, but its new values are obtained from the differential equation
 \begin{equation}
 \frac{\mathrm{d}\omega}{\mathrm{d}t} = \boldsymbol{v} \cdot \frac{\partial \Omega}{\partial \boldsymbol{r}} \ .
 \end{equation}
 This allows us to form new time transformed equations of motion with these new variables.
 %The variable $\omega$ is considered to be in the same category as the velocities $\boldymbol{v}$.
 
-The use of these variables $\Omega$ and $\omega$ ensures that encounters of the least massive particles of the system have a non-negligible effect on the time transform, even if their contribution to the potential energy might be small. Based on \cite{mikkola:2008b}, one good definition for $\Omega$ in an N-body system is 
+These variables $\Omega$ and $\omega$ can be chosen so that their use ensures the least massive particles in the system have a non-negligible effect on the time transform, even if their contribution to the potential energy might be small. Based on \cite{mikkola:2008b}, one good definition for $\Omega$ in an N-body system is 
 \begin{equation}
 \begin{aligned}
-\Omega &= \sum_i^N \sum_{j>i}^N \frac{G \Omega_{ij}}{r_{ij}} \\
+\Omega &= \sum_i^N \sum_{j>i}^N \frac{\Omega_{ij}}{r_{ij}} \\
 \Omega_{ij} &=
 \begin{cases}
 \tilde{m}^2, &\mathrm{if} \ m_im_j < \epsilon_{\Omega} \tilde{m} \\
@@ -931,15 +940,15 @@ The use of these variables $\Omega$ and $\omega$ ensures that encounters of the 
 \tilde{m} &= \sum_i^N \sum_{j>i}^N \frac{2m_i m_j}{N(N-1)} \ .
 \end{aligned}
 \end{equation}
-Here $\tilde{m}$ is the mean mass product of the system, and the mean mass epsilon $\epsilon_{\Omega}$ is defined by the user, and a typical value is of the order $\sim 10^{-3}$. Choosing the value for $\Omega$ in this manner guarantees the proper treatment for even the smaller bodies in the system.
+Here $\tilde{m}$ is the mean mass product of the system, and the mean mass epsilon $\epsilon_{\Omega}$ is defined by the user, and a typical value is of the order $\sim 10^{-3}$. This way only particles with low enough mass affect the value of $\Omega$, so calculating the value for the time transform function in this manner guarantees the proper treatment for even the smaller bodies in the system, as they won't be overshadowed by the more massive particles.
 
 These two aforementioned methods can be combined into a single time transform function defined as 
 \begin{equation}
 ds = [\alpha U + \beta \Omega + \gamma] dt = [\alpha (T + B) + \beta \omega + \gamma] dt \ .
-\end{equation}
+\end{equation} \label{equ:regutimetransform}
 The two definitions are identical for the exact solution. Here $\alpha$, $\beta$, and $\gamma$ are user-defined parameters which determine which kind of regularization will be used. One can also easily see that if we define $\Omega = U$, the logarithmic Hamiltonian and the time transformed leapfrog methods are mathematically equivalent \citep{mikkola:2008b}. Numerically they are not the same however, due to roundoff errors in updating the value of $\Omega$. 
 
-Choosing $(\alpha, \beta, \gamma) = (1,0,0)$ gives us the logarithmic Hamiltonian method, $(\alpha, \beta, \gamma) = (0,1,0)$ gives the time transformed leapfrog, and $(\alpha, \beta, \gamma) = (0,0,1)$ includes no time transformation at all, and thus it corresponds to the regular leapfrog method. \cite{mikkola:2006} suggest a possible choice of $(\alpha, \beta, \gamma) = (1,\mathrm{small},0)$, which corresponds to a mix of LogH and TTL. This would be desirable for systems with very large particle mass ratios so that the smallest masses are not ignored when choosing the timestep. 
+Choosing $(\alpha, \beta, \gamma) = (1,0,0)$ gives us the logarithmic Hamiltonian method, $(\alpha, \beta, \gamma) = (0,1,0)$ gives the time transformed leapfrog, and $(\alpha, \beta, \gamma) = (0,0,1)$ includes no time transformation at all, and thus it corresponds to the regular leapfrog method. \cite{mikkola:2006} suggest a possible choice of $(\alpha, \beta, \gamma) = (1,\mathrm{small},0)$, which corresponds to a mix of LogH and TTL. This would be desirable for systems with very large particle mass ratios, since this way the value of $\Omega$ would also affect the time transformation, so the smallest masses are not ignored when choosing the timestep. 
 
 The time transformed equations of motion of an N-body system can now be written for both the coordinates
 \begin{equation}
@@ -957,7 +966,7 @@ and the velocities
 \end{aligned}
 \end{equation}
 %\frac{\mathrm{d} B}{\mathrm{d}s} &= -t' \sum_i^N m_i \boldsymbol{v}_i \cdot \boldsymbol{f}_i \\
-Here $\boldsymbol{f}_i$ are any possible external perturbing accelerations that might affect the system.
+Here $\boldsymbol{f}_i$ are any possible external perturbing accelerations that might affect the system. The time transformations are both denoted with $t'$ since as seen in equation \ref{equ:regutimetransform} they are both identical for the exact solution. However in practice computational errors cause them to differ slightly. They are calculated in different ways so that new positions are obtained by using only velocities, and vice versa.
 
 \cite{mikkola:2008b} concluded that using the choice of $(\alpha, \beta, \gamma) = (1,0,0)$, i.e. pure logarithmic Hamiltonian method, gives the most accurate results for the integration. Despite this the time transformed leapfrog method and the variables $\Omega$ and $\omega$ are not useless, since monitoring these variables can help identify encounters of light particles, and provides the integrator a way to forcibly lower the timestep if needed.
 
@@ -965,7 +974,7 @@ By using a time transformation we do not experience any catastrophic errors in t
 
 
 
-\section{Chain coordinate system}
+\section{Chain coordinate system} \label{sect:ChainSystem}
 
 Computers use floating-point arithmetic to represent real numbers, so rounding errors are inevitable when doing calculations with such numbers. Rounding errors are especially prevalent when subtracting two very large numbers whose values are very close to each other, for example a close encounter of a pair of particles if their coordinates are measured from a distant origin. Reducing this roundoff error as much as possible is important in order to ensure that calculations and thus the simulations are correct. Reducing this error can be achieved via introducing a new chained coordinate system, where the position of a particle is defined by its relative position to a previous particle in the chain.
 
@@ -1018,7 +1027,7 @@ Here the vector labelling starts from the head of the chain. These chain vectors
 \sum_{k=i}^j \boldsymbol{X}_k \ &\mathrm{if} \ j-i \leq N_d \ .
 \end{cases}
 \end{equation}
-According to \cite{mikkola:2008b} a good value for this is $N_d = 2$. This method of selecting the way the separations of given particles is calculated is one of the most important features of this algorithm.
+According to \cite{mikkola:2008b} a good value for this is $N_d = 2$. This method of selecting the way the spatial separations of given particles is calculated is one of the most important features of this algorithm.
 
 Finally we can write down the leapfrog suitable equations of motion for the chained system \citep{mikkola:2008b}. For the coordinates the equations are
 \begin{equation}
@@ -1027,80 +1036,147 @@ Finally we can write down the leapfrog suitable equations of motion for the chai
 \frac{\mathrm{d}\boldsymbol{X}_i}{\mathrm{d}s} &= t' \boldsymbol{V}_i \ ,
 \end{aligned}
 \end{equation}
-and for the velocities they are
+and for the velocities
 \begin{equation}
 \begin{aligned}
 \frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha U + \beta \Omega + \gamma]^{-1} \equiv t' \\
 \frac{\mathrm{d}\boldsymbol{V}_i}{\mathrm{d}s} &= t' [ \boldsymbol{A}_i(\{ \boldsymbol{X}_i \}) + \boldsymbol{f}_i ] \\
 \frac{\mathrm{d} \omega}{\mathrm{d}s} &= t' \sum_i^N \frac{\partial \Omega}{\partial \boldsymbol{X}_i} \cdot \boldsymbol{V}_i \ .
-\end{aligned}
+\end{aligned} \label{equ:VelocityEomChained}
 \end{equation}
 
 \section{Gragg–Bulirsch–Stoer algorithm}
 
+The use of leapfrog alone is usually not accurate enough in dynamical simulations, so we want to include some extrapolation method for enhancing the accuracy and providing a way for error control. Gragg-Bulirsch-Stoer (GBS) extrapolation is a powerful method for solving differential equations with relatively little computational effort \citep{gragg:1965, bulirsch:1966}. The basic idea of the GBS extrapolation algorithm is to solve a differential equation with multiple different integrator substep amounts $n$, and then extrapolate the results for $n \rightarrow \infty$, i.e. extrapolate the result for a timestep of 0. Next we will go through the different parts of the GBS algorithm and how it is used in the AR-CHAIN. This mainly follows the original articles, and also the textbook by \cite{press:2007}.
+
+A first-order ordinary differential equation (ODE) with a known initial value can be written as 
+\begin{equation}
+\frac{dy}{dx} = f(y), \ \ y(0) = y_0 \ .
+\end{equation}
+Similarly a second-order ODE with an initial value can be written as
+\begin{equation}
+\frac{d^2 y}{dx^2} = f(y), \ \ y(x_0) = y_0, \ y'(0) = z_0 \ ,
+\end{equation}
+where $y'$ signifies a derivative with respect to x. This can also be split into a coupled pair of first order equations:
+\begin{equation}
+\begin{cases}
+\frac{dy}{dx} = z \\
+\frac{dz}{dx} = f(y)
+\end{cases}
+y(x_0) = y_0, \ z(x_0) = z_0 \ .
+\end{equation}
+The equations of motion of a dynamical system are a good example of this kind of second-order ODEs. 
+
+If we want to simulate a dynamical system forwards in time by an interval $H$, we must solve this pair of equations. The results we will get are $y(x_0 + H)$ and $z(x_0 + H)$. This long interval can also be split into $n$ substeps of length $h$:
+\begin{equation}
+h = \frac{H}{n} \ .
+\end{equation}
+
+The extrapolation used in the GBS algorithm is Richardson extrapolation \citep{richardson:1911,richardson:1927}. Its idea is to consider the final answer of a numerical calculation as being an analytic function of some adjustable parameter, like the stepsize $h$. This analytic function can then be examined by performing calculations with various values of $h$, and once enough points have been calculated try to fit the function to these points. We can then evaluate the function at $h=0$, as if we had used an infinitely fine timestep \citep{press:2007}. This idea is illustrated in figure \ref{fig:gbs}.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=1.4]{../images/gbs.pdf}
+\caption{A visualization of Richardson extrapolation that is used in the GBS algorithm. A large time interval $H$ is split into sequences of smaller amounts of substeps, and their results are extrapolated to estimate an infinite number of substeps.
+(Adapted from \citealt{press:2007})}
+\label{fig:gbs}
+\end{figure}
+
+The choice for the type of the fitting function is also important. \cite{bulirsch:1966} recognized that rational functions
+\begin{equation}
+R(x) = \frac{p_0 + p_1 x + \ldots + p_{\mu}x^{\mu}}{q_0 + q_1 x + \ldots + p_{\nu}x^{\nu}}
+\end{equation}
+offer an improvement over simple polynomial functions
+\begin{equation}
+P(x) = p_0 + p_1 x + \ldots + p_{\mu}x^{\mu}
+\end{equation}
+since rational functions are able to approximate functions with poles better than polynomial functions. Rational function fits also remain good approximations even with very high values of $h$. Despite this, it has been found that in problems with smooth functions polynomial extrapolation is more efficient and accurate than rational extrapolation \citep{press:2007}. Thus polynomial functions are used in AR-CHAIN.
+
+We want to use an integrator whose error, when expressed as a power series in $h$, contains only even powers of $h$
+\begin{equation}
+|y_n - y(x_0 + H)| = \sum_{k=1}^{\infty} a_k h^{2k} \ ,
+\end{equation}
+where $h$ varies due to increasing the stepcount $n$.
+This was discovered by \cite{gragg:1965}. The importance of an even power series is that when combining the different substep amounts, the accuracy increases by two orders at a time. Fortunately the leapfrog integrator is applicable for this, since it has this kind of error behaviour.
+%TODO sano jotenki paremmin
+
+It is important to choose an optimal sequence of the number of substeps $n$ to be used in the GBS algorithm. \cite{bulirsch:1966} originally proposed the sequence of $n_k = 2n_{k-2}$ for $k > 2$:
+\begin{equation}
+n = 2,4,6,8,8,12,16,24,32,64, \ldots \ .
+\end{equation}
+However \cite{press:2007} suggest that a Deuflhard sequence of $n_k = 2k$
+\begin{equation}
+n = 2,4,6,8,10,12,14,16,18,20, \ldots \label{equ:deuflhard}
+\end{equation}
+is more efficient and has better convergence behaviour than the original GBS sequence. 
+
+The GBS algorithm starts solving the differential equations with the leapfrog for the different substep amounts. After each calculations the extrapolation is performed to obtain an estimate of the results $T_k = (y_k^{\mathrm{ext}}, z_k^{\mathrm{ext}})$. The algorithm checks for convergence with the criterion
+\begin{equation}
+\left| \frac{T_{k+1} - T_k}{T_k} \right| \leq \eta_{\mathrm{GBS}} \ ,
+\end{equation}
+where $\eta_{\mathrm{GBS}}$ is the user-defined GBS error tolerance parameter. Thus the timesteps are shortened until this criterion is met. This is one of the key elements for the algorithm giving such high accuracy results. We also set an upper limit for the value of $n$, beyond which it is deemed unoptimal to continue increasing the substep amount, since precision can be lost with too high substep amounts \citep{press:2007}. A good choice for the maximum amount of substep divisions is 8, which corresponds to $n = 16$ when using the Deuflhard sequence \ref{equ:deuflhard} \citep{press:2007}. If this limit is reached without sufficient convergence, we deem the large timestep $H$ to be too long and its value is reduced, and the integration then starts over with the new smaller $H$.
+
+The leapfrog used in AR-CHAIN is a DKD variant, and the the time evolution operator with $n$ timesteps used for the GBS algorithm can be written as
+\begin{equation}
+\mathbf{U}_n(H) = \mathbf{D} \left( \frac{H}{2n} \right) \left[ \mathbf{K} \left( \frac{H}{n} \right) \mathbf{D} \left( \frac{H}{n} \right) \right]^{n-1} \mathbf{K} \left( \frac{H}{n} \right) \mathbf{D} \left( \frac{H}{2n} \right) \ . \label{equ:GBSLeapfrog}
+\end{equation}
+So for example if $n=2$, we first drift for a quarter of the total long interval $H$, then we kick and drift for half of the total time, and then finally kick for the other half and drift for the last quarter. Thus the whole system has been advanced by the time interval $H$.
+
+\subsection{Implementing post-Newtonian corrections in AR-CHAIN}
+
+If we include post-Newtonian corrections $\boldsymbol{g}_i(\mathbf{v})$ in the chained equations of motion \ref{equ:VelocityEomChained}, the equation for velocity becomes
+\begin{equation}
+\frac{\mathrm{d}\boldsymbol{V}_i}{\mathrm{d}s} = t' [ \boldsymbol{A}_i(\{ \boldsymbol{X}_i \}) + \boldsymbol{f}_i + \boldsymbol{g}_i(\mathbf{v})] \ .
+\end{equation}
+We can see that in this case the accelerations on the right-hand depend on the velocities that we are using on the left-hand side, so we cannot actually use the standard leapfrog for this kind of equations as leapfrog depends on having separable coordinates. The equations could be solved with implicit methods over each timestep, but this kind of iterative process would be computationally costly if we want to reah high accuracy.
+
+Thankfully more efficient explicit methods have been developed, relying on further extensions of the phase-space of the dynamical system \citep{hellstrom:2010, pihajoki:2015}. We can introduce so-called auxiliary velocities $\mathbf{w}_i$ and corresponding chained auxiliary velocities $\mathbf{W}_i$. These auxiliary variables are set equal to the physical ones at the start of each timestep. Velocities are only used in the kicking phase of the leapfrog, so we can define the auxiliary and physical kick operators $\mathbf{K}_{\mathrm{aux}}$ and $\mathbf{K}_{\mathrm{phys}}$ as
+\begin{align}
+\mathbf{K}_{\mathrm{aux}}(\Delta t) &=
+\begin{cases}
+\mathbf{V}_i \rightarrow \mathbf{V}_i \\
+\mathbf{W}_i \rightarrow \mathbf{W}_i + \Delta t [ \boldsymbol{A}_i(\{ \boldsymbol{X}_i \}) + \boldsymbol{f}_i + \boldsymbol{g}_i(\mathbf{v})]
+\end{cases} \\
+\mathbf{K}_{\mathrm{phys}}(\Delta t) &=
+\begin{cases}
+\mathbf{W}_i \rightarrow \mathbf{W}_i \\
+\mathbf{V}_i \rightarrow \mathbf{V}_i + \Delta t [ \boldsymbol{A}_i(\{ \boldsymbol{X}_i \}) + \boldsymbol{f}_i + \boldsymbol{g}_i(\mathbf{w})]
+\end{cases}
+\end{align}
+During the physical kick the physical velocities are updated using the auxiliary velocities in the post-Newtonian corrections $\boldsymbol{g}_i(\mathbf{w})$, and conversely for the auxiliary kick. The complete kick operator usable in the leapfrog becomes
+\begin{equation}
+\mathbf{K}(\Delta t) = \mathbf{K}_{\mathrm{aux}}(\Delta t/2) \mathbf{K}_{\mathrm{phys}}(\Delta t) \mathbf{K}_{\mathrm{aux}}(\Delta t/2) \ .
+\end{equation}
+This can be inserted into the time evolution operator defined in equation \ref{equ:GBSLeapfrog}, which gives us a leapfrog sequence that is usable in the GBS algorithm and works even for velocity-dependent accelerations.
+
 \section{AR-CHAIN code overview}
 
-The standalone version of AR-CHAIN code first prepares the test scenario we want to examine. It starts by simply setting values for the parameters of the chain to the defaults, and reserving memory for how many particles we want to simulate and setting the physical properties for all the particles. Here we also set the settings for what kind, if any, PN corrections we want to use. We can set the maximum PN order, whether to use PN cross terms or spin terms, and whether PN corrections should be taken into account only with BH-BH interactions, or also with BH-star interactions. We also determine the desired error tolerance for the BS algorithm, which affects how accurate the integration will be.
+Now that we have all the pieces of the AR-CHAIN algorithm we can discuss the standalone implementation used for the simulations in this thesis. A flowchart of the main steps of the program can be seen in figure \ref{fig:archain}.
 
-After this the chain is initialized. We build the chain structure, and calculate all system dependent variables required for propagation. First we make sure that the initial data is in CoM frame. The CoM mass is a sum of all the masses in the chain. The CoM positions, velocities, and auxiliary velocities are the weighted sums of all the particles' properties. Finally these are normalised by the total CoM mass. Then the CoM properties are substracted from all the particles' properties, ensuring they are in the CoM frame.
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/archain.pdf}
+\caption{A simplified flowchart of how the standalone AR-CHAIN code progresses.}
+\label{fig:archain}
+\end{figure}
 
-Next we build the chain structure, which also updates the chain variables.
-All pairwise distances between chain members are calculated. These are pairwise symmetric, so instead of $n^2$ values, we only need $n(n-1)/2$. When the distances have been found, they are sorted by length and we pick the shortest one as the starting point, and add the two points to the chain. The chain is then extended from both ends (``head'' and ``tail''), by adding the particle within the shortest distance to either, unless the particle to be added is already in the chain. A distance added to the chain is removed from the list of distances, and the process is continued until no valid distances remain.
-Finally all the members are assigned their index in the chain, and the particles are always kept in the chain index order in memory. The chained positions and velocities for all the particles are calculated from the CoM positions and velocities. 
+The AR-CHAIN code first prepares the test scenario we want to examine. In addition to creating all the particles, we can determine what kind, if any, PN corrections we want to use. We can set the maximum PN order, and whether PN corrections should be taken into account only for BH-BH interactions, or also with BH-star interactions. We can also set the desired error tolerance for the GBS algorithm.
 
-After building the chain, we calculate the rest of the variables of the chain structure, such as the binding energy. The binding energy requires calculating the total energy of the chain, which is simply the combination of the kinetic energy and the potential energy. Kinetic energy is simply the sum over all the particles, while potential energy is the sum of potential energies between every particle to every other particle.
-%A softening length is added to all the distances when calculating.
-Finally we calculate the potential energies and accelerations for all the particles in the chain.
+After this the chain is initialized and built. All the particles are moved to CoM frame, and we use the chain algorithm described in section \ref{sect:ChainSystem} to construct the chain structure. All the chain members are assigned an index number, which is used for all the calculations between the members. In addition we calculate the variables of the chain structure, such as its binding energy, and the accelerations of all the member particles.
 
-After all this preparation is done, we can start propagating the chain. The system will be propagated for a given time, and it will print out all the particle data after every given printing interval, both determined from command line. First we estimate an appropriate initial timestep of the fictious time using only the initial variables, with no external information. This is done with a routine where the smallest timestep between all the pairs of particles is chosen.
+After all this preparation is done, we can start propagating the chain. The system will be propagated for a given time, and it will print out all the particle data after every given printing interval, both determined by the user. The program also determines an appropriate initial integration timestep for the system.
 
-Next we get to the main loop of the code. The system is integrated until the target time is met. This starts with printing the data into a file. After that we check for potential mergers between a black hole and other particles in the chain. This is done by looking through all the pairwise distances and merging particles that are too close. If mergers do happen, the chain needs to be initialized again.
+Next we get to the main loop of the code. The system is integrated until the target time is met. This starts with printing the data into a file. After that we check for potential mergers between all black holes and other particles in the chain. This is done by looking through all the pairwise distances and merging particles that close enough together. If mergers do happen, the chain needs to be constructed again.
 
-The actual propagation is done via the BS algorithm. We start by estimating the optimal number for the maximum amount of substep divisions. The amount of substeps always starts at 2, and is incremented by 2 should the division not be sufficient. After this we start taking BS substeps using leapfrog.
-The original chain is copied and this copy is then propagated so that we are able to do the propagations but still finally update the original chain once we have the desired propagation result. The propagation is done as drift-kick-drift. The first drift is with half a timestep, then kicks and drifts are done with full timesteps for number of steps minus one amount, and then in the end kick with a full timestep and drift with a half timestep.
+The actual propagation is done via the GBS algorithm. The amount of substeps always starts at 2, and is incremented by 2 should the division not be sufficient. We start taking GBS substeps using leapfrog.
+The unpropagated chain is copied, and this copy is then propagated. Since we do not at first know how many times we need to do the propagation, this way we are able to do the propagations but still have original chain once we have sufficiently accurate propagation results. The leapfrog uses the drift-kick-drift ordering described in equation \ref{equ:GBSLeapfrog}
 
-The drift part is quite simple. First the kinetic energy is calculated, which is used to calculate the time transform for adjusting the timestep. The physical time of the the chain is incremented and the new positions for all the particles are calculated. The CoM position is calculated as well. The chain and CoM coordinates are not in sync anymore.
-
-The kick phase is more complicated. It starts with recalculating the time transform variable omega, potential energy, and Keplerian accelerations for all the members. The potential energy and omega are used in calculating the time transform. Due to the post-Newtonian terms the accelerations are affected by the velocities, so the normal formulation of a leapfrog does not work. This can be circumvented using auxiliary velocities $\mathbf{w}$ and chained auxiliary velocities $\mathbf{W}$. When the physical velocities are being perturbed, the auxiliary ones are used in the calculations, and vice versa. 
-
-First we calculate the velocity independent accelerations for all the particles, which includes the effects of faraway perturbing particles. Then we calculate velocity dependant accelerations by doing an auxiliary kick for half a timestep, a physical kick for a full timestep, and another half timestep auxiliary kick. The velocity dependant accelerations are obviously only used if we are using PN corrections, since non-relativistic accelerations do not depend on velocities.
-
-The kicks need the CoM to be in sync with the chain, so they are synced first. 
-First we calculate the BH-BH interactions, and then the BH-star interactions.
-If sufficient PN terms are used, the system loses energy through gravitational radiation. Binding energy and radiated energy are updated only when updating the physical variables. For both physical and auxiliary cases, the velocities and spins are updated for all the particles and the CoM system. After this the chain and the CoM are again not in sync.
-After the leapfrog algorithm is done, the chain and CoM systems are synced once more.
-
-After taking a step with leapfrog we do the extrapolation. Rational or polynomial extrapolation is used.
-%TODO puhu rat ja poly jutuist yleisessä selityksessä?
-The extrapolation algorithm calculates new values for the positions and velocities of the particles. Next we calculate the maximum error of these newly integrated values, and then the error is scaled relative to the set BS tolerance. If the error is small enough, the integration has been successful. If the error is deemed too large, we increase the number of substeps and repeat the whole process of leapfrog and extrapolation again.
-
-If the maximum number of substeps is reached and the error is still too big, then the timestep itself is reduced, and the same procedure of taking incrementally more timesteps is repeated. This is repeated until the error is small enough to satisfy the tolerance level.
-
-Once the desired error level is reached, we check if the optimal maximum amount of substep divisions was appropriate or if it should be adjusted. If the timestep was reduced during the integration, the optimal division amount will not be adjusted. After all this the new integrated values for all the values of the particles are updated into the chain.
+After taking a step with leapfrog we do the extrapolation. The extrapolation algorithm calculates values for the particles in the system assuming infinitely small substeps, and also the error of these newly integrated values. The errors are compared to the GBS tolerance, and if the error is small enough the integration has been successful. If the error is deemed too large, we increase the number of substeps and repeat the whole process of leapfrog and extrapolation again. If the maximum number of substeps is reached and the error is still too big, then the total timestep itself is reduced, and the same procedure of taking incrementally more substeps is repeated. This is repeated until the error is small enough to satisfy the tolerance level.
 
 After the integration is done, we check if the chain structure needs to be updated. The chain is stored in the order of indexing, so we want to keep the physically nearby particles close to each other in the chain structure as well. We must check if there are any pairwise distances in the system that are smaller than the smallest chained distance. If that is the case, the chain structure needs to be reconstructed.
 
-Finally, after the system has been integrated for at least the target time, we check if the integration passed the target time by too much. Since the timestep varies, we cannot be certain that the end time for the integration was exactly the target time. If the time is too much past the target, the system is integrated backwards to be closer to the target time. This uses the same BS algorithm as normal.
-Once this backwards iteration is done the final values of the chain are printed and the program is finished.
+Finally, after the system has been integrated for the target time, the final state of the system is outputted and the program is finished.
 
-
-%The code uses post-Newtonian corrections to take into account and approximate the relativistic effects near the black hole particles. The corrections are represented by additional terms in the relative accelerations of the two bodies, so that
-%\begin{equation}
-%\boldsymbol{a}_\mathrm{2-body} = \boldsymbol{a}_\mathrm{Newtonian} + \sum_{k=2}^7 c^{-k} \boldsymbol{a}_\mathrm{(k/2)PN} + \boldsymbol{a}_S \ ,
-%\end{equation}
-%where $\boldsymbol{a}_\mathrm{Newtonian}$ is the usual Newtonian two-body acceleration, $c$ is the speed of light, $\boldsymbol{a}_\mathrm{xPN}$ is the PN correction of order $x$, and $\boldsymbol{a}_S$ indicates PN terms depending on the spins of the particles. PN corrections up to order PN3.5 are included in the code.
-%
-%For spinning bodies, additional PN corrections are required. The PN contribution to the equations of motion for the spins is given by
-%\begin{equation}
-%\boldsymbol{\dot{S}}_i = \boldsymbol{S}_{\mathrm{PN},i} \times \boldsymbol{S}_i \ ,
-%\end{equation}
-%where $\boldsymbol{S}_i$ is the spin angular momentum of the particle $i$ and $\boldsymbol{S}_{\mathrm{PN},i}$ gives the effect of the spin-orbit, spin-spin, and quadrupole-monopole interactions. %TODO Selitä näitä pls
-%
-%These two-body PN corrections are only used when at least one of the bodies is a black hole, since for other particles they're not of any significance. Only when a black hole is involved are the velocities and masses large enough to require relativistic treatment.
-
-%\section{Bulirsch–Stoer algorithm}
-%\section{Time-transformed leapfrog}
-%\section{Collisions}
 
 \chapter{AR-CHAIN results}
 \section{OJ287}
