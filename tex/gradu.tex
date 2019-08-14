@@ -736,7 +736,7 @@ There were attempts to confirm the existence of the planet, but in 1915 the hypo
 \end{equation}
 Here $M$ is the total mass of the system, $a$ is the semimajor axis of the orbit of the planet, and $e$ is the orbital eccentricity \citep{will:tegp}.
 
-The reason why the same extra precession that affects all of the planets had been observed only in Mercury is that the magnitude of the differences from simple Newtonian theory diminishes rapidly as one gets farther from the Sun. As can be seen from equation \ref{equ:pericenterShift}, the rate of the precession increases as eccentricity approaches 1 and as the semimajor axis gets shorter.  Mercury's fairly eccentric orbit makes it much easier to detect the perihelion shift than is the case for the nearly circular orbits of Venus and Earth. 
+The reason why the same extra precession that affects all of the planets had been observed only in Mercury is that the magnitude of the differences from simple Newtonian theory diminishes rapidly as one gets farther from the Sun. As can be seen from equation \ref{equ:pericenterShift}, the rate of the precession increases as eccentricity approaches 1 and as the semimajor axis gets shorter. While Mercury's orbit is more eccentric than for example the orbits of Venus and Earth, this difference in eccentricity is not a major cause in the different precession rates since the value for eccentricity is squared in equation \ref{equ:pericenterShift}, diminishing its effect. Mercury being close to the Sun is the main reason for the noticeable perihelion shift.
 This was the first case of solving the general relativistic two-body problem, which is the most common use of the PN expansion nowadays.
 %Hyvää matskua: gravity postminkowskian implementation sivu 10, gravity postnewtonian fundamental heti alku, common reader 3.2
 %In the case of a two-body system, the post-Newtonian corrections give rise to a perturbed Keplerian orbit. The only secular effect on the orbit is the pericenter advance.
@@ -841,7 +841,7 @@ Current observational evidence suggests that long-lived supermassive black hole 
 %TODO kerronko introssa siitä et miks simulaatiota tehään, modaa sen perusteella mitä tässä sanotaan, kuinka paljon taustaa. 
 %Selitä et gadget on muuten hyvä paitsi että, ja miks sit ketju on jebin
 
-One of the most widely used software packages for galaxy simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. It can be used for effectively simulating the global dynamics of galaxies, for galaxy mergers, and even for cosmological simulations. Because the number of particles that is feasible to simulate on these scales is orders of magnitude smaller than the number of real particles, e.g. stars, there is need to account for the fact that these simulated particles are not real individual objects but rather large clumps that represent the real particles. Because of this limitation these objects need to be ``softened'': the Newtonian potential of a point particle, $-GM/r$, is replaced with some non-point potential, for example the Plummer potential
+One of the most widely used software packages for galaxy simulations is the smoothed particle hydrodynamics simulation code GADGET-3 \citep{springel:2005}. It can be used for effectively simulating the global dynamics of galaxies in galaxy mergers and cosmological simulations. Because the number of particles that is feasible to simulate on these scales is orders of magnitude smaller than the number of real particles, e.g. stars, there is a need to account for the fact that these simulated particles are not real individual objects but rather represent large clumps of the real particles. Because of this limitation these objects need to be ``softened'': the Newtonian potential of a point particle, $-GM/r$, is replaced with some non-point potential, for example the Plummer potential
 \begin{equation}
 \phi = -\frac{GM}{(r^2 + \epsilon^2)^{1/2}} \ ,
 \end{equation}
@@ -853,7 +853,7 @@ This softening essentially makes the particles non-point masses \citep{zhang:201
 
 To this end \cite{rantala:2017} developed a new code, which is an extension of GADGET-3 called KETJU. The code implements algorithmically regularized regions around supermassive black holes to allow for solving the detailed dynamics of these systems, while still being able to simulate the rest of the galaxy with GADGET-3. Algorithmic regularization means that the difficult close encounters and collisions of point masses in a dynamical simulation are treated via a time transformation, while not actually removing the collisional singularity from the equations of motion.
 
-KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008b}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. In this KS-chain method computational time is saved by KS-regularizing only certain interparticle vectors, so that the selected vectors and particles form a continuous chain. Additionally in AR-CHAIN all the chained particles are actual individual objects, thus no softening is needed. 
+KETJU utilizes the algorithmic regularization chain, or AR-CHAIN, method \citep{mikkola:2002, mikkola:2006,mikkola:2008b}, which combines algorithmic regularization with an older Kustaanheimo-Stiefel chain method \citep{mikkola:1993}. Since close encounters of point masses are not a problem due to algorithmic regularization, no softening is used in AR-CHAIN.
 
 The AR-CHAIN method is comprised of three important parts: algorithmic regularization, the use of a chained coordinate system to reduce roundoff errors, and the Gragg-Bulirsch-Stoer extrapolation method for attaining a very high numerical integration accuracy. These three parts will next be discussed separately in more detail. Lastly there will be an overview of the actual implementation of this method.
 
@@ -868,7 +868,7 @@ The AR-CHAIN method is comprised of three important parts: algorithmic regulariz
 
 The main goal of the algorithmic regularization method is to be able to deal with close encounters of particles in dynamical systems without having to resort to more computationally expensive regularization methods, such as the Kustaanheimo-Stiefel regularization. This can be achieved via two slightly different time transformations. 
 
-The first approach is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space strongly enough so that the usual tendency of numerical orbit integrations to drift in energy is absent. In practice a symplectic integrator conserves the energy of the system. The leapfrog integrator is one of the most commonly used symplectic integrators.
+The first approach is called the Logarithmic Hamiltonian (LogH) method, which was discovered by \cite{mikkola:1999} and \cite{preto:1999}. To guarantee simulation accuracy, it is desirable to be able to use a symplectic integration method, i.e. a method which constrains the allowed motions in phase space strongly enough so that the usual tendency of numerical orbit integrations to drift in invariants, such as energy or angular momentum, is absent. In practice a symplectic integrator conserves the energy of the system. The leapfrog integrator is one of the most commonly used symplectic integrators.
 
 \subsection{Leapfrog}
 A leapfrog can be used for numerically integrating second order differential equations of the form $d^2x/dt^2 = F(x)$, equivalently $dx/dt = v , \ dv/dt = F(x)$. It has acquired its name from the way it updates the positions and velocities of the system at interleaved time points, so that they ``leapfrog'' over each other. This is illustrated in figure \ref{fig:leapfrog}.
@@ -886,9 +886,9 @@ v_{i+1} &= v_{i}+F(x_{i+1/2})\Delta t \\
 x_{i+1} &= x_{i+1/2}+v_{i+1}{\frac {\Delta t}{2}} \ ,
 \end{aligned}
 \end{equation}
-where $x_i$ and $v_i$ are the values at step $i$, and $\Delta t$ is the timestep. In a dynamical system the function $F(x)$ is simply the acceleration. First the position is updated by half a timestep, then the velocity is updated based on this half step value, and finally the position is updated again so that the whole system has advanced by one timestep. In addition to its symplectic nature, the leapfrog method is also time reversible, meaning that we can use it to accurately integrate the system backwards in time.
+where $x_i$ and $v_i$ are the values at step $i$, and $\Delta t$ is the timestep. In a dynamical system the function $F(x)$ is simply the acceleration. First the position is updated by half a timestep, then the velocity is updated based on this half step value, and finally the position is updated again so that the whole system has advanced by one timestep. In addition to its symplectic nature, the leapfrog method is also time reversible, meaning that we can accurately integrate the system backwards in time.
 
-However the symplectic nature is only preserved when we use fixed timesteps, and using varying timesteps causes the leapfrog to no longer be symplectic \citep{bt-galdyn}. The use of a fixed timestep is not feasible in most simulations since very different densities are resolved, requiring very different timesteps to allow the simulation to be completed in a reasonable time. Fortunately the time-reversibility of the leapfrog also constrains the system, so if the timestep is varied in a time-reversible manner, the leapfrog retains its good behaviour.
+However the symplectic nature is only preserved when we use fixed timesteps, and using varying timesteps causes the leapfrog to no longer be symplectic \citep{bt-galdyn}. The use of a fixed timestep is not feasible in most simulations since very different densities are resolved, requiring very different timesteps to allow the simulation to be completed in a reasonable time. This can be circumvented for example with time transformations, so that the time variable changes during close encounters, and we do not actually need to change the timestep itself. Another example is to use extremely accurate extrapolation methods to keep the errors very small, so the loss of symplecticity does not matter as much.
 
 \subsection{Logarithmic Hamiltonian}
 To be able to use an explicit symplectic method such as the leapfrog, we need to have a Hamiltonian that is separable, i.e. where the different parts contain only one type of canonical coordinates.
@@ -902,9 +902,9 @@ where $T$ is the kinetic energy and $U$ is the so-called force function, which i
 \end{equation}
 where $s$ is the new fictitious time variable, we can get a new Hamiltonian through the Poincaré time transform discussed in section \ref{sect:2dregu}:
 \begin{equation}
-\Gamma = g (H+p_0) \ ,
+\Gamma = g (H+B) \ ,
 \end{equation}
-where $p_0$ is the binding energy and $g$ is the time transform function that is derived from $\mathrm{d}t = g \mathrm{d}s$. 
+where $B$ is the binding energy and $g$ is the time transform function that is derived from $\mathrm{d}t = g \mathrm{d}s$. 
 Thus the time transformed Hamiltonian is
 \begin{equation}
 \Gamma = \frac{T-U+B}{U} \ . \label{equ:loghGamma}
@@ -913,7 +913,7 @@ This Hamiltonian is not yet separable. However, because along the correct orbit 
 \begin{equation}
 \tilde{\Gamma} = \mathrm{log}(1+\Gamma) \label{equ:loghNewGamma}
 \end{equation}
-as the new Hamiltonian \citep{mikkola:1999}. This is true since if $\Gamma$ equals 0, the logarithm also gives us 0, so along the correct orbit $\tilde{\Gamma}$ equals the time transformed Hamiltonian.
+as the new Hamiltonian \citep{mikkola:1999}. The equations of motion are equivalent for this new Hamiltonian.
 We can turn equation \ref{equ:loghGamma} into the form 
 \begin{equation}
 1 + \Gamma = \frac{T+B}{U} \ ,
@@ -963,7 +963,7 @@ The time transformed equations of motion of an N-body system can now be written 
 \begin{aligned}
 \frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha (T + B) + \beta \omega + \gamma]^{-1} \equiv t' \\
 \frac{\mathrm{d}\boldsymbol{r}_i}{\mathrm{d}s} &= t' \boldsymbol{v}_i
-\end{aligned}
+\end{aligned} \label{equ:tteompositions}
 \end{equation}
 and the velocities
 \begin{equation}
@@ -971,7 +971,7 @@ and the velocities
 \frac{\mathrm{d}t}{\mathrm{d}s} &= [\alpha U + \beta \Omega + \gamma]^{-1} \equiv t' \\
 \frac{\mathrm{d}\boldsymbol{v}_i}{\mathrm{d}s} &= t' \left[ \sum_{i \neq j}^N \frac{G m_j \boldsymbol{r}_{ij}}{r_{ij}^3} + \boldsymbol{f}_i \right] \\
 \frac{\mathrm{d} \omega}{\mathrm{d}s} &= t' \sum_i^N \frac{\partial \Omega}{\partial \boldsymbol{r}_i} \cdot \boldsymbol{v}_i \ .
-\end{aligned}
+\end{aligned} \label{equ:tteomvelocities}
 \end{equation}
 %\frac{\mathrm{d} B}{\mathrm{d}s} &= -t' \sum_i^N m_i \boldsymbol{v}_i \cdot \boldsymbol{f}_i \\
 Here $\boldsymbol{f}_i$ are any possible external perturbing accelerations that might affect the system. The time transformations are both denoted with $t'$ since as seen in equation \ref{equ:regutimetransform} they are both identical for the exact solution. However in practice computational roundoff errors cause them to differ slightly. They are calculated in different ways so that new positions are obtained by using only velocities, and vice versa.
@@ -987,7 +987,7 @@ By using a time transformation we do not experience any catastrophic errors in t
 Computers use floating-point arithmetic to represent real numbers, so rounding errors are inevitable when doing calculations with such numbers. Rounding errors are especially prevalent when subtracting two very large numbers whose values are very close to each other, for example a close encounter of a pair of particles if their coordinates are measured from a distant origin. Reducing this roundoff error as much as possible is important in order to ensure that the calculations and thus the simulations are correct. Reducing this error can be achieved via introducing a new chained coordinate system, where the position of a particle is defined by its relative position to a previous particle in the chain.
 
 This method is similar to the Kustaanheimo-Stiefel chain regularization method \citep{mikkola:1993} described in section \ref{sect:KSmethod}, where the system is not globally KS regularized. Instead we do the KS transform only for the shortest interparticle vectors in the system. The difference is that in AR-CHAIN we do not perform a KS transformation, instead we only link all the particles together in a chain. \cite{mikkola:1999} pointed out that without using this kind of chain structure, the numerical roundoff when calculating the forces is too large for satisfactory results. Thanks to this structure, the separations of particles that are near each other can be derived from the chain, so we do not need to calculate them by doing the error-prone long-range subtraction.
-It should be noted that the chain transformation is just a linear mapping, so doing it does not require us to alter the Hamiltonian of the system. This allows the chain structure to be directly used with the transformations discussed in the previous section.
+The chain structure can be directly used with the transformations discussed in the previous section, since the chain affects only the positions $\boldsymbol{r}$ and velocities $\boldsymbol{v}$ in equations \ref{equ:tteompositions} and \ref{equ:tteomvelocities}, not the time transformation itself.
 
 Before constructing the chained system we need to move the system into a center of mass (CoM) frame. The position and velocity of the CoM of the dynamical system are defined as
 \begin{equation}
@@ -1035,7 +1035,7 @@ Here the vector labelling starts from the head of the chain. These chain vectors
 \sum_{k=i}^j \boldsymbol{X}_k \ &\mathrm{if} \ j-i \leq N_d \ .
 \end{cases}
 \end{equation}
-According to \cite{mikkola:2008b} a good value for this is $N_d = 2$. This method of selecting the way the spatial separations of given particles is calculated is one of the most important features of this algorithm.
+According to \cite{mikkola:2008b} a good value for this limit is $N_d = 2$. This method of selecting the way the spatial separations of given particles is calculated is one of the most important features of this algorithm.
 
 Finally we can write down the suitable leapfrog equations of motion for the chained system \citep{mikkola:2008b}. For the coordinates the equations are
 \begin{equation}
@@ -1060,11 +1060,11 @@ The use of a leapfrog alone is usually not accurate enough in dynamical simulati
 
 A first-order ordinary differential equation (ODE) with a known initial value can be written as 
 \begin{equation}
-\frac{dy}{dx} = f(y), \ \ y(0) = y_0 \ .
+\frac{dy}{dx} = f(y), \ \ y(x_0) = y_0 \ .
 \end{equation}
 Similarly a second-order ODE with an initial value can be written as
 \begin{equation}
-\frac{d^2 y}{dx^2} = f(y), \ \ y(x_0) = y_0, \ y'(0) = z_0 \ ,
+\frac{d^2 y}{dx^2} = f(y), \ \ y(x_0) = y_0, \ y'(x_0) = z_0 \ ,
 \end{equation}
 where $y'$ signifies a derivative with respect to x. This can also be split into a coupled pair of first order equations:
 \begin{equation}
@@ -1074,7 +1074,7 @@ where $y'$ signifies a derivative with respect to x. This can also be split into
 \end{cases}
 y(x_0) = y_0, \ z(x_0) = z_0 \ .
 \end{equation}
-The equations of motion of a dynamical system are a good example of this kind of second-order ODEs. 
+The equations of motion of a classical Newtonian system are a good example of this kind of second-order ODEs. 
 
 If we want to simulate a dynamical system forwards in time by an interval $H$, we must solve this pair of equations. The results we will get are $y(x_0 + H)$ and $z(x_0 + H)$. This long interval can also be split into $n$ substeps of length $h$:
 \begin{equation}
@@ -1103,9 +1103,8 @@ since rational functions are able to approximate functions with poles better tha
 
 We want to use an integrator whose error, when expressed as a power series in $h$, contains only even powers of $h$
 \begin{equation}
-|y_n - y(x_0 + H)| = \sum_{k=1}^{\infty} a_k h^{2k} \ ,
+|y_n - y(x_0 + H)| = \sum_{k=1}^{\infty} a_k h^{2k} \ .
 \end{equation}
-where $h$ varies due to increasing stepcount $n$.
 This was discovered by \cite{gragg:1965}. The importance of an even power series is that when combining the different substep amounts, the accuracy increases by two orders at a time. Fortunately the leapfrog integrator is applicable for this, since it has this kind of error behaviour.
 %TODO sano jotenki paremmin
 
@@ -1169,13 +1168,13 @@ Now that we have all the pieces of the AR-CHAIN algorithm we can discuss the sta
 \label{fig:archain}
 \end{figure}
 
-The AR-CHAIN code first prepares the test scenario we want to examine. In addition to creating the initial conditions, we can determine what kind of PN corrections we want to use. We can set the maximum PN order, and whether PN corrections should be taken into account only for BH-BH interactions, or also for BH-star interactions. If the stars set to be msuch more massive than stars actually are, this could lead to unphysical results. We can also set the desired error tolerance for the GBS algorithm.
+The AR-CHAIN code first prepares the test scenario we want to examine. In addition to creating the initial conditions, we can determine what kind of PN corrections we want to use. We can set the maximum PN order, and whether PN corrections should be taken into account only for BH-BH interactions, or also for BH-star interactions. If the star particles are set to be much more massive than physical stars actually are, this could lead to unphysical results. We can also set the desired error tolerance for the GBS algorithm.
 
 After this the chain is initialized and built. All the particles are moved to CoM frame, and we use the chain algorithm described in section \ref{sect:ChainSystem} to construct the chain structure. All the chain members are assigned an index number, which is used for all the calculations between the members. In addition we calculate the variables of the chain structure, such as its binding energy, and the accelerations of all the member particles.
 
-After all this preparatory work is done, we can start propagating the chain. The system will be propagated for a given time, and it will print out all the particle data after every given printing interval, both determined by the user. The initial integration timestep for the whole system is determined from the starting parameters. Appropriate timesteps for all particle pairs in the system are calculated, and the smallest of these is chosen as the starting timestep for the whole system.
+After all this preparatory work is done, we can start propagating the chain. The system will be propagated for a given time, and it will print out all the particle data after every given printing interval. The initial integration timestep for the whole system is determined from the starting parameters. Appropriate timesteps for all particle pairs in the system are calculated, and the smallest of these is chosen as the starting timestep for the whole system.
 
-Next we get to the main loop of the code. The system is integrated until the target time is met. This starts with printing the data into a file. After that we check for potential mergers between all the particles in the chain. For a merger to happen at least one of the particles must be a black hole, so stars cannot collide with each other. The collisions are checked simply by looking through all the pairwise distances and merging particles that are close enough together. This distance criterion is 6 times the Schwarzschild radius of the total mass of the two particles. The merging preserves momentum and spin. If mergers do happen, the chain needs to be reconstructed.
+Next we get to the main loop of the code. The system is integrated until the target time is met. This starts with printing the data into a file if the output interval has elapsed. After that we check for potential mergers between all the particles in the chain. For a merger to happen at least one of the particles must be a black hole, so stars cannot collide with each other. The collisions are checked simply by looking through all the pairwise distances and merging particles that are close enough to each other. This distance criterion is 6 times the Schwarzschild radius of the total mass of the two particles. The merging preserves momentum and spin. If mergers do happen, the chain needs to be reconstructed.
 
 The actual propagation is done via the GBS algorithm. The amount of substeps always starts at 2, and is incremented by 2 should the division not be sufficient. We start taking GBS substeps using leapfrog.
 The unpropagated chain is copied, and this copy is then propagated. Since we do not at first know how many times we need to do the propagation, this way we are able to do the propagations but still have the original chain once we have sufficiently accurate propagation results. The leapfrog uses the drift-kick-drift ordering described in equation \ref{equ:GBSLeapfrog}
