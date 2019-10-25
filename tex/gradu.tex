@@ -1187,72 +1187,199 @@ Finally, after the system has been integrated for the target time, the final sta
 
 
 \chapter{AR-CHAIN results}
-\section{OJ287}
 
-These following runs all had similar initial conditions, apart from the magnitude of the spin. The initial values for the orbital elements were those measured by Valtonen \& Mikkola (cite), with the semimajor axis of the binary being around 11350 AU, the eccentricity being 0.6, and spin being 0.28. Simulations were also run with a spin of 0 and a spin three times the original. The direction of the spin was towards the positive z-axis of the system. The inclination of the orbit was 45 degrees in the xz-plane. So the spin was inclined 45 degrees to the initial orbit. The initial timestep in the simulations was 0.01 gadget times, and the interval for writing the data in a file was 1 gadget time. 
+Two different kinds of simulations were run using the AR-CHAIN method to probe different periods of the evolution of a black hole binary. First, a simple system consisting only of a binary black hole was simulated to test the effects of the post-Newtonian corrections, and the lifetime of the binary system. Second, the evolution of the binary due to three-body interactions with stars was simulated to test how these interactions affect the properties of the binary.
 
-The orbital elements precessed, so average values were used to make smoother and clearer graphs. 
+\section{PN effects in a binary BH system}
 
-The eccentricity of the orbit goes down as the orbit circularizes due to the GW emissions.
+The basic setting for the test binary consisted of black holes with masses of $M_1 = 1.4 \times 10^{10} M_\odot$ and $M_2 = 1.8 \times 10^{8} M_\odot$. The initial semimajor axis of the binary was set to 11350 AU, its eccentricity was set to 0.6, and the smaller black hole was set to have a spin of 0.28 towards the positive z-axis of the system. The inclination of the orbit was set to 45 degrees in the xz-plane, so the spin was inclined 45 degrees to the initial orbit. In these simulations the PN terms were taken into account up to the full 3.5PN term accuracy. In addition the effects of spin were also taken into account. The simulations were always allowed to run until the eventual merger.
 
-The PN2.5 term is responsible for the GW emissions.
+The simulated results were compared against the theoretical lifetime of a binary system shrinking due to the emission of gravitational waves. The lifetime of such a system can be calculated through numerical integration \citep{peters:1964}:
+\begin{equation}
+T(a_0, e_0) = \frac{12}{19} \frac{c_0^4}{\beta} \int_0^{e_0} \frac{e^{29/19} [1 + (121/304)e^2]^{1181/2299}}{(1-e^2)^{3/2}} de \ ,
+\end{equation}
+where 
+\begin{equation}
+\beta = \frac{64}{5} \frac{G^3 \mu M^2}{c^5} \ ,
+\end{equation}
+and $c_0$ can be obtained from the following equation by inserting the initial semimajor axis and eccentricity of the system
+\begin{equation}
+a = \frac{c_0 e^{12/19}}{(1-e^2)} \left[ 1 + \frac{121}{304} e^2 \right]^{870/2299} \ .
+\end{equation}
+It is of note that these equations only take into account the 2.5PN terms, so they are not expected to give the exact same results as the simulations where higher terms are used.
 
-The spin caused the orbit to twist. This can be seen clearly in images \ref{fig:spin0Orbits} and \ref{fig:spinNormalOrbits}. If there was no spin, the orbit stayed neatly in the original plane, but with spin the orbit started turning.
+The aforementioned initial conditions of the binary were altered in several ways to test how they affect the time it takes for the black holes to merge. First, the initial semimajor axis of the binary was varied from 8000 AU to 14000 AU in 50 AU steps, and these results are seen in figure \ref{fig:bh-merge-semi}. The other parameters were kept the same. As expected, the farther away the black holes start from one another, the longer it takes for them to shrink and merge. The analytical result gives a slightly lower lifetime for the system. (TODO: Miksi? Vaikuttaako systeemin prekessio? Luulisi että on nopeampaa koska enemmän dissipatiivisia termejä)
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.6]{../images/bh-merge-semi.pdf}
+\caption{The time it takes for a black hole binary to merge as a function of the initial semimajor axis of the system. The shortest time at 8000 AU was around 7800 years, and the longest time at 14000 AU was around 70000 years.}
+\label{fig:bh-merge-semi}
+\end{figure}
 
-One should keep in mind that this model is very simplistic. There are only the two black holes, and no other stars to interact with, and no accretion disks, which are thought to play a relatively large role in the life of the system.
+
+Second, the initial eccentricity of the system was varied from 0.3 to 0.8 with 0.01 steps, and these results can be seen in \ref{fig:bh-merge-ecc}. This too behaves as expected: the more circular the orbit, the longer it takes for the system to shrink. Changing the eccentricity causes a much larger discrepancy between the analytical and simulated answers than when compared to the semimajor axis. The situation flips at very high eccentricities, and the simulation actually finishes earlier than expected. As can be seen from these figures, the decrease in the lifetime of the system goes down the lower the semimajor axis is and the higher the eccentricity is.
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.6]{../images/bh-merge-ecc.pdf}
+\caption{The time it takes for a black hole binary to merge as a function of the initial eccentricity of the system. The longest time at eccentricity of 0.3 was around 123000 years, and the shortest time at eccentricity of 0.8 was around 3200 years.}
+\label{fig:bh-merge-ecc}
+\end{figure}
+
+Third, the mass ratio of the black holes was varied from 0.0063 to 1 with 100 logarithmically equally spaced points, and these results can be seen in figure \ref{fig:bh-merge-ratio}. A logarithmic scale was used because the lifetime of the system dropped rapidly as the mass ratio approached unity. The total mass of the system $M = 1.418 \times 10^10 M_{\odot}$ was kept constant throughout. As reference, the original mass ratio of the system was around 0.013. Here the simulated and analytical values differ only slightly.
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.6]{../images/bh-merge-ratio.pdf}
+\caption{The time it takes for a black hole binary to merge as a function of the mass ratio of the system. The longest time at ratio of 0.0063 was around 65000 years, and the shortest time at mass ratio of 1 was around 1600 years.}
+\label{fig:bh-merge-ratio}
+\end{figure}
+
+
+(TODO: Kuvausta yksittäisestä ajosta, katso miten rataelementit kehittyy?)
+
+\clearpage
+\section{Scattering experiments on a binary BH}
+
+Next we perform scattering experiments where stars are shot towards a binary black hole, and we measure the effects of the three-body interactions on the binary.
+%The stars are ejected during inspiral phases that cannot be modeled analytically.
+These experiments are mostly adapted from \cite{sesana:2006}.
+
+We start by considering a binary with mass $M = M_1 + M_2$, where $M_2 < M_1$. It has a reduced mass $\mu = M_1 M_2 / M$, mass ratio $q = M_2/M_1$, eccentricity $e$, and semimajor axis $a$. The binary orbits in the xy-plane, and the stars that will interact with the binary have a mass of $m_{\ast}$. If the stars are light ($m_{\ast} \ll M_2$), the problem can be simplied by setting the resting center of mass of the binary at the origin of the coordinate system. For single binary-star interactions we can define an approximated dimensioneless energy exchange parameter $C$ and angular momentum change parameter $B$ \citep{hills:1983}:
+\begin{equation}
+C = \frac{M}{2m_{\ast}} \frac{\Delta E}{E} \ ,
+\end{equation}
+and 
+\begin{equation}
+B = - \frac{M}{m_{\ast}} \frac{\Delta L_z}{L_z} \ ,
+\end{equation}
+where $\Delta E / E$ is the increase (or decrease if negative) in the orbital binding energy $E = -GM/(2a)$, and $\Delta L_z / L_z$ is the change in the orbital specific angular momentum $L_z = \sqrt{GMa(1-e^2)}$. Conservation of total energy and angular momentum give us an expression for the change of the eccentricity of the system
+\begin{equation}
+\Delta e = \frac{(1-e^2)}{2e} \frac{2 m_{\ast}}{M} (B-C) \ .
+\end{equation}
+Thus the parameter $C$ tells us how the energy of the binary changes during three-body interactions with stars, i.e. if the star takes energy away from the system, the binding energy increases and the binary shrinks. Similarly the parameter $B-C$ can be used to calculate how much the eccentricity of the system changes due to the three-body scattering.
+
+Each scattering starts with a star at infinity. The approach of the star is always randomized, and for that we need several variables. (TODO: selitä miten alkuparametrit arvotaan, sekä simulaation loppuehdot yms.)
+\begin{equation}
+r = (10^7 \mu/M)^{1/4} a
+\end{equation}
+
+\begin{equation}
+b^2 = r_p^2 \left( 1 + \frac{2GM}{r_p v^2} \right)
+\end{equation}
+
+\begin{equation}
+x \equiv b/b_0 \ , \ \ b_0^2 = 2GMa/v^2
+\end{equation}
+
+(TODO: Tulosten selitystä. Kuvaajat näyttävät sinänsä hyviltä, mutta miten keskihajonta jota näkyy kuvissa \ref{fig:scatter-q1-stdev} ja \ref{fig:scatter-q0.3-stdev} on paras implementoida? Pelkät keskiarvot (kuvaajat \ref{fig:scatter-q1}, \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1} ja \ref{fig:scatter-q0.037}) näyttävät näteiltä, mutta tähtipopulaatio eri nopeuksineen on hyvin laaja ja luo korkean hajonnan)
+
+%TODO kuvaajissa ehkä vai yläkuvaajassa legenda? Värit ja muodot eniwei samat
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/spinNormal.pdf}
-\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having a spin of 0.28. The merging happened at around 206800 gadget time, corresponding to 32300 years.}
-\label{fig:spinNormal}
+\includegraphics[scale=0.6]{../images/q1.png}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for equal mass black holes (q=1).}
+\label{fig:scatter-q1}
 \end{figure}
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/spin0.pdf}
-\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having no spin at all. The merging happened at around 202300 gadget time, corresponding to 31700 years.}
-\label{fig:spin0}
+\includegraphics[scale=0.6]{../images/{q0.3}.png}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/3.}
+\label{fig:scatter-q0.3}
 \end{figure}
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/spin3.pdf}
-\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having a spin of 0.84, three times the real value. The merging happened at around 214400 gadget time, corresponding to 33500 years.}
-\label{fig:spin3}
+\includegraphics[scale=0.6]{../images/{q0.1}.png}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/9.}
+\label{fig:scatter-q0.1}
 \end{figure}
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/spin0Orbits.png}
-\caption{Plot of the the orbits of the binary if there is no spin. The orbiting member doesn't leave the original plane it was in.}
-\label{fig:spin0Orbits}
+\includegraphics[scale=0.6]{../images/{q0.037}.png}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/27.}
+\label{fig:scatter-q0.037}
 \end{figure}
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/spinNormalOrbits.png}
-\caption{Plot of the the orbits of the binary with the measured spin.}
-\label{fig:spinNormalOrbits}
+\includegraphics[scale=0.6]{../images/{q1_stdev}.pdf}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1 with one standard deviation limits.}
+\label{fig:scatter-q1-stdev}
 \end{figure}
 
 \begin{figure}[h!tb]
 \centering
-\includegraphics[width=\textwidth]{../images/noPN.pdf}
-\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, if the post-Newtonian terms aren't factored in. The simulation was run for slightly over 1500 years. Since the PN terms were not taken into account the orbit didn't actually decay, just as expected. The results themselves aren't very interesting, but it shows that the corrections are indeed needed for realistic results.}
-\label{fig:noPN}
+\includegraphics[scale=0.6]{../images/{q0.3_stdev}.pdf}
+\caption{The averaged mean energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/3 with one standard deviation limits.}
+\label{fig:scatter-q0.3-stdev}
 \end{figure}
 
-\subsection{Estimated time of merging}
-\subsection{Differences from reality}
-\section{Effects of spin}
+%\section{OJ287}
+%
+%These following runs all had similar initial conditions, apart from the magnitude of the spin. The initial values for the orbital elements were those measured by Valtonen \& Mikkola (cite), with the semimajor axis of the binary being around 11350 AU, the eccentricity being 0.6, and spin being 0.28. Simulations were also run with a spin of 0 and a spin three times the original. The direction of the spin was towards the positive z-axis of the system. The inclination of the orbit was 45 degrees in the xz-plane. So the spin was inclined 45 degrees to the initial orbit. The initial timestep in the simulations was 0.01 gadget times, and the interval for writing the data in a file was 1 gadget time. 
+%
+%The orbital elements precessed, so average values were used to make smoother and clearer graphs. 
+%
+%The eccentricity of the orbit goes down as the orbit circularizes due to the GW emissions.
+%
+%The PN2.5 term is responsible for the GW emissions.
+%
+%The spin caused the orbit to twist. This can be seen clearly in images \ref{fig:spin0Orbits} and \ref{fig:spinNormalOrbits}. If there was no spin, the orbit stayed neatly in the original plane, but with spin the orbit started turning.
+%
+%One should keep in mind that this model is very simplistic. There are only the two black holes, and no other stars to interact with, and no accretion disks, which are thought to play a relatively large role in the life of the system.
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/spinNormal.pdf}
+%\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having a spin of 0.28. The merging happened at around 206800 gadget time, corresponding to 32300 years.}
+%\label{fig:spinNormal}
+%\end{figure}
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/spin0.pdf}
+%\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having no spin at all. The merging happened at around 202300 gadget time, corresponding to 31700 years.}
+%\label{fig:spin0}
+%\end{figure}
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/spin3.pdf}
+%\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, with it having a spin of 0.84, three times the real value. The merging happened at around 214400 gadget time, corresponding to 33500 years.}
+%\label{fig:spin3}
+%\end{figure}
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/spin0Orbits.png}
+%\caption{Plot of the the orbits of the binary if there is no spin. The orbiting member doesn't leave the original plane it was in.}
+%\label{fig:spin0Orbits}
+%\end{figure}
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/spinNormalOrbits.png}
+%\caption{Plot of the the orbits of the binary with the measured spin.}
+%\label{fig:spinNormalOrbits}
+%\end{figure}
+%
+%\begin{figure}[h!tb]
+%\centering
+%\includegraphics[width=\textwidth]{../images/noPN.pdf}
+%\caption{The development of the semimajor axis and eccentricity of the smaller of the two black holes in the binary, if the post-Newtonian terms aren't factored in. The simulation was run for slightly over 1500 years. Since the PN terms were not taken into account the orbit didn't actually decay, just as expected. The results themselves aren't very interesting, but it shows that the corrections are indeed needed for realistic results.}
+%\label{fig:noPN}
+%\end{figure}
+%
+%\subsection{Estimated time of merging}
+%\subsection{Differences from reality}
+%\section{Effects of spin}
 
-%\chapter{KETJU and results}
-%\section{KETJU overview}
-%\section{}
-%\section{}
 
 \chapter{Conclusions}
+
+%TODO if we had accurate data about the stellar populations near galaxy centers we could do better initial conditions for the stars, also if we had better observations of binary black holes
 
 % STEP 5:
 % Uncomment the following lines and set your .bib file and desired bibliography style
