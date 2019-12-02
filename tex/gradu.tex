@@ -12,6 +12,15 @@
 \usepackage{amsmath, amssymb} % For better math
 \usepackage[colon]{natbib} % For bibliography
 \usepackage[footnotesize,bf]{caption} % For more control over figure captions
+\usepackage{multirow, makecell}
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1.5pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1.5pt\hskip\tabcolsep}}
+\makeatother
 
 \renewcommand{\topfraction}{.75}
 \renewcommand{\floatpagefraction}{.75}
@@ -112,9 +121,9 @@ Black holes can be divided into four distinct types based on these properties. E
 \begin{table}[htb]
 \centering
 \caption{Different types of black holes}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c"c|c|}
 \hline
- & Non-rotating ($J = 0$) & Rotating ($J \neq 0$) \\ \hline
+ & Non-rotating ($J = 0$) & Rotating ($J \neq 0$) \\ \thickhline
 Uncharged ($Q = 0$) & Schwarzschild & Kerr \\ \hline
 Charged ($Q \neq 0$) & Reissner–Nordström & Kerr–Newman \\ \hline
 \end{tabular}
@@ -1188,76 +1197,109 @@ Finally, after the system has been integrated for the target time, the final sta
 
 \chapter{AR-CHAIN results}
 
-Two different kinds of simulations were run using the AR-CHAIN code to probe different periods of the evolution of a binary black hole. First, a simple system consisting only of a binary black hole was simulated to test the effects of the post-Newtonian corrections on the lifetime of the binary system. Second, the evolution of the binary affected by three-body interactions with stars was simulated to test how these interactions shrink the semimajor axis of the binary and alter its eccentricity.
+Two different kinds of simulations were run using the AR-CHAIN code to probe different phases of the evolution of a binary black hole. First, a simple system consisting only of a binary black hole was simulated to test the effects of the post-Newtonian corrections on the lifetime of the binary system. Second, the evolution of the binary affected by three-body interactions with stars was simulated to test how these interactions shrink the semimajor axis of the binary and alter its eccentricity.
 
 \section{PN effects in a binary BH system}
+\subsection{Binary setup}
 
-The initial conditions of the test binary were motivated by the blazar OJ 287, which is considered to be a good candidate for a supermassive black hole binary \citep{valtonen:1996, dey:2019}. The basic setting for the test binary consisted of black holes with masses of $M_1 = 1.4 \times 10^{10} M_\odot$ and $M_2 = 1.8 \times 10^{8} M_\odot$. The initial semimajor axis of the binary was set to 11500 AU, its eccentricity was set to 0.6, and the primary black hole was set to have a spin of 0.28 towards the positive z-axis of the system. The inclination of the orbit of the secondary black hole was set to 45 degrees in the xz-plane. 
+The initial conditions of the test binary were motivated by the blazar OJ 287, which is considered to be a good candidate for a supermassive black hole binary \citep{valtonen:1996, dey:2019}. The basic setup for the test binary consisted of black holes with masses of $M_1 = 1.4 \times 10^{10} M_\odot$ and $M_2 = 1.8 \times 10^{8} M_\odot$. The initial semimajor axis of the binary was set to $a =$ 11500 AU, its eccentricity was set to $e =$ 0.6, and the primary black hole was set to have a spin of $s =$ 0.28 towards the positive z-axis of the system. The secondary black hole was set to have no spin. The inclination of the orbit of the secondary black hole was set to 45 degrees in the xz-plane. 
 
-The simulations were run with three different PN term configurations. One run had only the 2.5PN terms included, ignoring the earlier and later terms. Another had all the terms up to 2.5PN included, and in the last one the terms were included up to the full 3.5PN term accuracy. In addition, the effects of the spin were taken into account in all of them. The simulations were always allowed to run until the eventual black hole merger.
+The simulations were run with three different PN term configurations. One run had only the 2.5PN terms included, ignoring the earlier and later terms. Another had all the terms up to 2.5PN included, and in the last run the terms were included up to 3.5PN term accuracy. In addition, the effects of the spin were taken into account in all of the integrations. The simulations were always allowed to run until the eventual black hole merger.
 
-The simulated results were compared against the theoretical lifetime of a binary system shrinking due to the emission of gravitational waves. Based on the equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity} that describe how the semimajor axis and eccentricity of the binary change over time due to GW emissions, \cite{peters:1964} derived an equation for the lifetime of such a system as a function of the initial semimajor axis and eccentricity:
+The simulated results were compared against the theoretical lifetime of a binary system shrinking due to the emission of gravitational waves. Based on equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity} that describe how the semimajor axis and eccentricity of the binary change over time due to GW emissions, \cite{peters:1964} derived an equation relating $a$ and $e$ during the decay:
 \begin{equation}
-T(a_0, e_0) = \frac{12}{19} \frac{c_0^4}{\beta} \int_0^{e_0} \frac{e^{29/19} [1 + (121/304)e^2]^{1181/2299}}{(1-e^2)^{3/2}} de \ , \label{equ:BBHlifetime}
+\left< \frac{\mathrm{d} a}{\mathrm{d} e} \right> = \frac{12}{19} \frac{a}{e} \frac{\left[ 1 + (73/24)e^2 + (37/96)e^4 \right] }{(1-e^2) \left[ 1 + (121/304)e^2 \right]} \ . \label{equ:GWsemiecc}
+\end{equation}
+This differential equation can then be integrated to obtain an expression for the semimajor axis as a function of the eccentricity:
+\begin{equation}
+a(e) = \frac{c_0 e^{12/19}}{(1-e^2)} \left[ 1 + \frac{121}{304} e^2 \right]^{870/2299} \ , \label{equ:GWsemifromecc}
+\end{equation}
+where $c_0$ is determined by the initial condition $a=a_0$ when $e=e_0$.
+
+Combining equations \ref{equ:GWsemifromecc} and \ref{equ:GWeccentricity} gives us an equation for the time decay of an eccentric system exactly:
+\begin{equation}
+\left< \frac{\mathrm{d} e}{\mathrm{d} t} \right> = - \frac{19}{12} \frac{\beta}{c_0^4} \frac{e^{-29/19} (1-e^2)^{3/2}}{\left[ 1 + (121/304)e^2 \right]^{1181/2299}} \ , \label{equ:GWecctimedecay}
 \end{equation}
 where 
 \begin{equation}
-\beta = \frac{64}{5} \frac{G^3 \mu M^2}{c^5} \ ,
+\beta = \frac{64}{5} \frac{G^3 \mu M^2}{c^5} \ .
 \end{equation}
-and $c_0$ can be obtained from the following equation by inserting the initial semimajor axis and eccentricity of the system
+Equation \ref{equ:GWecctimedecay} can then be integrated to give us an equation for the total lifetime of the system as a function of the initial semimajor axis and eccentricity:
 \begin{equation}
-a = \frac{c_0 e^{12/19}}{(1-e^2)} \left[ 1 + \frac{121}{304} e^2 \right]^{870/2299} \ .
+T(a_0, e_0) = \frac{12}{19} \frac{c_0^4}{\beta} \int_0^{e_0} \frac{e^{29/19} [1 + (121/304)e^2]^{1181/2299}}{(1-e^2)^{3/2}} de \ . \label{equ:BBHlifetime}
 \end{equation}
-For an arbitrary semimajor axis and eccentricity, equation \ref{equ:BBHlifetime} needs to be integrated numerically.
+
+For an arbitrary semimajor axis and eccentricity equation \ref{equ:BBHlifetime} needs to be integrated numerically.
 It is of note that these equations take into account only the 2.5PN terms, so the simulations with different PN terms are expected to differ from these analytical results.
 
-The aforementioned initial conditions of the binary were altered in three ways to test how they affect the time it takes for the black holes to merge. The other parameters were kept at default when changing one of them. First, the initial semimajor axis of the binary was varied from 8000 AU to 14000 AU in 50 AU steps, and these results are seen in figure \ref{fig:bh-merge-semi}.
+The aforementioned initial conditions of the binary were altered in three ways to test how they affect the time it takes for the black holes to merge. The other parameters were always kept fixed when changing one of the variables. Table \ref{table:GWruns} contains information on the amount and length of the runs. First, the initial semimajor axis of the binary was varied from 8000 AU to 14000 AU in 50 AU steps, and these results are shown in figure \ref{fig:bh-merge-semi}.
+Second, the initial eccentricity of the system was varied from 0.3 to 0.8 with 0.01 steps, and these results are shown in figure \ref{fig:bh-merge-ecc}.
+
+Finally, the mass ratio of the black holes was varied from 0.0063 to 1 with 100 logarithmically equally spaced points, and these results can be seen in figure \ref{fig:bh-merge-ratio}. A logarithmic scale is used because the lifetime of the system drops rapidly as the mass ratio approaches unity. The total mass of the system $M = 1.418 \times 10^{10} M_{\odot}$ was kept constant throughout. As reference, the default mass ratio of the system is $M_2/M_1 \approx 0.013$.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Variable & Limits & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Number \\ of runs\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Default setup \\ run time\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Shortest \\ run time\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Longest \\ run time\end{tabular}} \\ \thickhline
+$a$ & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}From 8000 AU \\ to 14000 AU\end{tabular}} & 121 & \multirowcell{3}{31 min} & 12 min & 46 min \\ \cline{1-3} \cline{5-6}
+$e$ & From 0.3 to 0.8 & 51 &  & 3 min & 75 min \\ \cline{1-3} \cline{5-6}
+$q$  & From 0.0063 to 1 & 100 &  & 1 sec & 33 min \\
+\hline
+\end{tabular}
+\caption{The limits for the altered variables, number of runs done for each variable, the approximate amount of computation time the default setup took to run as reference, and the approximate amount of time the shortest and the longest of each type of run took. All of these times are for the 3.5PN term case. The runs were repeated for all 3 of the different PN term configurations. The computational time required correlates with the lifetime of the system, so the only 2.5PN and up to 2.5PN term cases were overall slightly faster.} \label{table:GWruns}
+\end{table}
+
+
+\subsection{Evolution of the binary}
+
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.6]{../images/bh-merge-semi.pdf}
-\caption{The time it takes for a black hole binary to merge as a function of the initial semimajor axis of the system.}
+\caption{The physical time in years it takes for a black hole binary to merge as a function of the initial semimajor axis of the system. These runs correspond to the setup on the first row of table \ref{table:GWruns}.}
 \label{fig:bh-merge-semi}
 \end{figure}
-Second, the initial eccentricity of the system was varied from 0.3 to 0.8 with 0.01 steps, and these results can be seen in figure \ref{fig:bh-merge-ecc}.
-%This too behaves as expected: the more circular the orbit, the longer it takes for the system to shrink. As can be seen from these figures, the rate of change in the lifetime of the system decreases  the semimajor axis is and the higher the eccentricity is.
-\begin{figure}[h!tb]
-\centering
-\includegraphics[scale=0.6]{../images/bh-merge-ecc.pdf}
-\caption{The time it takes for a black hole binary to merge as a function of the initial eccentricity of the system.}
-\label{fig:bh-merge-ecc}
-\end{figure}
 
-Finally, the mass ratio of the black holes was varied from 0.0063 to 1 with 100 logarithmically equally spaced points, and these results can be seen in figure \ref{fig:bh-merge-ratio}. A logarithmic scale was used because the lifetime of the system dropped rapidly as the mass ratio approached unity. The total mass of the system $M = 1.418 \times 10^{10} M_{\odot}$ was kept constant throughout. As reference, the default mass ratio of the system is $M_2/M_1 \approx 0.013$.
-\begin{figure}[h!tb]
-\centering
-\includegraphics[scale=0.6]{../images/bh-merge-ratio.pdf}
-\caption{The time it takes for a black hole binary to merge as a function of the mass ratio of the system.}
-\label{fig:bh-merge-ratio}
-\end{figure}
 
-All of these results behave as expected. Based on the equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity} we know that the emission of GWs increases sharply as the semimajor axis of the system gets smaller and when the eccentricity is high. Thus the lifetime of the binary decreases as well, since energy is transmitted away from the system more quickly. 
-In both of these equations the value of the reduced mass depends on the mass ratio of the black holes. The larger the mass difference, the smaller the value. Thus the change in the semimajor axis is smaller and the system degrades slower when the masses of the black holes differ greatly. As can be seen from the results, the rate of change in the lifetime of the system decreases as the semimajor axis gets smaller, eccentricity gets higher, and as the mass ratio approaches unity. This too follows from the equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity}. Since, for example, when the initial semimajor axis gets smaller, the difference in the initial change gets smaller as well due to the $1/a^3$ term.
+All of the results behave as expected. Based on equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity} we know that the emission of GWs increases strongly as the semimajor axis of the binary system gets smaller and when the eccentricity is high. Thus the lifetime of the binary decreases as well, since energy is transmitted away from the system at a higher rate.
+In both of these equations the value of the reduced mass depends on the mass ratio of the black holes. The larger the mass difference, the smaller the value. Thus the change in the semimajor axis is smaller and the system decays slower when the masses of the black holes differ greatly.
+As can be seen from the results, the slope of the lifetime of the system decreases as the semimajor axis gets smaller, eccentricity gets higher, and as the mass ratio approaches unity. This too follows from equations \ref{equ:GWsemimajor} and \ref{equ:GWeccentricity}. Since, for example, when the initial semimajor axis gets smaller, the difference in the initial change gets smaller as well due to the $1/a^3$ term.
+
 
 %TODO puhu eri PN termeistä
 The analytical results accurately match the simulated results where only the 2.5PN terms were used, showing that the simulation code does indeed accurately model a black hole binary system at these scales.
 The simulations with up to 2.5PN and 3.5PN terms differ from the analytical results as expected. In the 2.5PN case the lifetime of the system is consistently much shorter than in any of the other cases, and conversely in the 3.5PN case the lifetime is consistently longer. This may at first seem counterintuitive, since the later PN terms include more dissipative terms, so one could imagine that the lifetime would decrease. However, the ways the different terms interact with each other affect the system more intricately.
 
-While the PN terms before 2.5 do not directly affect the magnitude of the secular changes in semimajor axis and eccentricity, they do change the dynamics of the whole system \citep{merrit:nuclei}. For example, as mentioned in section \ref{sect:PNapplication}, the earlier terms cause precession in the periapsis of the system, which also invariably leads to slightly altered orbital velocities. As all of the PN terms have factors that depend on the velocity, a small change can cause a large effect to the overall behaviour of the system. \cite{berentzen:2009} found similar results in their simulations. Using all PN terms up to 2.5 resulted in much faster coalescence compared to using only the 2.5 terms. 
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.6]{../images/bh-merge-ecc.pdf}
+\caption{The physical time in years it takes for a black hole binary to merge as a function of the initial eccentricity of the system. These runs correspond to the setup on the middle row of table \ref{table:GWruns}.}
+\label{fig:bh-merge-ecc}
+\end{figure}
 
-The 3.5PN terms are dissipative like the 2.5 terms, meaning that they directly affect the amount of energy radiated away from the system. The combined effects of the additional terms however cause the system to decay much slower than the up to 2.5PN case. On average the lifetime of the system is slightly longer than the analytical only 2.5PN case, a stark difference compared to the up to 2.5PN case.
 
-%TODO 4PN memory effect? Onko pointtia
+While the PN terms before 2.5 do not directly affect the magnitude of the secular changes in semimajor axis and eccentricity, they do change the dynamics of the entire system \citep{merrit:nuclei}. For example, as mentioned in section \ref{sect:PNapplication}, the 1PN terms cause precession in the periapsis of the system, which also invariably leads to slightly altered orbital velocities. As all of the PN terms have factors that depend on the velocity, a small change can cause a large effect to the overall behaviour of the system. \cite{berentzen:2009} found similar results in their simulations. Using all PN terms up to 2.5 resulted in much faster coalescence compared to using only the 2.5 terms. 
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.6]{../images/bh-merge-ratio.pdf}
+\caption{The physical time in years it takes for a black hole binary to merge as a function of the mass ratio of the system. These runs correspond to the setup on the final row of table \ref{table:GWruns}.}
+\label{fig:bh-merge-ratio}
+\end{figure}
+
+
+The 3.5PN terms are dissipative like the 2.5 terms, meaning that they directly affect the amount of energy radiated away from the system. The combined effects of the additional terms however cause the system to decay much slower than the up to 2.5PN case. On average the lifetime of the system is slightly longer than the analytical only 2.5PN case, a stark difference compared to the up to 2.5PN case. This exemplifies the fact that the PN expansion is highly non-linear, and the results are very different for different terms. For example, when compared to a Taylor expansion, where additional terms cause the results to be more accurate and approach the analytical solution, different PN terms can for example have different signs, causing the additional terms to affect the results in a hard to predict manner. The situation becomes ever more complex if more PN terms are taken into account. At 4PN term level the so called memory effect becomes relevant, which implies a permanent change in spacetime as a gravitational wave passes through it, e.g. test masses of a GW detector experience a permanent relative displacement after the passage of a gravitational wave \citep{blanchet:2014}. Fully calculating the effects of this effect would require knowing the whole history of a binary system, since all the changes in the past affect the state of the system in the future. 
 
 %\clearpage
 \section{Scattering experiments on a binary BH}
 
 Next we perform scattering experiments where individual stars are launched towards a binary black hole, and we measure the effects of the three-body interactions on the binary.
 %The stars are ejected during inspiral phases that cannot be modeled analytically.
-These experiments are mostly adapted from the study of \cite{sesana:2006}.
+These experiments mostly follow the description laid out in \cite{sesana:2006}.
 
 \subsection{Scattering setup}
 
-We start by considering a binary with mass $M = M_1 + M_2$, where $M_2 < M_1$. It has a reduced mass of $\mu = M_1 M_2 / M$, mass ratio $q = M_2/M_1$, eccentricity $e$, and semimajor axis $a$. The binary orbits in the xy-plane, and the stars that will interact with the binary have a mass of $m_{\ast}$. If the stars are light ($m_{\ast} \ll M_2$), the problem can be simplied by setting the resting center of mass of the binary at the origin of the coordinate system. For single binary-star interactions we can define an approximated dimensioneless energy exchange parameter for the star $C$ and angular momentum change parameter $B$ \citep{hills:1983}:
+We start by considering a binary with mass $M = M_1 + M_2$, where $M_2 < M_1$. The binary has a reduced mass of $\mu = M_1 M_2 / M$, mass ratio of $q = M_2/M_1$, eccentricity $e$, and semimajor axis $a$. The binary orbits in the xy-plane, and the stars that will interact with the binary have a mass of $m_{\ast}$. If the stars are light ($m_{\ast} \ll M_2$), the problem can be simplified by setting the resting center of mass of the binary at the origin of the coordinate system. For single binary-star interactions we can define an approximated dimensionless energy exchange parameter for the star $C$ and angular momentum change parameter $B$ \citep{hills:1983}:
 \begin{equation}
 C = \frac{M}{2m_{\ast}} \frac{\Delta E}{E} \ ,
 \end{equation}
@@ -1265,84 +1307,124 @@ and
 \begin{equation}
 B = - \frac{M}{m_{\ast}} \frac{\Delta L_z}{L_z} \ ,
 \end{equation}
-where $\Delta E / E$ is the increase (or decrease if negative) in the orbital binding energy $E = -GM/(2a)$, and $\Delta L_z / L_z$ is the change in the orbital specific angular momentum $L_z = \sqrt{GMa(1-e^2)}$. Conservation of total energy and angular momentum give us an expression for the change of the eccentricity of the system
+where $\Delta E / E$ is the increase (or decrease if negative) in the orbital binding energy $E = -GM/(2a)$, and $\Delta L_z / L_z$ is the change in the orbital specific angular momentum $L_z = \sqrt{GMa(1-e^2)}$. The conservation of total energy and angular momentum give us an expression for the change of the eccentricity of the system
 \begin{equation}
 \Delta e = \frac{(1-e^2)}{2e} \frac{2 m_{\ast}}{M} (B-C) \ .
 \end{equation}
 Thus the parameter $C$ tells us how the energy of the binary changes during three-body interactions with stars, i.e. if C is positive the star takes energy away from the system and the binary shrinks. Similarly the parameter $B-C$ can be used to calculate how the eccentricity of the system changes due to the three-body scattering. If $B-C$ is positive, the eccentricity of the binary increases, and if it is negative the binary becomes more circular.
 
-Each scattering starts with a star at infinity. The approach of the star is always randomized, and for that we need several variables. A significant exchange of energy ($C > 1$) occurs only when $v/V_c < (M_2/M)^{1/2}$, where $v$ is the initial speed of the star and $V_c = (GM/a)^{1/2}$ is the binary orbital speed, which is the relative speed of the black holes if the binary is circular \citep{sesana:2006}. The initial speed of the star is randomly selected in the range of $3 \times 10^{-3} (M_2/M)^{1/2} < v/V_c < 30 (M_2/M)^{1/2}$ from 80 logarithmically equally spaced points.
+The approach of the star is always randomized, and for that we need several variables. These different variables and their ranges are summarized in table \ref{table:ScatterRandoms}. A significant exchange of energy ($C > 1$) occurs only when $v/V_c < (M_2/M)^{1/2}$, where $v$ is the initial speed of the star and $V_c = (GM/a)^{1/2}$ is the binary orbital speed, which is the relative speed of the black holes if the binary is circular \citep{sesana:2006}. The initial speed of the star is randomly selected in the range of $3 \times 10^{-3} (M_2/M)^{1/2} < v/V_c < 30 (M_2/M)^{1/2}$ from 80 logarithmically equally spaced points.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Variable & Range & {\renewcommand{\arraystretch}{0.9}\begin{tabular}{@{}c@{}}Linear or \\ logarithmic\end{tabular}} \\ \thickhline
+$v$ & {\renewcommand{\arraystretch}{0.9}\begin{tabular}{@{}c@{}}Between $3 \times 10^{-3} (M_2/M)^{1/2} V_c$ \\ and $30 (M_2/M)^{1/2} V_c$ \end{tabular}} & Log \\ \hline
+$r_p$ & {\renewcommand{\arraystretch}{0.9}\begin{tabular}{@{}c@{}}Between $2 \times 10^{-3} a$ \\ and $2 a$\end{tabular}} & Log \\ \hline
+$\theta$ & Between $0$ and $\pi$ & Lin \\\hline
+$\phi$ & Between $0$ and $2 \pi$ & Lin \\\hline
+$\psi$ & Between $0$ and $2 \pi$ & Lin \\\hline
+\end{tabular}
+\caption{List of the random variables for each scattering event, the ranges they were chosen from, and whether the selection was linearly or logarithmically uniform.} \label{table:ScatterRandoms}
+\end{table}
 
 The pericenter distance $r_p$ of the incoming star is related to its impact parameter $b$ via
 \begin{equation}
 b^2 = r_p^2 \left( 1 + \frac{2GM}{r_p v^2} \right) \ . \label{equ:impactparam}
 \end{equation}
-We are interested in probing the most energetic interactions, i.e. those where the star passes close by to the binary, thus the star pericenter distance is randomly sampled from a logarithmically equal distribution in the range between $2 \times 10^{-3} a$ and $2 a$, and the impact parameter is calculated with this value and the selected speed.
+We are interested in probing the most energetic interactions, i.e. those where the star passes close by to the binary, thus the star pericenter distance is randomly sampled from a logarithmically equal distribution in the range between $2 \times 10^{-3} a$ and $2 a$, and the impact parameter is calculated with this value and the selected velocity.
 
-Finally, three different angles are needed to determine the direction and orientation of the orbit of the star. The angles $\theta$ and $\phi$ define the initial position of the star as seen from the center of mass of the system, and thus they determine the direction of the orbit. The angles are randomly selected from the ranges $[0,\pi]$ and $[0,2 \pi]$ respectively. The angle $\psi$ as seen from the star tells which way around the center of the system the star will approach, thus giving the orientation of the orbit. It is randomly selected from the range $[0,2 \pi]$.
+Finally, three different angles are needed to determine the direction and orientation of the orbit of the star. The angles $\theta$ and $\phi$ define the initial position of the star as seen from the center of mass of the binary system, and thus they determine the direction of the orbit. The angles are randomly selected from the ranges $[0,\pi]$ and $[0,2 \pi]$ respectively. The angle $\psi$ as seen from the star tells which way around the center of the system the star will approach, thus giving the orientation of the orbit. It is randomly selected from the range $[0,2 \pi]$.
 
-With these five variables it is possible to fully determine the orbit of the star. The star is analytically moved from infinity to distance $r_i = (10^7 \mu/M)^{1/4} a$ along a hyperbolic orbit. At this distance the quadrupole moment of the binary is still orders of magnitude smaller than compared to the total force acting on the star when it is only one semimajor axis away from the binary \citep{sesana:2006}. It is at this point that the actual integration starts. 
+With these five variables it is possible to fully determine the orbit of the star. The starting velocity for each star is determined at infinity, i.e. extremely far away from the binary. The star is then analytically moved to a distance of $r_i = (10^7 \mu/M)^{1/4} a$ along a hyperbolic orbit, with the center of mass of the binary used as a point mass. At this distance the quadrupole moment of the binary is still around 10 orders of magnitude smaller when compared to the total force acting on the star when it is only one semimajor axis away from the binary \citep{sesana:2006}. It is at this point that the actual integration starts. 
 
 Not all of the simulated stars are ejected from the system, thus there needs to be a few different end conditions for the simulation to ensure that stars that end up on bound orbits are not simulated ad infinitum.
-The integration is stopped once one of the following conditions is met: $(a)$ the star escapes the sphere of radius $r_i$ with positive total energy; $(b)$ the integration reaches $10^6$ time steps; or $(c)$ the physical integration time exceeds $\sim 1.5 \times 10^7$ years. Only stars that are ejected from the system within the time limits are taken into account in the results.
+The integration is stopped once one of the following conditions is met: $(a)$ the star escapes the sphere of radius $r_i$ with positive total energy; $(b)$ the integration reaches $10^6$ time steps; or $(c)$ the physical integration time exceeds $\sim 1.5 \times 10^7$ years. Only stars that are ejected from the system within the time limits are taken into account in the results. Table \ref{table:ScatterRuns} shows that condition $(c)$ was never actually met, as all the runs hit the time step limit before the physical time of the system reached its limit. It also shows how much physical time it took for the simulation to end if the star ended up on bound orbit.
 
-In addition to the randomized variables, the system has several predefined parameters. The total mass of the black holes $M$ was selected to be  $2 \times 10^7 \ M_{\odot}$, i.e. each of the black holes is $10^7 \ M_{\odot}$ if they are of equal mass. The mass of the star $m_{\ast}$ was chosen to be a realistic $1 \ M_{\odot}$. The semimajor axis of the binary was set to $0.1$ parsec, small enough that the binary can be safely said to be hard. 
+In addition to the randomized variables, the system has several predefined parameters. The total mass of the black holes $M$ was selected to be  $2 \times 10^7 \ M_{\odot}$, i.e. each of the black holes is $10^7 \ M_{\odot}$ if they are of equal mass. The mass of the star $m_{\ast}$ was chosen to be a realistic $1 \ M_{\odot}$. The semimajor axis of the binary was set to $0.1$ parsec, small enough that the binary can be safely said to be hard, i.e. the semimajor axis of the binary is below the limit $a_h \equiv \frac{G \mu}{4 \sigma}$, where $\sigma$ is the velocity dispersion of the surrounding stars \citep{merrit:nuclei}. 
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+{\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Mass \\ ratio\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Number \\ of \\ scattering \\ runs\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Amount \\ of \\ bound \\ stars\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Run time \\ for \\ escaped \\ stars\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Run time \\ for \\ bound \\ stars\end{tabular}} & {\renewcommand{\arraystretch}{0.8}\begin{tabular}{@{}c@{}}Bound \\ end \\ physical \\ time\end{tabular}} \\ \thickhline
+$1$ & $10^5$ & $1.5\%$ & 2.1 s & 40 s & $4.7 \times 10^5$ yr \\ \hline
+$1/3$ & $10^5$ & $2.2\%$ & 2.2 s & 41 s & $4.8 \times 10^5$ yr \\ \hline
+$1/9$  & $10^5$ & $3.2\%$ & 2.6 s & 46 s & $8.6 \times 10^5$ yr \\ \hline
+$1/27$ & $10^5$ & $6.5\%$ & 3.7 s & 50 s & $1.7 \times 10^6$ yr \\ \hline
+\end{tabular}
+\caption{The number of runs, the average amount of these runs that ended on bound orbits and thus did not escape, the average run times of single scattering events for stars that did and did not escape, and the average end physical time of the system if the star did not escape (i.e. the simulation was run for $10^6$ time steps), all for the different mass ratios that were used. Each mass ratio was run with four different eccentricites ($e = 0.01$, $e = 0.3$, $e = 0.6$, and $e = 0.9$) for a total of 16 different configurations, but the change in eccentricity did not have a major impact on the amount of stars that ended up on bound orbits, or on the run time of the system.} \label{table:ScatterRuns}
+\end{table}
 
 \subsection{Scattering results}
 
-A total of 16 different scattering experiment runs were performed for binary mass ratios $q =$ 1, 1/3, 1/9, and 1/27, and eccentricities  $e =$ 0.01, 0.3, 0.6, and 0.9. Each run involves $10^5$ stars. The state of the system was outputted at the start and end of a scattering event, and the values of $C$ and $B-C$ were calculated for each event. The state of the binary was reset after each event, so the overall evolution of the system was not measured.
+A total of 16 different scattering experiment runs were performed on a binary with mass ratios $q =$ 1, 1/3, 1/9, and 1/27, and eccentricities  $e =$ 0.01, 0.3, 0.6, and 0.9. Each run involves $10^5$ stars. The state of the system was outputted at the start and end of each scattering event, and the values of $C$ and $B-C$ were calculated for each event. The state of the binary was reset after each event, so the overall evolution of the system was not measured. Table \ref{table:ScatterRuns} shows run times for the different scattering runs. It is of note that there was not much difference in run times for the runs where only the eccentricity was changed. Only changing the mass ratio caused a noticeable difference.
 
 The data was plotted against a rescaled dimensionless impact parameter $x$ as defined in \cite{quinlan:1996}:
 \begin{equation}
 x \equiv b/b_0 \ , \ \ b_0^2 = 2GMa/v^2 \ ,
 \end{equation}
-where $b_0$ is approximately the impact parameter corresponding to $r_p = a$ if gravitational focusing is important, i.e. if the second term in the equation for the impact parameter \ref{equ:impactparam} overshadows the $r_p^2$ term. The data was binned to 30 logarithmically equal bins, and the results were averaged over these bins to obtain the averaged energy exchange $\langle C \rangle$ and eccentricity change $\langle B-C \rangle$.
+where $b_0$ is approximately the impact parameter corresponding to $r_p = a$ if gravitational focusing is important, i.e. if the second term in the equation for the impact parameter \ref{equ:impactparam} dominates over the $r_p^2$ term. The data was binned to 30 logarithmically equal bins, and the results were averaged over these bins to obtain the averaged energy exchange $\langle C \rangle$ and eccentricity change $\langle B-C \rangle$.
 
-In figure \ref{fig:scatter-q1} one can see $\langle C \rangle$ and $\langle B-C \rangle$ for the different eccentricities $e =$ 0.01, 0.3, 0.6, and 0.9 for an equal mass binaries, i.e. $q = 1$. Figure \ref{fig:scatter-q1-stdev} has the same results but with one standard deviation error limits included. The deviations are of the similar size for all of the mass ratios and their size makes the averages hard to distinguish, so they are left out from the other plots for clarity. The wide deviation can be explained with the stellar population that the test stars were drawn from. The wide range of initial speeds and angles of approach mean that some of the stars were able to interact with the binary much more energetically than happens on average, causing a wide spread in the results. 
+\subsection{Equal mass binary}
+
+In figure \ref{fig:scatter-q1} we show $\langle C \rangle$ and $\langle B-C \rangle$ for the different eccentricities $e =$ 0.01, 0.3, 0.6, and 0.9 for an equal mass binary, i.e. $q = 1$. Figure \ref{fig:scatter-q1-stdev} has the same results but with one standard deviation error limits included. The deviations are of the similar size for all of the mass ratios and their size makes it difficult to distinguish the average values, so they are left out from the other plots for clarity. The broad distribution can be explained with the stellar population that the test stars were drawn from. The wide range of initial speeds and angles of approach mean that some of the stars were able to interact with the binary much more energetically than happens on average, causing a wide spread in the results. 
 Figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.037} show the values for $\langle C \rangle$ and $\langle B-C \rangle$ for binaries with $q =$ 1/3, 1/9, and 1/27 respectively.
 
-As can be seen from figure \ref{fig:scatter-q1}, for a circular equal mass binary $\langle C \rangle$ has a peak around $x \approx 0.5$, which is the distance at which each of the binary members orbit the center of mass, which then tapers off to around 0.5 at very small impact parameters. As the eccentricity gets higher the peak becomes less sharp while $\langle C \rangle$ rises at smaller values of $x$. At $e = 0.9$ $\langle C \rangle$ is almost monotonic at small impact parameters, since stars that approach close to the center of mass of the binary interact with it at their pericenter which is when their speed is at a maximum, resulting in a large energy exchange. At all mass rations and eccentricities $\langle C \rangle$ dies off quickly towards 0 as $x$ becomes larger than 1, since the farther away from the binary the star passes, the less it interacts with the system.
-
-From figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.037} we see that for circular binaries of these different mass ratios, the peak in $\langle C \rangle$ becomes more pronounced as $\langle C \rangle$ becomes almost monotonic quickly at smaller impact parameters. As the difference in the masses of the binaries gets bigger, the peak also moves towards larger $x$, as the less massive binary orbits the more massive central body at farther distance compared to an equal mass system. A stark difference to the equal mass binary is that for other mass ratios, the values of $\langle C \rangle$ at smaller values of $x$ become much more uniform for all eccentricities. Circular binaries have a peak at approximately the distance at which the smaller binary member orbits the larger one, but other than this the curves for different eccentricities are similar.
-
-The eccentricity change $\langle B-C \rangle$ for circular binaries is zero independent of mass ratio or impact parameter, meaning that a circular binary always stays circular. For an equal mass binary there is a positive peak in $\langle B-C \rangle$ near the impact parameter that corresponds to the distance at which the black holes are orbiting the center of mass. This peak increases with eccentricity. Conversely, as the impact parameter gets smaller the stars cause a slight decrease in eccentricity whose effect also grows with eccentricity. So the more eccentric the binary is to begin with, the larger effect the stars have on the eccentricity. 
-
-Similarly as in the equal mass case, for larger mass differences there is a peak in $\langle B-C \rangle$ at the impact parameter that matches the distance of the smaller black hole. The magnitude of the peak magnitude grows with eccentricity. However with larger mass differences $\langle B-C \rangle$ at smaller impact parameters is not as obviously negative. Encounters at small impact parameters can even slightly increase the eccentricity. Though with high eccentricity $\langle B-C \rangle$ tends to still be negative at small impact parameters. Aside from circular binaries, there is a slight decrease in eccentricity for all mass ratios and eccentricities, before $\langle B-C \rangle$ tends towards 0 as the impact parameter gets larger.
-
-All of the results agree quite well within error limits with the results of \cite{sesana:2006}. The rough shapes of the plots and how the lines for different eccentricities compare to each other match their results. The differences in the absolute values of the averages can most likely be explained with slightly different starting parameters for the system, which were not explicitly specified in the study. Their runs also had $4 \times 10^6$ stars each, allowing for much greater accuracy in probing the different initial star speeds and orbit orientations. The larger volume of runs also explains their much smoother curves.
-
-\begin{figure}[h!b]
+\begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/q1.pdf}
-\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for equal mass black holes (q=1).}
+\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x $\equiv b/b_0$ for equal mass black holes (q=1).}
 \label{fig:scatter-q1}
 \end{figure}
+
+As can be seen from the upper part of figure \ref{fig:scatter-q1}, for a circular equal mass binary $\langle C \rangle$ has a peak around $x \approx 0.5$, which is the distance at which each of the binary members orbit the center of mass, which then tapers off to around 0.5 at very small impact parameters. As the eccentricity gets higher the peak becomes less sharp while $\langle C \rangle$ rises at smaller values of $x$. At $e = 0.9$ $\langle C \rangle$ is almost monotonic at small impact parameters, since stars that approach close to the center of mass of the binary interact with it at their pericenter which is when their speed is at a maximum, resulting in a large energy exchange. At all eccentricities $\langle C \rangle$ goes quickly towards 0 as $x$ becomes larger than 1, since the farther away from the binary the star passes, the less it interacts with the system.
+
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/{q1_stdev}.pdf}
-\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1 with one standard deviation limits.}
+\caption{Same as figure \ref{fig:scatter-q1} but with one standard deviation limits included.}
 \label{fig:scatter-q1-stdev}
 \end{figure}
+
+In the lower half of figure \ref{fig:scatter-q1} we see that the eccentricity change $\langle B-C \rangle$ for circular binaries is zero independent of impact parameter, meaning that a circular binary always remains circular. For larger eccentricities there is a positive peak in $\langle B-C \rangle$ near the impact parameter that corresponds to the distance at which the black holes are orbiting the center of mass. This peak increases with eccentricity. Conversely, as the impact parameter gets smaller the stars cause a slight decrease in eccentricity whose effect also grows with eccentricity. So the more eccentric the binary is to begin with, the larger effect the stars have on the eccentricity. This can be explained with the equation for the orbital specific angular momentum $L_z = \sqrt{GMa(1-e^2)}$. The eccentricity is squared, meaning that the higher the eccentricity is to begin with, the larger an effect a small change in eccentricity can have on the angular momentum. 
+
+For an equal mass binary the results for $\langle C \rangle$ agree well with those of \cite{sesana:2006}. The shapes of the lines for different eccentricities are very similar. The absolute values of the averages are slightly higher in their study, but taking into account the error limits in figure \ref{fig:scatter-q1-stdev}, even the averages are very close to same. Similarly, for the eccentricity change $\langle B-C \rangle$ the results agree with the results of \cite{sesana:2006}. Circular binaries do not experience any change in eccentricity, and the more eccentric the binary is, the larger of an effect the scattering events have on the binary. 
+
+\subsection{Different mass ratios}
+
+From the upper halves of figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.037} we see that for circular binaries of these different mass ratios, the peak in $\langle C \rangle$ that already appeared for an equal mass binary is more pronounced as $\langle C \rangle$ becomes almost monotonic quickly at smaller impact parameters. As the difference in the masses of the binaries gets bigger, the peak also moves towards larger $x$, as the less massive binary orbits the more massive central body at farther distance compared to an equal mass system. A stark difference to the equal mass binary is that for other mass ratios, the values of $\langle C \rangle$ at smaller values of $x$ become much more uniform for all eccentricities. In addition, the absolute values of the averages are higher than in the equal mass case. 
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/{q0.3}.pdf}
-\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/3.}
+\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q = 1/3.}
 \label{fig:scatter-q0.3}
 \end{figure}
+
+We can see from the lower parts of figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.037} that just like for an equal mass binary, the eccentricity change $\langle B-C \rangle$ for circular binaries is zero independent impact parameter for all mass ratios, so even with unequal mass black holes a circular binary will remain circular.
+
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/{q0.1}.pdf}
-\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/9.}
+\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q = 1/9.}
 \label{fig:scatter-q0.1}
 \end{figure}
+
+Similarly to the equal mass case, for larger mass differences there is a peak in $\langle B-C \rangle$ at the impact parameter that matches the distance of the smaller black hole. The magnitude of the peak grows with eccentricity. However, with larger mass differences $\langle B-C \rangle$ at smaller impact parameters is not as always negative. Encounters at small impact parameters can even slightly increase the eccentricity. Though with high eccentricity $\langle B-C \rangle$ tends to still be negative at small impact parameters. Aside from circular binaries, there is a slight decrease in eccentricity for all mass ratios and eccentricities, before $\langle B-C \rangle$ tends towards 0 as the impact parameter gets larger.
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/{q0.037}.pdf}
-\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q of 1/27.}
+\caption{The averaged energy exchange $<$C$>$ and eccentricity change $<$B-C$>$ as functions of the rescaled dimensionless impact parameter x for black holes with a mass ratio q = 1/27.}
 \label{fig:scatter-q0.037}
 \end{figure}
+
+As with the equal mass binary, the results for different mass ratios agree quite well with the results of \cite{sesana:2006}. The rough shapes of the plots and how the lines for different eccentricities compare to each other match their results. They also noted the effect that unequal mass binaries with larger than zero but not too high eccentricity could experience a slight gain in eccentricity from scattering events with stars that had small impact parameters. Though it should be noted that \cite{sesana:2006} only included the $\langle B-C \rangle$ results for mass ratios 1 and 1/9, so the other two mass ratios cannot be directly compared. Like with the equal mass binary, \cite{sesana:2006} found the absolute values of $\langle B-C \rangle$ to be slightly farther away from 0 than compared to figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.037}.
+
+One noticeably different result however is that for the 1/9 mass ratio binary, \cite{sesana:2006} show a much more spread out peak near $x=1$ compared to the one visible in \ref{fig:scatter-q0.1}. This and the previously mentioned differences in the absolute values of the averages can most likely be explained with slightly different starting parameters for the system, which were not explicitly specified in \cite{sesana:2006}. Their runs also had $4 \times 10^6$ stars each, compared to the $10^5$ runs used for the figures shown here, allowing for much greater accuracy in probing the different initial star speeds and orbit orientations. The larger volume of runs also explains their much smoother and higher resolution curves.
+
 
 \chapter{Conclusions}
 
