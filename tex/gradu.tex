@@ -99,15 +99,42 @@ Abstract goes here.
 \chapter{Introduction}
 
 
-\section{Discovery of black holes}
+\section{Brief history of black holes}
 
-\section{History of black hole observations}
-%miten eri aukkoja havaitaan, binääreissä pieniä aukkoja, keskustoissa suuria ja voidaan nähdä niiden vaikutus ympäröiviin tähtiin
+Back in 1784 the English natural philosopher and clergyman John Michell proposed the idea of a body so massive that even light could not escape from it \citep{michell:1784}. He assumed a body with the same density as the Sun, but 500 times the diameter and a surface escape velocity exceeding the speed of light. He also noted that such a body might be noticeable through its gravitational effects on nearby bodies. However when the wavelike nature of light became known, it was unclear at the time if gravity would have any effect on escaping light waves.
+
+In 1915 Albert \cite{einstein:1915} developed his theory of general relativity, and soon after Karl \cite{schwarzschild:1916} found a solution to the Einstein field equations, which describes the gravitational field of a point mass and a spherical mass. This Schwarzschild solution describes a stationary, non-rotating, uncharged black hole. Another solution was found in the following years, for a black hole that could also have electric charge \citep{reissner:1916, nordstrom:1918}.
+
+So far these were all theories, and it was unsure whether such phenomena could appear in nature. However, in 1931 Subrahmanyan \cite{chandrasekhar:1931} calculated with special relativity that a non-rotating body of electron-degenerate matter, e.g. a white dwarf, above a certain mass limit has no stable solutions, and will collapse under its own gravity. However this will not necessarily form a black hole, as the white dwarf can collapse into a neutron star. In 1939 Robert Oppenheimer and others predicted a maximum mass limit for neutron stars as well, above which they would collapse further, and concluded that no physical law was likely to stop this collapse into a black hole \citep{oppenheimer:1939}.
+
+Neutron stars had never been observed however, so it was not known if they and by extension black holes could exist in nature. In 1967 Jocelyn Bell and the team she was working with discovered the first radio pulsars \citep{hewish-bell:1968}, which were soon shown to be rapidly rotating neutron stars. Since neutron stars were confirmed to exist, black holes gained strong support for their existence as well. Around this time new solutions to the Einstein field equations were also found in addition to the Schwarzschild solution. In 1963 Roy \cite{kerr:1963} discovered an exact solution for an uncharged, rotating black hole, and a few years later it was generalized for a charged black hole as well \citep{newman:1965}.
+
+The origin for the term ``black hole'' is not certain \citep{blackholeorigins}. Initially black holes were referred to simply as gravitationally completely collapsed objects. The new term made a famous and popular appearance during a lecture by the American physicist John Wheeler in 1967. However, the term was already used several years earlier at the beginning of 1964 by a \textit{Science News Letter} reporter Ann Ewing, who wrote a report on a meeting of the American Association for the Advancement of Science. She did not come up with the term however, and the term has been traced even further back to physicist Robert Dicke, who in the early 1960s reportedly compared the astrophysical phenomenon to the Black Hole of Calcutta, an infamous prison where only few people ever left alive.
+
+\section{From theory to reality}
+
+As black holes inherently do not emit any strong optically visible signals, detecting them has always been a challenge. The best way to observe them has been to observe the effects the black holes have on their surroundings. In 1972 scientists studying the X-ray source Cygnus X-1 speculated that the source might be a star accreting matter onto a black hole, but the evidence was not completely clear \citep{bolton:1972, webster:1972}.
+
+Since 1995 astronomers have observed and tracked the motions of stars surrounding the central radio source Sagittarius A* in our Milky Way. By 1998 it was determined that there must be at least 2.6 million solar mass object within a radius of 0.02 light years to explain the orbits of the stars \citep{ghez:1998}. By 2009 this approximation was refined to be around 4.3 million solar masses inside a radius of less than 0.002 light years \citep{gillessen:2009}. This observation is hard to explain with anything else than a black hole.
+
+Another idea to observe black holes was to measure the gravitational waves they emit as predicted by Einstein's theory. The Laser Interferometer Gravitational-Wave Observatory (LIGO) was built for this purpose. In September of 2015 the first ever direct observation of gravitational waves was made, the signal from the merger of around 36 and 29 solar mass black holes \citep{abbott:2016}. This observation provided the most concrete evidence for the existence of black holes to date.
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=\textwidth]{../images/blackhole.jpg}
+\caption{The first ever direct visual evidence of a black hole, the supermassive black hole in the centre of Messier 87 and its shadow. Visible are the emission ring and the central shadow of the black hole. The brighter lower half is due to the black hole's rotation and relativistic beaming. Image by the EHT collaboration.}
+\label{fig:BlackHole}
+\end{figure}
+
+Though the existence of black holes was confirmed, visually there were only simulated results of what a black hole and its surrounding regions would look like, until this year. The Event Horizon Telescope (EHT) is an ongoing collaboration that uses many telescopes on Earth in the effort to observe the event horizons of supermassive black holes, especially the black holes in the center of the Milky Way and Messier 87 (M87). EHT began observations on the black hole in the center of M87 in 2017, and after 2 years of data processing, in April of 2019, the first ever direct visual evidence of a black hole was released \citep{akiyama:2019}, shown in figure \ref{fig:BlackHole}, proving the predictions made over a hundred years ago to be correct.
 
 \section{Aim of this thesis}
-%Selitystä et miks halutaan tutkia mustia aukkoja, kertoo paljon galasien evoluutiosta ja siten maailmankaikkeuden historiasta. Ketjupaperin sivulta 2 selitystä miten tree koodit toimii vs n-body koodi
 
-This thesis is structured as follows. In Chapter 2 
+Nowadays it is widely accepted that supermassive black holes play an important role in the evolution of galaxies, especially by affecting their central regions during galaxy mergers. Supermassive black holes are also behind some of the most energetic phenomena in the universe, being the central engines for active galactic nuclei. In addition gravitational waves emitted by merging black holes can give us a unique method of observing the far reaches of the universe. Studying how supermassive black holes form and evolve is crucial for understanding these mechanisms.
+
+In this thesis I will describe the basic properties of black holes and how different types of black holes are formed. I will also go through the methods needed to be able to accurately simulate black holes to small separations, and I will describe some of the simulation tools used for this at the Theoretical Extragalactic Research Group at the University of Helsinki. The aim of this thesis is to study the effects of post-Newtonian corrections in simulating black hole mergers, and to study how three-body interactions with stars affect the evolution of a supermassive black hole binary. 
+
+This thesis is structured as follows. In Chapter 2 I will review the properties of black holes, how black holes of different masses are believed to form, and how a black hole binary evolves during a galaxy merger. I will also go through the regularization and post-Newtonian approximation methods used in the simulation code. In Chapter 3 I will explain the algorithmic regularization chain, or AR-CHAIN, method used for my simulations. In Chapter 4 I will show the simulations I have run and discuss the results. Chapter 5 contains a summary and concluding remarks for this thesis.
 
 \chapter{Dynamical modelling of black holes}
 
@@ -1207,7 +1234,7 @@ Two different kinds of simulations were run using the AR-CHAIN code to probe dif
 
 The initial conditions of the test binary were motivated by the blazar OJ 287, which is considered to be a good candidate for a supermassive black hole binary \citep{valtonen:1996, dey:2019}. The basic setup for the test binary consisted of black holes with masses of $M_1 = 1.4 \times 10^{10} M_\odot$ and $M_2 = 1.8 \times 10^{8} M_\odot$. The initial semimajor axis of the binary was set to $a =$ 11500 AU, its eccentricity was set to $e =$ 0.6, and the primary black hole was set to have a spin of $s =$ 0.28 towards the positive z-axis of the system. The secondary black hole was set to have no spin. The inclination of the orbit of the secondary black hole was set to 45 degrees in the xz-plane. 
 
-The simulations were run with three different PN term configurations. One run had only the 2.5PN terms included, ignoring the earlier and later terms. Another had all the terms up to 2.5PN included, and in the last run all the terms were included up to 3.5PN term accuracy. In addition, the effects of the spin were taken into account in all of the integrations. The simulations were always allowed to run until the eventual black hole merger.
+The simulations were run with three different PN term configurations. One run had only the 2.5PN terms included, ignoring the lower and higher order terms. Another run had all the terms up to 2.5PN included, and in the last run all the terms were included up to 3.5PN term accuracy. In addition, the effects of the spin were taken into account in all of the integrations. The simulations were always allowed to run until the eventual black hole merger.
 
 The simulated results were compared against the theoretical lifetime of a binary system shrinking due to the emission of gravitational waves. Based on equations \eqref{equ:GWsemimajor} and \eqref{equ:GWeccentricity} that describe how the semimajor axis and eccentricity of the binary change over time due to GW emissions, \cite{peters:1964} derived an equation relating $a$ and $e$ during the decay for a general case where $e \neq 0$:
 \begin{equation}
@@ -1235,7 +1262,7 @@ T(a_0, e_0) = \frac{12}{19} \frac{c_0^4}{\beta} \int_0^{e_0} \frac{e^{29/19} [1 
 For an arbitrary semimajor axis and eccentricity equation \eqref{equ:BBHlifetime} needs to be integrated numerically.
 It is of note that these equations take into account only the 2.5PN terms, so the simulations with different PN terms are expected to differ from these analytical results.
 
-The aforementioned initial conditions of the binary were altered in three ways to test how they affect the time it takes for the black holes to merge. The other parameters were always kept fixed when changing one of the variables. Table \ref{table:GWruns} contains information on the amount and length of the runs. First, the initial semimajor axis of the binary was varied from 8000 AU to 14000 AU in 50 AU steps, and these results are shown in figure \ref{fig:bh-merge-semi}.
+The aforementioned initial conditions of the binary were altered in three ways to test how they affect the time it takes for the black holes to merge. The other parameters were always kept fixed when changing one of the variables. Table \ref{table:GWruns} contains information on the number and run time of the simulations. First, the initial semimajor axis of the binary was varied from 8000 AU to 14000 AU in 50 AU steps, and these results are shown in figure \ref{fig:bh-merge-semi}.
 Second, the initial eccentricity of the system was varied from 0.3 to 0.8 with 0.01 steps, and these results are shown in figure \ref{fig:bh-merge-ecc}.
 
 Finally, the mass ratio of the black holes was varied from 0.0063 to 1 with 100 logarithmically equally spaced points, and these results can be seen in figure \ref{fig:bh-merge-ratio}. A logarithmic scale is used because the lifetime of the system drops rapidly as the mass ratio approaches unity. The total mass of the system $M = 1.418 \times 10^{10} M_{\odot}$ was kept constant throughout. As reference, the default mass ratio of the system is $M_2/M_1 \approx 0.013$.
@@ -1250,7 +1277,7 @@ $e$ & From 0.3 to 0.8 & 51 &  & 3 min & 75 min \\ \cline{1-3} \cline{5-6}
 $q$  & From 0.0063 to 1 & 100 &  & 1 sec & 33 min \\
 \hline
 \end{tabular}
-\caption{The limits for the altered variables, number of runs done for each variable, the approximate amount of computation time the default setup took to run as reference, and the approximate amount of time the shortest and the longest of each type of run took. All of these times are for the 3.5PN term case. The runs were repeated for all 3 of the different PN term configurations. The computational time required correlates with the lifetime of the system, so the only 2.5PN and up to 2.5PN term cases were overall slightly faster.} \label{table:GWruns}
+\caption{The limits for the altered variables, number of runs done for each variable, the approximate amount of computation time the default setup took to run as reference, and the approximate amount of time the shortest and the longest of each type of run took. All of these times are for the 3.5PN term case. The runs were repeated for all 3 of the different PN term configurations. The computational time required correlates with the lifetime of the system, so the only 2.5PN and up to 2.5PN term cases were overall slightly faster. All of these simulations were run as serial code on a Linux server provided by the University of Helsinki.} \label{table:GWruns}
 \end{table}
 
 
@@ -1290,7 +1317,7 @@ While the PN terms before 2.5 do not directly affect the magnitude of the secula
 \end{figure}
 
 
-The 3.5PN terms are dissipative like the 2.5 terms, meaning that they directly affect the amount of energy radiated away from the system. The combined effects of the additional terms however cause the system to decay much slower than the up to 2.5PN case. On average the lifetime of the system is slightly longer than the analytical only 2.5PN case, a stark difference compared to the up to 2.5PN case. This exemplifies the fact that the PN expansion is highly non-linear, and the results are very different for different terms. For example, when compared to a Taylor expansion, where additional terms generally cause the results to be more accurate and approach the analytical solution, different PN terms can for example have different signs, causing the additional terms to affect the results in a hard to predict manner. The situation becomes ever more complex if more PN terms are taken into account. At 4PN term level the so called memory effect becomes relevant, which implies a permanent change in spacetime as a gravitational wave passes through it, e.g. test masses of a GW detector experience a permanent relative displacement after the passage of a gravitational wave \citep{blanchet:2014}. Fully calculating the effects of this effect would require knowing the whole history of a binary system, since all the changes in the past affect the state of the system in the future. Thus using 4PN terms is not feasible in practice.
+The 3.5PN terms are dissipative like the 2.5 terms, meaning that they directly affect the amount of energy radiated away from the system. The combined effects of the additional terms however cause the system to decay much slower than the up to 2.5PN case. On average the lifetime of the system is slightly longer than the analytical only 2.5PN case, a stark difference compared to the up to 2.5PN case. This exemplifies the fact that the PN expansion is highly non-linear, and the results are very different for different terms. For example, when compared to a Taylor expansion, where additional terms generally cause the results to be more accurate and approach the analytical solution, different PN terms can for example have different signs, causing the additional terms to affect the results in a hard to predict manner. The situation becomes ever more complex if more PN terms are taken into account. At 4PN term level the so called memory effect becomes relevant, which implies a permanent change in spacetime as a gravitational wave passes through it, e.g. test masses of a GW detector experience a permanent relative displacement after the passage of a gravitational wave \citep{blanchet:2014}. Fully calculating the effects of this effect would require the knowledge of the whole history of a binary system, since all the changes in the past affect the state of the system in the future. Thus using 4PN terms is not feasible in practice.
 
 %\clearpage
 \section{Scattering experiments on a binary BH}
@@ -1354,7 +1381,7 @@ $1/3$ & $10^5$ & $2.2\%$ & 2.2 s & 41 s & $4.8 \times 10^5$ yr \\ \hline
 $1/9$  & $10^5$ & $3.2\%$ & 2.6 s & 46 s & $8.6 \times 10^5$ yr \\ \hline
 $1/27$ & $10^5$ & $6.5\%$ & 3.7 s & 50 s & $1.7 \times 10^6$ yr \\ \hline
 \end{tabular}
-\caption{The number of runs, the average amount of these runs that ended on bound orbits and thus did not escape, the average run times of single scattering events for stars that did and did not escape, and the average end physical time of the system if the star did not escape (i.e. the simulation was run for $10^6$ time steps), all for the different mass ratios that were used. Each mass ratio was run with four different eccentricites ($e = 0.01$, $e = 0.3$, $e = 0.6$, and $e = 0.9$) for a total of 16 different configurations, but the change in eccentricity did not have a major impact on the amount of stars that ended up on bound orbits, or on the run time of the system.} \label{table:ScatterRuns}
+\caption{The number of runs, the average amount of these runs that ended on bound orbits and thus did not escape, the average run times of single scattering events for stars that did and did not escape, and the average end physical time of the system if the star did not escape (i.e. the simulation was run for $10^6$ time steps), all for the different mass ratios that were used. Each mass ratio was run with four different eccentricites ($e = 0.01$, $e = 0.3$, $e = 0.6$, and $e = 0.9$) for a total of 16 different configurations, but the change in eccentricity did not have a major impact on the amount of stars that ended up on bound orbits, or on the run time of the system. Just like the PN term simulations, all of these simulations were run as serial code on a Linux server provided by the University of Helsinki.} \label{table:ScatterRuns}
 \end{table}
 
 In addition to the randomized variables, the system has several predefined parameters. The total mass of the black holes $M$ was selected to be  $2 \times 10^7 \ M_{\odot}$, i.e. each of the black holes is $10^7 \ M_{\odot}$ if they are of equal mass. The mass of the star $m_{\ast}$ was chosen to be a realistic $1 \ M_{\odot}$. The semimajor axis of the binary was set to $0.1$ parsec, small enough that the binary can be safely said to be hard, i.e. the semimajor axis of the binary is below the limit $a_h \equiv \frac{G \mu}{4 \sigma}$, where $\sigma$ is the velocity dispersion of the surrounding stars \citep{merrit:nuclei}. 
@@ -1381,12 +1408,12 @@ Figures \ref{fig:scatter-q0.3}, \ref{fig:scatter-q0.1}, and \ref{fig:scatter-q0.
 \label{fig:scatter-q1}
 \end{figure}
 
-As can be seen from the upper part of figure \ref{fig:scatter-q1}, for a circular equal mass binary $\langle C \rangle$ has a peak around $x \approx 0.5$, which is the distance at which each of the binary members orbit the center of mass, which then tapers off to around 0.5 at very small impact parameters. As the eccentricity gets higher the peak becomes less sharp while $\langle C \rangle$ rises at smaller values of $x$. At $e = 0.9$ $\langle C \rangle$ is almost monotonic at small impact parameters, since stars that approach close to the center of mass of the binary interact with it at their pericenter which is when their speed is at a maximum, resulting in a large energy exchange. At all eccentricities $\langle C \rangle$ goes quickly towards 0 as $x$ becomes larger than 1, since the farther away from the binary the star passes, the less it interacts with the system.
+As can be seen from the upper part of figure \ref{fig:scatter-q1}, for a circular equal mass binary $\langle C \rangle$ has a peak around $x \approx 0.5$, which is the distance at which each of the binary members orbit the center of mass, which then tapers off to around 0.5 at very small impact parameters. As the eccentricity gets higher the peak becomes less sharp while $\langle C \rangle$ rises at smaller values of $x$. At $e = 0.9$ $\langle C \rangle$ is almost monotonic at small impact parameters, since stars that approach close to the center of mass of the binary interact with it at their pericenter which is when their speed is at a maximum, resulting in a large energy exchange. At all eccentricities $\langle C \rangle$ goes quickly towards 0 as $x$ becomes larger than 1, since the farther away from the binary the star passes, the less strongly it interacts with the system.
 
 \begin{figure}[h!tb]
 \centering
 \includegraphics[scale=0.62]{../images/{q1_stdev}.pdf}
-\caption{Same as figure \ref{fig:scatter-q1} but with one standard deviation limits included.}
+\caption{Same as figure \ref{fig:scatter-q1} but with one standard deviation limits included as coloured contours.}
 \label{fig:scatter-q1-stdev}
 \end{figure}
 
@@ -1429,6 +1456,8 @@ One noticeably different result however is that for the 1/9 mass ratio binary, \
 
 
 \chapter{Conclusions}
+
+
 
 %TODO if we had accurate data about the stellar populations near galaxy centers we could do better initial conditions for the stars, also if we had better observations of binary black holes
 %jos enemmän scattering ajoja, niin paremmat keskiarvot
