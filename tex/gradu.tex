@@ -14,6 +14,7 @@
 \usepackage[footnotesize,bf]{caption} % For more control over figure captions
 \usepackage{multirow, makecell}
 \usepackage{refcount}
+\usepackage[shortcuts]{extdash}
 
 \makeatletter
 \newcommand{\thickhline}{%
@@ -83,7 +84,13 @@
 % but you should also then redefine some of the above parameters in the proper
 % language as well, in between the abstract definitions.
 \begin{abstract}
-Abstract goes here.
+Nowadays it is widely believed that most galaxies in our universe have a supermassive black hole in their center. Black holes play an important role in the evolution of galaxies, and they can offer us a unique way to observe the universe through gravitational waves. In this thesis I have reviewed basic properties of black holes and explained several numerical and computational methods used in simulating black holes to a very high accuracy. One of these methods is the post-Newtonian (PN) expansion, which is a way of approximating the effects of general relativity by adding additional terms to the Newtonian equations of motion, without having to do difficult fully relativistic simulations.
+
+I have also simulated two different types of scenarios involving supermassive black holes. First, I have simulated mergers of different black hole binaries to test the effects of different orders of PN expansion terms on the evolution and lifetime of the system. Second, I have simulated stars scattering off of a binary black hole via three-body interactions to probe how these interactions affect the binary and its evolution. Both of these simulated scenarios are important phases during the lifetime of a binary black hole, and interesting to us due to the effects the binary will have on its host galaxy, and the emission of gravitational waves during merging.
+
+In the PN simulations I studied a binary black hole by varying its initial semimajor axis, eccentricity, and mass ratio. The runs were done a total of 3 times for different PN term configurations. One of the PN simulations produced almost identical results to an analytic formula for the decay of a coalescing black hole binary, showing that the code used produces very accurate results to small binary separations. The simulations also clearly showed the highly non-linear nature of general relativity and the PN expansion scheme, as including more terms in the simulation produced results that were hard to predict based on simulations run with lower order terms. 
+
+The scattering simulations were done to test the effects the stars had on the energy and angular momentum of the binary system. A total of 16 different kinds of system were studied by varying the mass ratio and eccentricity of the black hole binary. The results obtained in this thesis agreed fairly well with similar simulations found in literature. The differences from literature can be most likely explained with different initial conditions and smaller volume of runs done in this thesis.
 \end{abstract}
 
 % Place ToC
@@ -134,7 +141,7 @@ Nowadays it is widely accepted that supermassive black holes play an important r
 
 In this thesis I will describe the basic properties of black holes and how different types of black holes are formed. I will also go through the methods needed to be able to accurately simulate black holes to small separations, and I will describe some of the simulation tools used for this at the Theoretical Extragalactic Research Group at the University of Helsinki. The aim of this thesis is to study the effects of post-Newtonian corrections in simulating black hole mergers, and to study how three-body interactions with stars affect the evolution of a supermassive black hole binary. 
 
-This thesis is structured as follows. In Chapter 2 I will review the properties of black holes, how black holes of different masses are believed to form, and how a black hole binary evolves during a galaxy merger. I will also go through the regularization and post-Newtonian approximation methods used in the simulation code. In Chapter 3 I will explain the algorithmic regularization chain, or AR-CHAIN, method used for my simulations. In Chapter 4 I will show the simulations I have run and discuss the results. Chapter 5 contains a summary and concluding remarks for this thesis.
+This thesis is structured as follows. In Chapter 2 I will review the properties of black holes, how black holes of different masses are believed to form, and how a black hole binary evolves during a galaxy merger. I will also go through the regularization and post-Newtonian approximation methods used in the simulation code. In Chapter 3 I will explain the algorithmic regularization chain, or AR\=/CHAIN, method used for my simulations. In Chapter 4 I will show the simulations I have run and discuss the results. Chapter 5 contains a summary and concluding remarks for this thesis.
 
 \chapter{Dynamical modelling of black holes}
 
@@ -1457,10 +1464,19 @@ One noticeably different result however is that for the 1/9 mass ratio binary, \
 
 \chapter{Conclusions}
 
+In this thesis I have reviewed the basic properties of black holes and several numerical and computational methods that are used to be able to simulate black holes and their surrounding areas to a very high accuracy. I ran a total of 816 simulation runs of a coalescing black hole binary with different starting conditions and PN terms to determine how these factors affect the dynamics and thus the lifetime of a binary system. I also ran a total of $1.6 \times 10^6$ simulations of a star scattering from a binary black hole via three-body interactions, to test how these interactions affect the binary system. Such interactions play an important role in the evolution of black hole binaries on their way to coalescence. The mass ratio and eccentricity of the binary were varied to test the effects on different kinds of binaries.
 
+The simulations were all run using the algorithmic regularization chain, or AR\=/CHAIN, method. This method combines algorithmic regularization, which is used to circumvent the troublesome collisional singularities present in the Newtonian equations of motion, with the chaining of simulated particles, which allows for more precise numerical calculations by minimizing the errors caused by calculating with floating point numbers.
 
-%TODO if we had accurate data about the stellar populations near galaxy centers we could do better initial conditions for the stars, also if we had better observations of binary black holes
-%jos enemmän scattering ajoja, niin paremmat keskiarvot
+The simulations of binary black holes to test PN terms included several different configurations that were used. These were only 2.5PN terms, up to 2.5PN terms, and up to 3.5PN terms. These were also compared to an analytical formula for only 2.5PN term effects. The only 2.5PN term simulation results agree almost identically with the analytical results, showing that the simulation code provides an accurate method for simulating black holes to very small separations. The up to 2.5PN and up to 3.5PN term simulations exemplify the highly non-linear nature of the PN expansion scheme, as these results noticeably differ both from the analytical result and from each other. The inclusion of lower order non-dissipative terms causes the higher order dissipative terms to behave differently than when they are only used by themselves. Also the inclusion of more dissipative higher order terms causes the system to decay much slower compared to when only lower order terms are used. 
+
+As fully general relativistic methods are very computationally difficult and expensive, approximations such as the PN expansion are very useful tools in, for example, large-scale galaxy simulations. The situations simulated in this thesis are very simplistic however, containing only black holes and nothing else. In a more complex simulation it would be essential to be able to simulate a more realistic system, for example by including gas that could accrete onto the black holes to form accretion disks. To this end there are efforts at the Theoretical Extragalactic Research Group at the University of Helsinki to modify the simulation code to allow for gas runs, which will make the code even more useful in the future.
+
+The scattering simulations were mostly done by following the example set by \cite{sesana:2006} in their study. The results in this thesis agree well with the results of \cite{sesana:2006}. The shapes of the plots for the energy change and angular momentum change were all similar to those in \cite{sesana:2006}. Some differences were apparent however. The absolute values of the energy and angular momentum changes from my simulations were consistently slightly closer 0, so the interactions were not as energetic as in \cite{sesana:2006}, and in their study the angular momentum change had much more spread out peaks for unequal mass binaries. These differences most likely originate from differing initial conditions for the system, and from the lower amount of runs in this thesis. With more time it would have been useful to run a larger volume of simulations to better probe the chosen stellar population and its effects on the binary.
+
+Three-body interactions play a major role in the evolution of black hole binaries, and studying how exactly this evolution happens is useful in, for example, developing semi-analytical models for this phase in the lifetime of the black holes. The stellar population used for the simulations in this thesis was quite arbitrary, e.g. all the stars had the same mass. For more realistic results on how a black hole binary might evolve in an actual galaxy, it would be ideal to have more information on a surrounding stellar population: the masses of the stars, and at what velocities the stars generally approach the binary and from which angle. 
+
+Both types of simulations done in this thesis are very useful tools for probing and studying the different phases in the evolution of a black hole binary. In the future more realistic and accurate results can be achieved by using improved simulation tools and better initial conditions for both the black holes and their surroundings. The more accurately the dynamics of supermassive black holes can be simulated and determined, the better we can study their effects on galaxies, and the better we can understand their formation and evolution in the universe.
 
 % STEP 5:
 % Uncomment the following lines and set your .bib file and desired bibliography style
